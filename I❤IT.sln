@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "I❤IT", "I❤IT\I❤IT.csproj", "{63C5017C-D256-45BD-A6EF-9729339C4034}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|ARM = Debug|ARM
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|ARM = Release|ARM
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{63C5017C-D256-45BD-A6EF-9729339C4034}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63C5017C-D256-45BD-A6EF-9729339C4034}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63C5017C-D256-45BD-A6EF-9729339C4034}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{63C5017C-D256-45BD-A6EF-9729339C4034}.Debug|ARM.Build.0 = Debug|Any CPU
+		{63C5017C-D256-45BD-A6EF-9729339C4034}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{63C5017C-D256-45BD-A6EF-9729339C4034}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{63C5017C-D256-45BD-A6EF-9729339C4034}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{63C5017C-D256-45BD-A6EF-9729339C4034}.Debug|x64.Build.0 = Debug|Any CPU
+		{63C5017C-D256-45BD-A6EF-9729339C4034}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{63C5017C-D256-45BD-A6EF-9729339C4034}.Debug|x86.Build.0 = Debug|Any CPU
+		{63C5017C-D256-45BD-A6EF-9729339C4034}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63C5017C-D256-45BD-A6EF-9729339C4034}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63C5017C-D256-45BD-A6EF-9729339C4034}.Release|ARM.ActiveCfg = Release|Any CPU
+		{63C5017C-D256-45BD-A6EF-9729339C4034}.Release|ARM.Build.0 = Release|Any CPU
+		{63C5017C-D256-45BD-A6EF-9729339C4034}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{63C5017C-D256-45BD-A6EF-9729339C4034}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{63C5017C-D256-45BD-A6EF-9729339C4034}.Release|x64.ActiveCfg = Release|Any CPU
+		{63C5017C-D256-45BD-A6EF-9729339C4034}.Release|x64.Build.0 = Release|Any CPU
+		{63C5017C-D256-45BD-A6EF-9729339C4034}.Release|x86.ActiveCfg = Release|Any CPU
+		{63C5017C-D256-45BD-A6EF-9729339C4034}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F02221CE-3281-4463-BE92-DAF81F1F915D}
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = Renci.SshNet1.vsmdi
+	EndGlobalSection
+EndGlobal

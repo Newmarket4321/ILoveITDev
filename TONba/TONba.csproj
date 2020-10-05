@@ -1,0 +1,2013 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{63C5017C-D256-45BD-A6EF-9729339C4034}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>I_IT</RootNamespace>
+    <AssemblyName>TONba</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>T:\PCapps\I❤IT\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>\\data\PCapps\I❤IT\</InstallUrl>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>2E7B44B5D436E46C97FC35AF97CFB06D60C48875</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>I❤IT_3_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ClosedXML, Version=0.76.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\ClosedXML\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\DocumentFormat.OpenXml\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.WUApiLib">
+      <HintPath>DLL\Interop.WUApiLib.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>DLL\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Oracle.DataAccess, Version=2.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\Oracle.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WinSCPnet, Version=1.5.4.8265, Culture=neutral, PublicKeyToken=2271ec4a3c56d0bf, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\WinSCPnet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Database\AccessIT.cs" />
+    <Compile Include="Database\Trainer.cs" />
+    <Compile Include="Database\CRM.cs" />
+    <Compile Include="Database\GIS.cs" />
+    <Compile Include="Database\SQLDev.cs" />
+    <Compile Include="Database\TXM.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Graphs\HomeScreen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Graphs\HomeScreen.Designer.cs">
+      <DependentUpon>HomeScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Graphs\Graph.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Graphs\Graph.Designer.cs">
+      <DependentUpon>Graph.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Graphs\LineGraph.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Graphs\LineGraph.Designer.cs">
+      <DependentUpon>LineGraph.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CityViewDev.cs" />
+    <Compile Include="Database\GISPub.cs" />
+    <Compile Include="Database\DATSEngineeringSQL.cs" />
+    <Compile Include="Database\Class.cs" />
+    <Compile Include="Database\Database.cs" />
+    <Compile Include="Database\Vailtest.cs" />
+    <Compile Include="Lookups\GetDouble.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lookups\GetDouble.Designer.cs">
+      <DependentUpon>GetDouble.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lookups\GetInt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lookups\GetInt.Designer.cs">
+      <DependentUpon>GetInt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lookups\LookupComboBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lookups\LookupComboBox.Designer.cs">
+      <DependentUpon>LookupComboBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lookups\LookupWorkOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lookups\LookupWorkOrder.Designer.cs">
+      <DependentUpon>LookupWorkOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lookups\GetDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lookups\GetDate.Designer.cs">
+      <DependentUpon>GetDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lookups\GetString.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lookups\GetString.Designer.cs">
+      <DependentUpon>GetString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lookups\LookupDropdown.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lookups\LookupDropdown.Designer.cs">
+      <DependentUpon>LookupDropdown.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lookups\LookupEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lookups\LookupEmployee.Designer.cs">
+      <DependentUpon>LookupEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Graphs\BarGraph.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Graphs\BarGraph.Designer.cs">
+      <DependentUpon>BarGraph.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Graphs\PieGraph.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Graphs\PieGraph.Designer.cs">
+      <DependentUpon>PieGraph.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\AllRollNumberTXM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\AllRollNumberTXM.Designer.cs">
+      <DependentUpon>AllRollNumberTXM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\CashReceipts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\CashReceipts.Designer.cs">
+      <DependentUpon>CashReceipts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\CloseWO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\CloseWO.Designer.cs">
+      <DependentUpon>CloseWO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\ConvertMTOFile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\ConvertMTOFile.Designer.cs">
+      <DependentUpon>ConvertMTOFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\CVInfoUpdateCopy.cs" />
+    <Compile Include="Programs\DigiPenImportFix.cs" />
+    <Compile Include="Programs\SearchRoll.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\SearchRoll.Designer.cs">
+      <DependentUpon>SearchRoll.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\sqlinsert.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\sqlinsert.Designer.cs">
+      <DependentUpon>sqlinsert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\PostDatedSummary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\PostDatedSummary.Designer.cs">
+      <DependentUpon>PostDatedSummary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\MortgageReportTXM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\MortgageReportTXM.Designer.cs">
+      <DependentUpon>MortgageReportTXM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\CallLogExport.cs" />
+    <Compile Include="Programs\CreateVailtechAccount.cs" />
+    <Compile Include="Programs\ClassCreditReallocations.cs" />
+    <Compile Include="Programs\Deaths.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\Deaths.Designer.cs">
+      <DependentUpon>Deaths.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\LegalFileListItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\LegalFileListItem.Designer.cs">
+      <DependentUpon>LegalFileListItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\LegalFileList.cs" />
+    <Compile Include="Programs\MarriageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\MarriageForm.Designer.cs">
+      <DependentUpon>MarriageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\Marriages.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\Marriages.Designer.cs">
+      <DependentUpon>Marriages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\CityViewToAccelaDataPort.cs" />
+    <Compile Include="Programs\FormNotifications.cs" />
+    <Compile Include="Programs\Forms\ListOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\Forms\ListOptions.Designer.cs">
+      <DependentUpon>ListOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\Forms\EditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\Forms\EditForm.Designer.cs">
+      <DependentUpon>EditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\GIStoAIMS.cs" />
+    <Compile Include="Programs\Forms\Forms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\Forms\Forms.Designer.cs">
+      <DependentUpon>Forms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\NewUserItemManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\NewUserItemManagement.Designer.cs">
+      <DependentUpon>NewUserItemManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\NewUserReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\PostdatedCheques.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\PostdatedCheques.Designer.cs">
+      <DependentUpon>PostdatedCheques.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\RollInquiry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\RollInquiry.Designer.cs">
+      <DependentUpon>RollInquiry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\SupportCostAllocation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\SupportCostAllocation.Designer.cs">
+      <DependentUpon>SupportCostAllocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\ISIDownload.cs" />
+    <Compile Include="Programs\AccessITExpress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\AccessITExpress.Designer.cs">
+      <DependentUpon>AccessITExpress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\AccessITAPI.cs" />
+    <Compile Include="Programs\AppealCalendar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\AppealCalendar.Designer.cs">
+      <DependentUpon>AppealCalendar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\JostleContributorsFile.cs" />
+    <Compile Include="Programs\CityViewAddressChange.cs" />
+    <Compile Include="Programs\CARERates.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\CARERates.Designer.cs">
+      <DependentUpon>CARERates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\CompressPicture.cs" />
+    <Compile Include="Programs\RenameAccounts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\RenameAccounts.Designer.cs">
+      <DependentUpon>RenameAccounts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\CopyPermissions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\CopyPermissions.Designer.cs">
+      <DependentUpon>CopyPermissions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\ADReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\ADReport.Designer.cs">
+      <DependentUpon>ADReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\DATSGenerateStat.cs" />
+    <Compile Include="Programs\PAPSummaryByYear.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\PAPSummaryByYear.Designer.cs">
+      <DependentUpon>PAPSummaryByYear.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\FastPath.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\FastPath.Designer.cs">
+      <DependentUpon>FastPath.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\AllRollNumbers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\AllRollNumbers.Designer.cs">
+      <DependentUpon>AllRollNumbers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\ROPDelete.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\ROPDelete.Designer.cs">
+      <DependentUpon>ROPDelete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\Test.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\Test.Designer.cs">
+      <DependentUpon>Test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\TransactionDistribution.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\TransactionDistribution.Designer.cs">
+      <DependentUpon>TransactionDistribution.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\Transactions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\Transactions.Designer.cs">
+      <DependentUpon>Transactions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\VisaErrorCheck.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\VisaErrorCheck.Designer.cs">
+      <DependentUpon>VisaErrorCheck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\Where.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\Where.Designer.cs">
+      <DependentUpon>Where.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\TrainingReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\TrainingReport.Designer.cs">
+      <DependentUpon>TrainingReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\NonInventoryWOs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\NonInventoryWOs.Designer.cs">
+      <DependentUpon>NonInventoryWOs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\ARReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\ARReport.Designer.cs">
+      <DependentUpon>ARReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\InventoryDataExport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\InventoryDataExport.Designer.cs">
+      <DependentUpon>InventoryDataExport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\InventoryLoadTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\InventoryLoadTest.Designer.cs">
+      <DependentUpon>InventoryLoadTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\InventoryManagementTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\InventoryManagementTest.Designer.cs">
+      <DependentUpon>InventoryManagementTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\InventoryReportTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\InventoryReportTest.Designer.cs">
+      <DependentUpon>InventoryReportTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\JDEInterface.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\JDEInterface.Designer.cs">
+      <DependentUpon>JDEInterface.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\ClassWalletIDReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\ClassWalletIDReport.Designer.cs">
+      <DependentUpon>ClassWalletIDReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\MortgageMembershipListing.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\MortgageMembershipListing.Designer.cs">
+      <DependentUpon>MortgageMembershipListing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\MortgageMembershipReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\MortgageMembershipReport.Designer.cs">
+      <DependentUpon>MortgageMembershipReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\PAPSupReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\PAPSupReport.Designer.cs">
+      <DependentUpon>PAPSupReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\ProgramUsage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\ProgramUsage.Designer.cs">
+      <DependentUpon>ProgramUsage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\GLReportSummary.cs" />
+    <Compile Include="Programs\PropertyOwnerReport.cs" />
+    <Compile Include="Programs\WinfuelCostReport.cs" />
+    <Compile Include="Programs\SwimAppReport.cs" />
+    <Compile Include="ProgressBarDetailed.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProgressBarDetailed.Designer.cs">
+      <DependentUpon>ProgressBarDetailed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QueryBuilder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QueryBuilder.Designer.cs">
+      <DependentUpon>QueryBuilder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\ROPAddStreet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\ROPAddStreet.Designer.cs">
+      <DependentUpon>ROPAddStreet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\Stormwater\StormwaterCalculator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\Stormwater\StormwaterCalculator.Designer.cs">
+      <DependentUpon>StormwaterCalculator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\Stormwater\StormwaterApplication.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\Stormwater\StormwaterApplication.Designer.cs">
+      <DependentUpon>StormwaterApplication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\CityViewReports.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\CityViewReports.Designer.cs">
+      <DependentUpon>CityViewReports.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\DateToJDE.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\DateToJDE.Designer.cs">
+      <DependentUpon>DateToJDE.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\InventoryStickerPrint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\InventoryStickerPrint.Designer.cs">
+      <DependentUpon>InventoryStickerPrint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\JDEToDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\JDEToDate.Designer.cs">
+      <DependentUpon>JDEToDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\PayRateImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\PayRateImport.Designer.cs">
+      <DependentUpon>PayRateImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\InventoryReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\InventoryReport.Designer.cs">
+      <DependentUpon>InventoryReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\NewUserApprovals.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\NewUserApprovals.Designer.cs">
+      <DependentUpon>NewUserApprovals.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\ROAPasswordReset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\ROAPasswordReset.Designer.cs">
+      <DependentUpon>ROAPasswordReset.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\StatMetPod\ChooseFields.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\StatMetPod\ChooseFields.Designer.cs">
+      <DependentUpon>ChooseFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\Stormwater\StormwaterTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\Stormwater\StormwaterTest.Designer.cs">
+      <DependentUpon>StormwaterTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\Stormwater\StormwaterOld.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\Stormwater\StormwaterOld.Designer.cs">
+      <DependentUpon>StormwaterOld.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\TableBrowser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\TableBrowser.Designer.cs">
+      <DependentUpon>TableBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\InventoryLoad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\InventoryLoad.Designer.cs">
+      <DependentUpon>InventoryLoad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\FindNonpostingAccounts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\FindNonpostingAccounts.Designer.cs">
+      <DependentUpon>FindNonpostingAccounts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\JDEFTP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\JDEFTP.Designer.cs">
+      <DependentUpon>JDEFTP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\KnowledgeGarden\AdvancedSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\KnowledgeGarden\AdvancedSearch.Designer.cs">
+      <DependentUpon>AdvancedSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\KnowledgeGarden\FindForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\KnowledgeGarden\FindForm.Designer.cs">
+      <DependentUpon>FindForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\KnowledgeGarden\KnowledgeGarden.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\KnowledgeGarden\KnowledgeGarden.Designer.cs">
+      <DependentUpon>KnowledgeGarden.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\KnowledgeGarden\MoveNode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\KnowledgeGarden\MoveNode.Designer.cs">
+      <DependentUpon>MoveNode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\KnowledgeGarden\ReplaceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\KnowledgeGarden\ReplaceForm.Designer.cs">
+      <DependentUpon>ReplaceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\KnowledgeGarden\RicherTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Programs\KnowledgeGarden\RichTextBoxPrintCtrl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Programs\KnowledgeGarden\UserControl1.Designer.cs">
+      <DependentUpon>RicherTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\MasterInstaller.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\MasterInstaller.Designer.cs">
+      <DependentUpon>MasterInstaller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\DATSEngineering\DATSEngineeringCore.cs" />
+    <Compile Include="Programs\DATSEngineering\DATSEngineering.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\DATSEngineering\DATSEngineering.Designer.cs">
+      <DependentUpon>DATSEngineering.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Printer.cs" />
+    <Compile Include="Programs\ARReportByYear.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\ARReportByYear.Designer.cs">
+      <DependentUpon>ARReportByYear.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\CIBCOCR.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\CIBCOCR.Designer.cs">
+      <DependentUpon>CIBCOCR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\DATSEngineering\Day.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Programs\DATSEngineering\Day.Designer.cs">
+      <DependentUpon>Day.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\DATSEngineering\FindPeriod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\DATSEngineering\FindPeriod.Designer.cs">
+      <DependentUpon>FindPeriod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\DATSEngineering\FindWorkOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\DATSEngineering\FindWorkOrder.Designer.cs">
+      <DependentUpon>FindWorkOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\DATSEngineering\HoursCalendar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Programs\DATSEngineering\HoursCalendar.Designer.cs">
+      <DependentUpon>HoursCalendar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\DATSEngineering\NewAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\DATSEngineering\NewAccount.Designer.cs">
+      <DependentUpon>NewAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\DATSEngineering\NewTimesheetold.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\DATSEngineering\NewTimesheetold.Designer.cs">
+      <DependentUpon>NewTimesheetold.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\DATSEngineering\DATSEngPayrollExport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\DATSEngineering\DATSEngPayrollExport.Designer.cs">
+      <DependentUpon>DATSEngPayrollExport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\DATSEngineering\ViewAccounts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\DATSEngineering\ViewAccounts.Designer.cs">
+      <DependentUpon>ViewAccounts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\Log.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\Log.Designer.cs">
+      <DependentUpon>Log.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\MinutesOnline.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\MinutesOnline.Designer.cs">
+      <DependentUpon>MinutesOnline.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\JostleAccountBlocker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\JostleAccountBlocker.Designer.cs">
+      <DependentUpon>JostleAccountBlocker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\OMERSIndividual.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\OMERSIndividual.Designer.cs">
+      <DependentUpon>OMERSIndividual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\OMERS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\OMERS.Designer.cs">
+      <DependentUpon>OMERS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\NewUserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\NewUserForm.Designer.cs">
+      <DependentUpon>NewUserForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\OriginReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\OriginReport.Designer.cs">
+      <DependentUpon>OriginReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\ResetROE.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\ResetROE.Designer.cs">
+      <DependentUpon>ResetROE.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\ROAExtension.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\ROAExtension.Designer.cs">
+      <DependentUpon>ROAExtension.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\PAPReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\PAPReport.Designer.cs">
+      <DependentUpon>PAPReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\MortgageReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\MortgageReport.Designer.cs">
+      <DependentUpon>MortgageReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\OwnershipChangeReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\OwnershipChangeReport.Designer.cs">
+      <DependentUpon>OwnershipChangeReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\InventoryManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\InventoryManagement.Designer.cs">
+      <DependentUpon>InventoryManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\StatMetPod\StatMetPod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\StatMetPod\StatMetPod.Designer.cs">
+      <DependentUpon>StatMetPod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\StatMetPod\Subscriptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\StatMetPod\Subscriptions.Designer.cs">
+      <DependentUpon>Subscriptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Graphs\Dashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Graphs\Dashboard.Designer.cs">
+      <DependentUpon>Dashboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QueryPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="QueryPanel.Designer.cs">
+      <DependentUpon>QueryPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QueryTable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="QueryTable.Designer.cs">
+      <DependentUpon>QueryTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportBackup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportBackup.Designer.cs">
+      <DependentUpon>ReportBackup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Report.Designer.cs">
+      <DependentUpon>Report.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportPaycheque.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportPaycheque.Designer.cs">
+      <DependentUpon>ReportPaycheque.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lookups\LookupIcon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lookups\LookupIcon.Designer.cs">
+      <DependentUpon>LookupIcon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditProgram.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditProgram.Designer.cs">
+      <DependentUpon>EditProgram.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\ROACount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\ROACount.Designer.cs">
+      <DependentUpon>ROACount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\Stormwater\VacancyAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\Stormwater\VacancyAdd.Designer.cs">
+      <DependentUpon>VacancyAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\Stormwater\CreditAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\Stormwater\CreditAdd.Designer.cs">
+      <DependentUpon>CreditAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\Stormwater\VacancyView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\Stormwater\VacancyView.Designer.cs">
+      <DependentUpon>VacancyView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\Stormwater\CreditView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\Stormwater\CreditView.Designer.cs">
+      <DependentUpon>CreditView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\Deploy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\Deploy.Designer.cs">
+      <DependentUpon>Deploy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\AppealCalendarNotification.cs" />
+    <Compile Include="Programs\ClassPasswordExpiryNotifications.cs" />
+    <Compile Include="Programs\CodeBackup.cs" />
+    <Compile Include="Programs\SendToEPost.cs" />
+    <Compile Include="Programs\GetFromEPost.cs" />
+    <Compile Include="Programs\CVInfoUpdate.cs" />
+    <Compile Include="Programs\DigiPenExport.cs" />
+    <Compile Include="Programs\APExport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\APExport.Designer.cs">
+      <DependentUpon>APExport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\BuildingPermitDelete.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\BuildingPermitDelete.Designer.cs">
+      <DependentUpon>BuildingPermitDelete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core.cs" />
+    <Compile Include="Form1_Backup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1_Backup.Designer.cs">
+      <DependentUpon>Form1_Backup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MessageBoxCustom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MessageBoxCustom.Designer.cs">
+      <DependentUpon>MessageBoxCustom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CityView.cs" />
+    <Compile Include="Programs\Oncall.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\Oncall.Designer.cs">
+      <DependentUpon>Oncall.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\PAPFileConversion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\PAPFileConversion.Designer.cs">
+      <DependentUpon>PAPFileConversion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\PayrollExport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\PayrollExport.Designer.cs">
+      <DependentUpon>PayrollExport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Vailtech.cs" />
+    <Compile Include="Database\Oracle.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Database\SQL.cs" />
+    <Compile Include="Programs\ROAReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\ROAReport.Designer.cs">
+      <DependentUpon>ROAReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\SchoolboardRedistribution.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\SchoolboardRedistribution.Designer.cs">
+      <DependentUpon>SchoolboardRedistribution.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\Visa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\Visa.Designer.cs">
+      <DependentUpon>Visa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\XMLValidator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\XMLValidator.Designer.cs">
+      <DependentUpon>XMLValidator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\DigiPenWOReprint.cs" />
+    <Compile Include="Programs\DigiPenExportSelectionWO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\DigiPenExportSelectionWO.Designer.cs">
+      <DependentUpon>DigiPenExportSelectionWO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\JDESchedulerCheck.cs" />
+    <Compile Include="Programs\DigiPenImport.cs" />
+    <Compile Include="Programs\EquipmentTimeEntryExport.cs" />
+    <Compile Include="Programs\GenerateStat.cs" />
+    <Compile Include="Programs\InspectorCapitalization.cs" />
+    <Compile Include="Programs\JostleExport.cs" />
+    <Compile Include="Programs\JostleListFilter.cs" />
+    <Compile Include="Programs\Update.cs" />
+    <Compile Include="Programs\WinfuelJDEExport.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\ComponentModel\BoundDataView.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\ComponentModel\BoundList.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\ComponentModel\BoundListBase.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\ComponentModel\IBoundList.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\AnchorArea.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\BorderLine.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\BrushsCache.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\EditablePanel.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\EditablePanelBase.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\EditablePanelThemed.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\Enums.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\GraphicsCache.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\IBorder.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\MeasureHelper.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\Padding.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\PensCache.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\RectangleBorder.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\RoundedRectangle.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\Utilities.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\BackgroundBase.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\BackgroundBorder.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\BackgroundBorderBase.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\BackgroundLinearGradient.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\BackgroundSolid.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\Button.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\ButtonBase.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\ButtonThemed.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\CheckBox.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\CheckBoxBase.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\CheckBoxThemed.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\ColumnHeader.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\ColumnHeaderBase.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\ColumnHeaderThemed.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\Container.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\ContainerBase.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\DropDownButton.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\DropDownButtonBase.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\DropDownButtonThemed.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\Header.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\HeaderBase.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\HeaderThemed.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\Icon.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\Image.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\RichText.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\RichTextGDI.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\RowHeader.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\RowHeaderBase.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\RowHeaderThemed.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\SortIndicator.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\SortIndicatorThemed.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\Text.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\TextGDI.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\TextRenderer.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\VisualElementBase.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\VisualElementList.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Properties\Resources.Designer.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\ButtonMultiSelection.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\ColorPicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\CommonImages.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\ControlCursor.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\DevAgeComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\DevAgeMaskedTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\DevAgeNumericUpDown.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\DevAgeRichTextBox.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\DevAgeTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\DevAgeTextBoxButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\DropDown.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\DropDownButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\EditableControlBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\ErrorDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\ErrorDialogDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\FormBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\FormSingleton.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\HeaderGroupBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\ImageNavigator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\Line.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\LinkLabel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\PositionRecorder.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\SendCharExact.cs" />
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\TextBoxUITypeEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\Utilities.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Collections\ListByType.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\ComponentModel\ComponentLight.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\ComponentModel\Converter\CurrencyTypeConverter.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\ComponentModel\Converter\DateTimeTypeConverter.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\ComponentModel\Converter\NumberTypeConverter.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\ComponentModel\Converter\PercentTypeConverter.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\ComponentModel\Converter\RichTextTypeConverter.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\ComponentModel\TypeDescriptorContext.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\ComponentModel\ValidatingEvent.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\ComponentModel\Validator\IValidator.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\ComponentModel\Validator\ValidatorBase.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\ComponentModel\Validator\ValidatorTypeConverter.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\ComponentModel\Validator\ValueMapping.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Configuration\CommandLineArgs.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Configuration\ConfigurationException.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Configuration\PersistableItem.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Configuration\PersistableItemDictionary.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Configuration\PersistableSettings.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Data\DataSetHelper.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Data\Exceptions\Exceptions.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Data\FileDataSet.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Data\SqlClient\SqlCommandBuilder.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Data\StreamDataSet.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\DateTimeHelper.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\IO\IsolatedStorage\IsolatedStorageSettingBase.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\IO\IsolatedStorage\IsolatedStorageSettingVersionBase.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\IO\StreamPersistence.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\IO\StringPersistence.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Patterns\Activity.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Patterns\ActivityCollection.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Patterns\ActivityEvents.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Patterns\AsyncActivity.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Patterns\Exceptions.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Runtime\Serialization\Utilities.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Security\Cryptography\Utilities.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Shell\MailToProtocol.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Shell\Utilities.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Text\FixedLength\Attributes.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Text\FixedLength\Exceptions.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Text\FixedLength\Field.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Text\FixedLength\FieldList.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Text\FixedLength\LineParser.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Text\FixedLength\LineWriter.cs" />
+    <Compile Include="SourceGrid\DevAgeSourcePack4\Text\FixedLength\Utilities.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\ArrayGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\SourceGrid.Extensions\Cells\DataGridCells.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\Conditions\ConditionBuilder.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\Conditions\ConditionCell.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\Conditions\ConditionView.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\Conditions\ICondition.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\DataGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\SourceGrid.Extensions\DataGridColumn.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\DataGridRow.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\ListEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\SourceGrid.Extensions\PingGrids\Cells\Cell.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\PingGrids\Cells\CheckBox.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\PingGrids\Cells\ColumnHeader.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\PingGrids\Cells\Header.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\PingGrids\Cells\Image.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\PingGrids\Cells\Link.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\PingGrids\Cells\RowHeader.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\PingGrids\EmptyPingSource.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\PingGrids\IPingData.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\PingGrids\IPropertyResolver.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\PingGrids\PingGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\SourceGrid.Extensions\PingGrids\PingGridCellController.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\PingGrids\PingGridColumn.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\PingGrids\PingGridColumns.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\PingGrids\PingGridRowHeaderModel.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\PingGrids\PingGridRows.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\PingGrids\PingGridValueModel.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\PingGrids\ReflectionPropertyResolver.cs" />
+    <Compile Include="SourceGrid\SourceGrid.Extensions\PlanningGrid.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\SourceGrid\Cells\Button.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Cell.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\CellCollection.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\CellContext.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\CellControl.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\CellVirtual.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\CheckBox.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\ColumnHeader.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Controllers\BindProperty.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Controllers\Button.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Controllers\CellEventDispatcher.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Controllers\CheckBox.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Controllers\ColumnFocus.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Controllers\ColumnSelector.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Controllers\ControllerBase.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Controllers\ControllerContainer.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Controllers\CustomEvents.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Controllers\IController.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Controllers\MouseCursor.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Controllers\MouseInvalidate.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Controllers\MouseSelection.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Controllers\Resizable.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Controllers\RichTextBox.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Controllers\RowFocus.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Controllers\RowSelector.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Controllers\SortableHeader.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Controllers\StandardBehavior.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Controllers\ToolTipText.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Controllers\Unselectable.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Editors\ComboBox.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Editors\DateTimePicker.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Editors\EditorBase.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Editors\EditorControlBase.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Editors\Factory.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Editors\ImagePicker.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Editors\NumericUpDown.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Editors\RichTextBox.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Editors\TextBox.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Editors\TextBoxButton.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Editors\TextBoxCurrency.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Editors\TextBoxNumeric.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Editors\TextBoxUITypeEditor.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Editors\TimePicker.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Header.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\ICell.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\ICellVirtual.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Image.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Link.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Models\ICheckBox.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Models\IImage.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Models\IModel.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Models\IRichTextBox.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Models\ISortableHeader.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Models\IToolTipText.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Models\IValueModel.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Models\ModelContainer.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Models\Real\Models.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Models\Real\RichTextBox.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\RichTextBox.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\RowHeader.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Views\Button.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Views\Cell.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Views\CheckBox.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Views\ColumnHeader.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Views\ComboBox.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Views\Header.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Views\IView.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Views\Link.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Views\MultiImages.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Views\RichTextBox.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Views\RowHeader.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Cells\Views\ViewBase.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Common\ColumnInfo.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Common\ColumnInfoCollection.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Common\ColumnsBase.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Common\ColumnsSimpleBase.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Common\CustomScrollControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\SourceGrid\Common\Enums.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Common\Events.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Common\IHiddenRowCoordinator.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Common\IRows.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Common\LinkedControlsList.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Common\Position.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Common\PositionCollection.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Common\Range.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Common\RangeCollection.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Common\RangeData.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Common\RangeRegion.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Common\RowInfo.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Common\RowInfoCollection.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Common\RowInfoCollectoinHiddenRowCoordinator.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Common\RowsBase.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Common\RowsSimpleBase.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Common\StandardHiddenRowCoordinator.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Common\Utilities.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Common\ValueCellComparer.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Decorators\DecoratorBase.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Decorators\DecoratorHighlight.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Decorators\DecoratorList.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Decorators\DecoratorSelection.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Exporter\CSV.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Exporter\GridPrintDocument.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\SourceGrid\Exporter\HTML.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Exporter\Image.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Grids\Grid.Accessibility.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\SourceGrid\Grids\Grid.Columns.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\SourceGrid\Grids\Grid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\SourceGrid\Grids\Grid.Rows.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Grids\GridVirtual.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SourceGrid\SourceGrid\Grids\ISpannedCellRangesController.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Grids\ISpannedRangesCollection.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Grids\OverlappingCellException.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Grids\QuadTreeRangesList.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Grids\RangeNotFoundException.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Grids\SpannedCellRangesController.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Grids\SpannedRangesList.cs" />
+    <Compile Include="SourceGrid\SourceGrid\QuadTree\IHasRect.cs" />
+    <Compile Include="SourceGrid\SourceGrid\QuadTree\QuadTree.cs" />
+    <Compile Include="SourceGrid\SourceGrid\QuadTree\QuadTreeNode.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Selection\ColumnSelection.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Selection\FreeSelection.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Selection\IGridSelection.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Selection\RangeComparerByRows.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Selection\RangeMergerByRows.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Selection\RowSelection.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Selection\SelectionBase.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Utils\IPerformanceCounter.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Utils\PerformanceCounter.cs" />
+    <Compile Include="SourceGrid\SourceGrid\Utils\SourceGridConvert.cs" />
+    <Compile Include="Spreadsheet.cs" />
+    <Compile Include="TextBoxConsole.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Graphs\HomeScreen.resx">
+      <DependentUpon>HomeScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Graphs\Graph.resx">
+      <DependentUpon>Graph.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Graphs\LineGraph.resx">
+      <DependentUpon>LineGraph.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lookups\GetDouble.resx">
+      <DependentUpon>GetDouble.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lookups\GetInt.resx">
+      <DependentUpon>GetInt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lookups\GetDate.resx">
+      <DependentUpon>GetDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lookups\LookupComboBox.resx">
+      <DependentUpon>LookupComboBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lookups\LookupEmployee.resx">
+      <DependentUpon>LookupEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lookups\GetString.resx">
+      <DependentUpon>GetString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lookups\LookupDropdown.resx">
+      <DependentUpon>LookupDropdown.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lookups\LookupWorkOrder.resx">
+      <DependentUpon>LookupWorkOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Graphs\BarGraph.resx">
+      <DependentUpon>BarGraph.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Graphs\PieGraph.resx">
+      <DependentUpon>PieGraph.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MessageBoxCustom.resx">
+      <DependentUpon>MessageBoxCustom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\AccessITExpress.resx">
+      <DependentUpon>AccessITExpress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\AppealCalendar.resx">
+      <DependentUpon>AppealCalendar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\CARERates.resx">
+      <DependentUpon>CARERates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\CloseWO.resx">
+      <DependentUpon>CloseWO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\Deaths.resx">
+      <DependentUpon>Deaths.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\ConvertMTOFile.resx">
+      <DependentUpon>ConvertMTOFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\SearchRoll.resx">
+      <DependentUpon>SearchRoll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\LegalFileListItem.resx">
+      <DependentUpon>LegalFileListItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\MarriageForm.resx">
+      <DependentUpon>MarriageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\Marriages.resx">
+      <DependentUpon>Marriages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\Forms\ListOptions.resx">
+      <DependentUpon>ListOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\Forms\EditForm.resx">
+      <DependentUpon>EditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\Forms\Forms.resx">
+      <DependentUpon>Forms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\MortgageReportTXM.resx">
+      <DependentUpon>MortgageReportTXM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\NewUserItemManagement.resx">
+      <DependentUpon>NewUserItemManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\PostdatedCheques.resx">
+      <DependentUpon>PostdatedCheques.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\PostDatedSummary.resx">
+      <DependentUpon>PostDatedSummary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\RollInquiry.resx">
+      <DependentUpon>RollInquiry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\sqlinsert.resx">
+      <DependentUpon>sqlinsert.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\SupportCostAllocation.resx">
+      <DependentUpon>SupportCostAllocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\RenameAccounts.resx">
+      <DependentUpon>RenameAccounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\CopyPermissions.resx">
+      <DependentUpon>CopyPermissions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\ADReport.resx">
+      <DependentUpon>ADReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\PAPSummaryByYear.resx">
+      <DependentUpon>PAPSummaryByYear.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\FastPath.resx">
+      <DependentUpon>FastPath.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\AllRollNumbers.resx">
+      <DependentUpon>AllRollNumbers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\ROPDelete.resx">
+      <DependentUpon>ROPDelete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\Test.resx">
+      <DependentUpon>Test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\TransactionDistribution.resx">
+      <DependentUpon>TransactionDistribution.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\Transactions.resx">
+      <DependentUpon>Transactions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\VisaErrorCheck.resx">
+      <DependentUpon>VisaErrorCheck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\Where.resx">
+      <DependentUpon>Where.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\TrainingReport.resx">
+      <DependentUpon>TrainingReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\NonInventoryWOs.resx">
+      <DependentUpon>NonInventoryWOs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\ARReport.resx">
+      <DependentUpon>ARReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\InventoryDataExport.resx">
+      <DependentUpon>InventoryDataExport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\InventoryLoadTest.resx">
+      <DependentUpon>InventoryLoadTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\InventoryManagementTest.resx">
+      <DependentUpon>InventoryManagementTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\InventoryReportTest.resx">
+      <DependentUpon>InventoryReportTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\JDEInterface.resx">
+      <DependentUpon>JDEInterface.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\ClassWalletIDReport.resx">
+      <DependentUpon>ClassWalletIDReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\MortgageMembershipListing.resx">
+      <DependentUpon>MortgageMembershipListing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\MortgageMembershipReport.resx">
+      <DependentUpon>MortgageMembershipReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\PAPSupReport.resx">
+      <DependentUpon>PAPSupReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\ProgramUsage.resx">
+      <DependentUpon>ProgramUsage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProgressBarDetailed.resx">
+      <DependentUpon>ProgressBarDetailed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QueryBuilder.resx">
+      <DependentUpon>QueryBuilder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\ROPAddStreet.resx">
+      <DependentUpon>ROPAddStreet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\Stormwater\StormwaterCalculator.resx">
+      <DependentUpon>StormwaterCalculator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\Stormwater\StormwaterApplication.resx">
+      <DependentUpon>StormwaterApplication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\CityViewReports.resx">
+      <DependentUpon>CityViewReports.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\InventoryStickerPrint.resx">
+      <DependentUpon>InventoryStickerPrint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\PayRateImport.resx">
+      <DependentUpon>PayRateImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\InventoryReport.resx">
+      <DependentUpon>InventoryReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\NewUserApprovals.resx">
+      <DependentUpon>NewUserApprovals.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\ROAPasswordReset.resx">
+      <DependentUpon>ROAPasswordReset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\StatMetPod\ChooseFields.resx">
+      <DependentUpon>ChooseFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\Stormwater\StormwaterTest.resx">
+      <DependentUpon>StormwaterTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\Stormwater\StormwaterOld.resx">
+      <DependentUpon>StormwaterOld.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\TableBrowser.resx">
+      <DependentUpon>TableBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\InventoryLoad.resx">
+      <DependentUpon>InventoryLoad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\FindNonpostingAccounts.resx">
+      <DependentUpon>FindNonpostingAccounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\DATSEngineering\DATSEngineering.resx">
+      <DependentUpon>DATSEngineering.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\CIBCOCR.resx">
+      <DependentUpon>CIBCOCR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\DATSEngineering\HoursCalendar.resx">
+      <DependentUpon>HoursCalendar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\DATSEngineering\NewAccount.resx">
+      <DependentUpon>NewAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\DATSEngineering\NewTimesheetold.resx">
+      <DependentUpon>NewTimesheetold.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\DATSEngineering\ViewAccounts.resx">
+      <DependentUpon>ViewAccounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\KnowledgeGarden\AdvancedSearch.resx">
+      <DependentUpon>AdvancedSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\KnowledgeGarden\FindForm.resx">
+      <DependentUpon>FindForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\KnowledgeGarden\KnowledgeGarden.resx">
+      <DependentUpon>KnowledgeGarden.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\KnowledgeGarden\MoveNode.resx">
+      <DependentUpon>MoveNode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\KnowledgeGarden\ReplaceForm.resx">
+      <DependentUpon>ReplaceForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\KnowledgeGarden\RicherTextBox.resx">
+      <DependentUpon>RicherTextBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\Log.resx">
+      <DependentUpon>Log.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\JDEFTP.resx">
+      <DependentUpon>JDEFTP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\MasterInstaller.resx">
+      <DependentUpon>MasterInstaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\JostleAccountBlocker.resx">
+      <DependentUpon>JostleAccountBlocker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\OMERSIndividual.resx">
+      <DependentUpon>OMERSIndividual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\OMERS.resx">
+      <DependentUpon>OMERS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\NewUserForm.resx">
+      <DependentUpon>NewUserForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\OriginReport.resx">
+      <DependentUpon>OriginReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\ResetROE.resx">
+      <DependentUpon>ResetROE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\ROAExtension.resx">
+      <DependentUpon>ROAExtension.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\PAPReport.resx">
+      <DependentUpon>PAPReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\MortgageReport.resx">
+      <DependentUpon>MortgageReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\OwnershipChangeReport.resx">
+      <DependentUpon>OwnershipChangeReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\InventoryManagement.resx">
+      <DependentUpon>InventoryManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lookups\LookupIcon.resx">
+      <DependentUpon>LookupIcon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditProgram.resx">
+      <DependentUpon>EditProgram.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\APExport.resx">
+      <DependentUpon>APExport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\BuildingPermitDelete.resx">
+      <DependentUpon>BuildingPermitDelete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1_Backup.resx">
+      <DependentUpon>Form1_Backup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\Deploy.resx">
+      <DependentUpon>Deploy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\Oncall.resx">
+      <DependentUpon>Oncall.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\PAPFileConversion.resx">
+      <DependentUpon>PAPFileConversion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\PayrollExport.resx">
+      <DependentUpon>PayrollExport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\ARReportByYear.resx">
+      <DependentUpon>ARReportByYear.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\ROACount.resx">
+      <DependentUpon>ROACount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\StatMetPod\StatMetPod.resx">
+      <DependentUpon>StatMetPod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\StatMetPod\Subscriptions.resx">
+      <DependentUpon>Subscriptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\Stormwater\VacancyAdd.resx">
+      <DependentUpon>VacancyAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\Stormwater\CreditAdd.resx">
+      <DependentUpon>CreditAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\Stormwater\VacancyView.resx">
+      <DependentUpon>VacancyView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\Stormwater\CreditView.resx">
+      <DependentUpon>CreditView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Programs\ROAReport.resx">
+      <DependentUpon>ROAReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\SchoolboardRedistribution.resx">
+      <DependentUpon>SchoolboardRedistribution.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\Visa.resx">
+      <DependentUpon>Visa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Graphs\Dashboard.resx">
+      <DependentUpon>Dashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QueryPanel.resx">
+      <DependentUpon>QueryPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QueryTable.resx">
+      <DependentUpon>QueryTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportBackup.resx">
+      <DependentUpon>ReportBackup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report.resx">
+      <DependentUpon>Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportPaycheque.resx">
+      <DependentUpon>ReportPaycheque.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\DigiPenExportSelectionWO.resx">
+      <DependentUpon>DigiPenExportSelectionWO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SourceGrid\DevAge.Windows.Forms\Properties\Resources.resx">
+      <DependentUpon>Resources.Designer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\ButtonMultiSelection.resx">
+      <DependentUpon>ButtonMultiSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\ColorPicker.resx">
+      <DependentUpon>ColorPicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\DevAgeNumericUpDown.resx">
+      <DependentUpon>DevAgeNumericUpDown.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\DevAgeTextBoxButton.resx">
+      <DependentUpon>DevAgeTextBoxButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\DropDown.resx">
+      <DependentUpon>DropDown.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\DropDownButton.resx">
+      <DependentUpon>DropDownButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\EditableControlBase.resx">
+      <DependentUpon>EditableControlBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\ErrorDialog.resx">
+      <DependentUpon>ErrorDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\ErrorDialogDetails.resx">
+      <DependentUpon>ErrorDialogDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\FormBase.resx">
+      <DependentUpon>FormBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\ImageNavigator.resx">
+      <DependentUpon>ImageNavigator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\Line.resx">
+      <DependentUpon>Line.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\LinkLabel.resx">
+      <DependentUpon>LinkLabel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SourceGrid\DevAge.Windows.Forms\Windows\Forms\TextBoxUITypeEditor.resx">
+      <DependentUpon>TextBoxUITypeEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SourceGrid\SourceGrid.Extensions\DataGrid.resx">
+      <DependentUpon>DataGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SourceGrid\SourceGrid.Extensions\ListEditor.resx">
+      <DependentUpon>ListEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SourceGrid\SourceGrid.Extensions\PlanningGrid.resx">
+      <DependentUpon>PlanningGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="I❤IT_1_TemporaryKey.pfx" />
+    <None Include="I❤IT_2_TemporaryKey.pfx" />
+    <None Include="I❤IT_3_TemporaryKey.pfx" />
+    <None Include="I❤IT_TemporaryKey.pfx" />
+    <None Include="packages.config" />
+    <None Include="Programs\KnowledgeGarden\images\psd\bold.psd" />
+    <None Include="Programs\KnowledgeGarden\images\psd\Button2.psd" />
+    <None Include="Programs\KnowledgeGarden\images\psd\Button2SMALL.psd" />
+    <None Include="Programs\KnowledgeGarden\images\psd\center.psd" />
+    <None Include="Programs\KnowledgeGarden\images\psd\colors2.psd" />
+    <None Include="Programs\KnowledgeGarden\images\psd\copy.psd" />
+    <None Include="Programs\KnowledgeGarden\images\psd\cut.psd" />
+    <None Include="Programs\KnowledgeGarden\images\psd\font.psd" />
+    <None Include="Programs\KnowledgeGarden\images\psd\fontSize.psd" />
+    <None Include="Programs\KnowledgeGarden\images\psd\icon.psd" />
+    <None Include="Programs\KnowledgeGarden\images\psd\Image.psd" />
+    <None Include="Programs\KnowledgeGarden\images\psd\italic.psd" />
+    <None Include="Programs\KnowledgeGarden\images\psd\left.psd" />
+    <None Include="Programs\KnowledgeGarden\images\psd\open.psd" />
+    <None Include="Programs\KnowledgeGarden\images\psd\paste.psd" />
+    <None Include="Programs\KnowledgeGarden\images\psd\print.psd" />
+    <None Include="Programs\KnowledgeGarden\images\psd\pspbrwse.jbf" />
+    <None Include="Programs\KnowledgeGarden\images\psd\Redo.psd" />
+    <None Include="Programs\KnowledgeGarden\images\psd\right.psd" />
+    <None Include="Programs\KnowledgeGarden\images\psd\save.psd" />
+    <None Include="Programs\KnowledgeGarden\images\psd\stamp.psd" />
+    <None Include="Programs\KnowledgeGarden\images\psd\stamp2.psd" />
+    <None Include="Programs\KnowledgeGarden\images\psd\strikeout.psd" />
+    <None Include="Programs\KnowledgeGarden\images\psd\underline.psd" />
+    <None Include="Programs\KnowledgeGarden\images\psd\Undo.psd" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="SourceGrid\DevAge.Windows.Forms\Drawing\VisualElements\VisualElements.cd" />
+    <None Include="SourceGrid\DevAgeSourcePack4\ComponentModel\Validator\ValidatorDiagram.cd" />
+    <None Include="SourceGrid\SourceGrid\SourceGrid.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Programs\KnowledgeGarden\application.ico" />
+    <None Include="SourceGrid\SourceGrid.License.txt" />
+    <EmbeddedResource Include="SourceGrid\SourceGrid.Extensions\Res\Refresh.ico" />
+    <EmbeddedResource Include="SourceGrid\SourceGrid.Extensions\Res\Delete.ICO" />
+    <EmbeddedResource Include="SourceGrid\SourceGrid.Extensions\Res\ArrowUp.ICO" />
+    <EmbeddedResource Include="SourceGrid\SourceGrid.Extensions\Res\ArrowDown.ICO" />
+    <EmbeddedResource Include="SourceGrid\SourceGrid.Extensions\Res\Add.ico" />
+    <None Include="SourceGrid\SourceGrid\SourceGrid.csproj" />
+    <None Include="SourceGrid\SourceGrid\GridVirtual.bmp" />
+    <None Include="SourceGrid\SourceGrid\Grid.bmp" />
+    <None Include="SourceGrid\DevAge.Windows.Forms\Res\SortUp.ico" />
+    <None Include="SourceGrid\DevAge.Windows.Forms\Res\SortDown.ico" />
+    <None Include="SourceGrid\DevAge.Windows.Forms\Res\right.cur" />
+    <None Include="SourceGrid\DevAge.Windows.Forms\Res\left.cur" />
+    <None Include="SourceGrid\DevAge.Windows.Forms\Res\DropDown.ico" />
+    <None Include="Programs\KnowledgeGarden\Resources\AlignTableCellMiddleCenterHS.bmp" />
+    <None Include="Programs\KnowledgeGarden\Resources\AlignTableCellMiddleLeftJustHS.bmp" />
+    <None Include="Programs\KnowledgeGarden\Resources\AlignTableCellMiddleRightHS.bmp" />
+    <None Include="Programs\KnowledgeGarden\Resources\FindHS.bmp" />
+    <None Include="Programs\KnowledgeGarden\Resources\FindNextHS.bmp" />
+    <None Include="Programs\KnowledgeGarden\Resources\IndentHS.bmp" />
+    <None Include="Programs\KnowledgeGarden\Resources\InsertPictureHS.bmp" />
+    <None Include="Programs\KnowledgeGarden\Resources\List_BulletsHS.bmp" />
+    <None Include="Programs\KnowledgeGarden\Resources\OutdentHS.bmp" />
+    <None Include="Programs\KnowledgeGarden\Resources\ZoomIn.bmp" />
+    <None Include="Programs\KnowledgeGarden\Resources\ZoomOut.bmp" />
+    <Content Include="Programs\KnowledgeGarden\images\bold.gif" />
+    <Content Include="Programs\KnowledgeGarden\images\center.gif" />
+    <Content Include="Programs\KnowledgeGarden\images\Colors.gif" />
+    <Content Include="Programs\KnowledgeGarden\images\colors2.gif" />
+    <Content Include="Programs\KnowledgeGarden\images\copy.gif" />
+    <Content Include="Programs\KnowledgeGarden\images\cut.gif" />
+    <Content Include="Programs\KnowledgeGarden\images\font.gif" />
+    <Content Include="Programs\KnowledgeGarden\images\fontSize.gif" />
+    <Content Include="Programs\KnowledgeGarden\images\Image.gif" />
+    <Content Include="Programs\KnowledgeGarden\images\italic.gif" />
+    <Content Include="Programs\KnowledgeGarden\images\left.gif" />
+    <Content Include="Programs\KnowledgeGarden\images\open.gif" />
+    <Content Include="Programs\KnowledgeGarden\images\paste.gif" />
+    <Content Include="Programs\KnowledgeGarden\images\print.gif" />
+    <Content Include="Programs\KnowledgeGarden\images\Redo.gif" />
+    <Content Include="Programs\KnowledgeGarden\images\RichTextBoxExtended.bmp" />
+    <Content Include="Programs\KnowledgeGarden\images\RichTextBoxExtended.ico" />
+    <Content Include="Programs\KnowledgeGarden\images\right.gif" />
+    <Content Include="Programs\KnowledgeGarden\images\save.gif" />
+    <Content Include="Programs\KnowledgeGarden\images\stamp.gif" />
+    <Content Include="Programs\KnowledgeGarden\images\stamp2.gif" />
+    <Content Include="Programs\KnowledgeGarden\images\strikeout.gif" />
+    <Content Include="Programs\KnowledgeGarden\images\underline.gif" />
+    <Content Include="Programs\KnowledgeGarden\images\Undo.gif" />
+    <Content Include="Resources\1455134027_next.ico" />
+    <None Include="Resources\Equals.png" />
+    <None Include="Resources\Contains.png" />
+    <None Include="Resources\Custom.png" />
+    <Content Include="Resources\False.png" />
+    <None Include="Resources\GreaterThan.png" />
+    <None Include="Resources\GrEquals.png" />
+    <None Include="Resources\LeEquals.png" />
+    <None Include="Resources\LessThan.png" />
+    <None Include="Resources\List.png" />
+    <Content Include="Resources\Newmarket_BW.jpg" />
+    <None Include="Resources\NotEquals.png" />
+    <None Include="Resources\NotList.png" />
+    <None Include="Resources\NotContains.png" />
+    <Content Include="Resources\True.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Office">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>6</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
