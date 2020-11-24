@@ -376,9 +376,14 @@ namespace I_IT
         {
             try
             {
+               
                 Type type = Type.GetType("I_IT." + program.tag).BaseType;
-
-                if (type.Name == "Object" && program.group == "Services")
+                if (type.Name == "Object" && program.group == "Services" )
+                {
+                    if (MessageBox.Show("Would you like to run " + program.title + "?", program.title, MessageBoxButtons.YesNo) == DialogResult.No)
+                        return;
+                }
+                 if(program.title == "Read Write Files" && program.group == "Admin" && type.Name == "Object")
                 {
                     if (MessageBox.Show("Would you like to run " + program.title + "?", program.title, MessageBoxButtons.YesNo) == DialogResult.No)
                         return;
