@@ -104,12 +104,12 @@ and p.RegYN <> 0", employeeID, from, to);
 
             if (isHolidayForFulltime(today))
             {
-                dt = SQL.Run("use DATS; select employeeid from users u join departmentassociations da on u.userid = da.userid where u.active=1 and u.emptype <> 'S' group by employeeid");
-
+                dt = SQL.Run("use DATS; select employeeid from users u join departmentassociations da on u.userid = da.userid where u.active=1  group by employeeid");
+                //and u.emptype <> 'S'
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     string employeeID = dt.Rows[i]["employeeid"].ToString();
-
+                   // string employeeID = "106051";
                     if (employeeID != "999999"
                         && isFullTime(employeeID)
                         && !isIT(employeeID)

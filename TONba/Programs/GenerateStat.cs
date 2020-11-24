@@ -104,9 +104,10 @@ from users u
 join departmentassociations da on u.userid = da.userid
 
 where u.active=1
-and u.emptype <> 'S'
+
 
 group by employeeid");
+                //and u.emptype <> 'S'
 
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {

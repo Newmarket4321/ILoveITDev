@@ -25,7 +25,7 @@ namespace I_IT
         public static string updateFileName = "Update.exe";
 
         //The computer used for development
-        public static string devMachineName = "SYSGS-11-13";
+        public static string devMachineName = "SYSMG-09-19";
 
         //The path to the development project, used for deployment
         //public static string devProjectPath = @"\\" + devMachineName + @"\c$\Users\graeme smyth\Documents\Visual Studio 2015\Projects\I❤IT";
