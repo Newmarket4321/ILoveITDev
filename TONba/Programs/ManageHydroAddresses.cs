@@ -36,7 +36,7 @@ namespace I_IT
         }
         public void loaddata()
         {
-            SQL sql = new SQL("select OldAddress,NewAddress,RollNumber from HydroAddresses order by id");
+            SQL sql = new SQL("select OldAddress,RollNumber from HydroAddresses order by id");
 
             DataTable dt = sql.Run();
             dataGridView1.DataSource = dt;
@@ -197,7 +197,6 @@ namespace I_IT
                                     where PayType in (" + dataGridView1.Rows[e.RowIndex].Cells["RollNumber"].Value.ToString() + @")");
 
                                 sql.AddParameter("@OldAddress", dataGridView1.Rows[e.RowIndex].Cells["OldAddress"].Value.ToString());
-                                sql.AddParameter("@NewAddress", dataGridView1.Rows[e.RowIndex].Cells["NewAddress"].Value.ToString());
                                 sql.AddParameter("@RollNumber", dataGridView1.Rows[e.RowIndex].Cells["RollNumber"].Value.ToString());
 
                                 sql.Run();
@@ -229,8 +228,8 @@ namespace I_IT
         private void button1_Click(object sender, EventArgs e)
         {
             int output;
-            //if (int.TryParse(RollNo.Text, out output) == true)
-            //{
+            if (RollNo.Text.All(char.IsDigit))
+            { 
                 //MessageBox.Show("output " + TypeText.ToString());  //Print 123434
                 RNo = RollNo.Text;
                 SQL sql = new SQL("Select count(*) from HydroAddresses where RollNumber = @RollNumber");
@@ -271,11 +270,11 @@ namespace I_IT
                         MessageBox.Show("Roll Number is required ! Please fill it with valid values");
                     }
                 }
-           // }
-            //else
-            //{
-            //    MessageBox.Show("Invalid number! Plese Enter valid Paytype value.");
-            //}
         }
+            else
+            {
+                MessageBox.Show("Invalid number! Plese Enter valid Roll Number.");
+            }
+}
     }
 }

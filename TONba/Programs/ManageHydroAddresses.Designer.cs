@@ -41,7 +41,6 @@
             this.Edit = new System.Windows.Forms.DataGridViewLinkColumn();
             this.Delete = new System.Windows.Forms.DataGridViewLinkColumn();
             this.OldAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NewAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RollNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -55,8 +54,8 @@
             this.toolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
-            this.menuStrip1.Size = new System.Drawing.Size(800, 38);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(14, 5, 0, 5);
+            this.menuStrip1.Size = new System.Drawing.Size(1622, 55);
             this.menuStrip1.TabIndex = 69;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -65,7 +64,7 @@
             this.toolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI", 15F);
             this.toolStripMenuItem1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(255)))));
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(153, 32);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(225, 45);
             this.toolStripMenuItem1.Text = "Export to Excel";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
@@ -77,11 +76,11 @@
             this.Edit,
             this.Delete,
             this.OldAddress,
-            this.NewAddress,
             this.RollNumber});
-            this.dataGridView1.Location = new System.Drawing.Point(41, 203);
+            this.dataGridView1.Location = new System.Drawing.Point(230, 323);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(699, 138);
+            this.dataGridView1.Size = new System.Drawing.Size(728, 306);
             this.dataGridView1.TabIndex = 21;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView1_DataError);
@@ -89,59 +88,66 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(38, 58);
+            this.label1.Location = new System.Drawing.Point(57, 89);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 13);
+            this.label1.Size = new System.Drawing.Size(92, 20);
             this.label1.TabIndex = 71;
             this.label1.Text = "OldAddress";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(38, 98);
+            this.label2.Location = new System.Drawing.Point(57, 151);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(67, 13);
+            this.label2.Size = new System.Drawing.Size(99, 20);
             this.label2.TabIndex = 72;
             this.label2.Text = "NewAddress";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(38, 138);
+            this.label3.Location = new System.Drawing.Point(57, 212);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(62, 13);
+            this.label3.Size = new System.Drawing.Size(92, 20);
             this.label3.TabIndex = 73;
             this.label3.Text = "RollNumber";
             // 
             // OldAdd
             // 
-            this.OldAdd.Location = new System.Drawing.Point(153, 58);
+            this.OldAdd.Location = new System.Drawing.Point(230, 89);
+            this.OldAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.OldAdd.MaxLength = 30;
             this.OldAdd.Name = "OldAdd";
-            this.OldAdd.Size = new System.Drawing.Size(196, 20);
+            this.OldAdd.Size = new System.Drawing.Size(292, 26);
             this.OldAdd.TabIndex = 74;
             // 
             // NewAdd
             // 
-            this.NewAdd.Location = new System.Drawing.Point(153, 98);
+            this.NewAdd.Location = new System.Drawing.Point(230, 151);
+            this.NewAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.NewAdd.MaxLength = 30;
             this.NewAdd.Name = "NewAdd";
-            this.NewAdd.Size = new System.Drawing.Size(196, 20);
+            this.NewAdd.Size = new System.Drawing.Size(292, 26);
             this.NewAdd.TabIndex = 75;
             // 
             // RollNo
             // 
-            this.RollNo.Location = new System.Drawing.Point(153, 138);
+            this.RollNo.Location = new System.Drawing.Point(230, 212);
+            this.RollNo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.RollNo.MaxLength = 19;
             this.RollNo.Name = "RollNo";
-            this.RollNo.Size = new System.Drawing.Size(196, 20);
+            this.RollNo.Size = new System.Drawing.Size(292, 26);
             this.RollNo.TabIndex = 76;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(421, 128);
+            this.button1.Location = new System.Drawing.Point(632, 197);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(147, 39);
+            this.button1.Size = new System.Drawing.Size(220, 60);
             this.button1.TabIndex = 77;
             this.button1.Text = "Submit";
             this.button1.UseVisualStyleBackColor = true;
@@ -174,15 +180,6 @@
             this.OldAddress.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.OldAddress.Width = 200;
             // 
-            // NewAddress
-            // 
-            this.NewAddress.DataPropertyName = "NewAddress";
-            this.NewAddress.HeaderText = "NewAddress";
-            this.NewAddress.MaxInputLength = 30;
-            this.NewAddress.Name = "NewAddress";
-            this.NewAddress.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.NewAddress.Width = 200;
-            // 
             // RollNumber
             // 
             this.RollNumber.DataPropertyName = "RollNumber";
@@ -194,9 +191,9 @@
             // 
             // ManageHydroAddresses
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1622, 692);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.RollNo);
             this.Controls.Add(this.NewAdd);
@@ -206,6 +203,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ManageHydroAddresses";
             this.Text = "ManageHydroAddresses";
             this.menuStrip1.ResumeLayout(false);
@@ -231,7 +229,6 @@
         private System.Windows.Forms.DataGridViewLinkColumn Edit;
         private System.Windows.Forms.DataGridViewLinkColumn Delete;
         private System.Windows.Forms.DataGridViewTextBoxColumn OldAddress;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NewAddress;
         private System.Windows.Forms.DataGridViewTextBoxColumn RollNumber;
     }
 }
