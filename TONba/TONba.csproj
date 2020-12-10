@@ -261,6 +261,12 @@
     <Compile Include="Programs\SearchRoll.Designer.cs">
       <DependentUpon>SearchRoll.cs</DependentUpon>
     </Compile>
+    <Compile Include="Programs\SearchVTXData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\SearchVTXData.designer.cs">
+      <DependentUpon>SearchVTXData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Programs\sqlinsert.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1480,6 +1486,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Programs\RollInquiry.resx">
       <DependentUpon>RollInquiry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\SearchVTXData.resx">
+      <DependentUpon>SearchVTXData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Programs\sqlinsert.resx">
       <DependentUpon>sqlinsert.cs</DependentUpon>

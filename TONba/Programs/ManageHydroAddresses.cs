@@ -18,11 +18,17 @@ namespace I_IT
         DataTable storage = null;
         public int Newid = 0;
         public static string Rollno;
+        public static string RID;
         public static string RNo;
         public string Rollnumber
         {
             get { return Rollno; }
             set { Rollno = value; }
+        }
+        public string RecordID
+        {
+            get { return RID; }
+            set { RID = value; }
         }
         public string Rnumber
         {
@@ -36,7 +42,7 @@ namespace I_IT
         }
         public void loaddata()
         {
-            SQL sql = new SQL("select OldAddress,RollNumber from HydroAddresses order by id");
+            SQL sql = new SQL("select OldAddress,RollNumber,id from HydroAddresses order by id");
 
             DataTable dt = sql.Run();
             dataGridView1.DataSource = dt;
@@ -66,12 +72,13 @@ namespace I_IT
         }
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            MessageBox.Show(e.ColumnIndex.ToString());
+            
             DialogResult result;
             if (e.ColumnIndex == 1)
             {
                 // if(dataGridView1.Rows[e.RowIndex].Cells[3].Value != null)
                 Rollno = Convert.ToString(dataGridView1.Rows[e.RowIndex].Cells["RollNumber"].Value);
+                RID = Convert.ToString(dataGridView1.Rows[e.RowIndex].Cells["id"].Value);
                 Delete.Name = Rollnumber + "_Delete";
                 string Task = "";
                 if (Delete.Name == "Delete" || Delete.Name == "Cancel" || dataGridView1.Rows[e.RowIndex].Cells[1].Value != null)
@@ -82,19 +89,13 @@ namespace I_IT
                 if (Task == "Delete")
                 {
 
-                    SQL sql = new SQL("Select count(*) from HydroAddresses where RollNumber = @RollNumber");
-                    sql.AddParameter("@RollNumber", Rollnumber);
-                    //if (int.Parse(sql.Run().Rows[0][0].ToString()) >= 1)
-                    //{
-                    //    result = MessageBox.Show("This Roll Number is in use! You Can not delete this.");
-                    //}
-                    //else
-                    //{
+                    //SQL sql = new SQL("Select count(*) from HydroAddresses where RollNumber = @RollNumber");
+                    //sql.AddParameter("@RollNumber", Rollnumber);
                     result = MessageBox.Show("Are You sure want to Delete?", "Confirmation", MessageBoxButtons.YesNo);
                         if (result == System.Windows.Forms.DialogResult.Yes &&
                             dataGridView1.CurrentCell.OwningColumn.Name == Rollnumber + "_Delete")
                         {
-                            sql = new SQL("delete from HydroAddresses where RollNumber = @RollNumber");
+                           SQL sql = new SQL("delete from HydroAddresses where RollNumber = @RollNumber");
                             sql.AddParameter("@RollNumber", Rollnumber);
 
                             sql.Run();
@@ -107,7 +108,6 @@ namespace I_IT
                         {
                             MessageBox.Show("Record not deleted !");
                         }
-                   // }
                 }
                 else if (Task == "Cancel")
                 {
@@ -115,8 +115,8 @@ namespace I_IT
                     dataGridView1.Rows[e.RowIndex].Cells[0].Value = "Edit";
                     dataGridView1.Rows[e.RowIndex].Cells[1].Value = "Delete";
                     Edit.UseColumnTextForLinkValue = true;
-                    Edit.Name = Rollnumber + "_Edit";
-                    if (dataGridView1.CurrentCell.OwningColumn.Name != Rollnumber + "_Edit" || dataGridView1.CurrentCell.OwningColumn.Name != Rollnumber + "_Save")
+                    Edit.Name = RID + "_Edit";
+                    if (dataGridView1.CurrentCell.OwningColumn.Name != RID + "_Edit" || dataGridView1.CurrentCell.OwningColumn.Name != RID + "_Save")
                     {
 
                         dataGridView1.CurrentCell.ReadOnly = true;
@@ -131,6 +131,7 @@ namespace I_IT
             if (e.ColumnIndex == 0)
             {
                 Rollno = Convert.ToString(dataGridView1.Rows[e.RowIndex].Cells["RollNumber"].Value);
+                RID = Convert.ToString(dataGridView1.Rows[e.RowIndex].Cells["id"].Value);
                 string Task = "";
                 if (Edit.Name == "Edit" || Edit.Name == "Save" || dataGridView1.Rows[e.RowIndex].Cells[0].Value != null)
                     Task = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
@@ -141,12 +142,12 @@ namespace I_IT
                     result = MessageBox.Show("Are You sure want to Edit this record?", "Confirmation", MessageBoxButtons.YesNo);
                     if (result == System.Windows.Forms.DialogResult.Yes)
                     {
-                        Edit.Name = Rollnumber + "_Edit";
-                        if (dataGridView1.Rows[e.RowIndex].Cells["RollNumber"].Value.ToString() == Rollnumber &&
-                            dataGridView1.CurrentCell.OwningColumn.Name == Rollnumber + "_Edit" &&
+                        Edit.Name = RID + "_Edit";
+
+                        if (dataGridView1.Rows[e.RowIndex].Cells["id"].Value.ToString() == RID &&
+                            dataGridView1.CurrentCell.OwningColumn.Name == RID + "_Edit" &&
                             dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != "Save")
                         {
-                            //MessageBox.Show(Task + "   " + Edit.Name);
                             for (int i = 0; i <= dataGridView1.Rows[e.RowIndex].Cells.Count - 1; i++)
                             {
                                 if (i != 1 || i != 0)
@@ -156,10 +157,10 @@ namespace I_IT
                                 }
                             }
                             dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "Save";
-                            Edit.Name = Rollnumber + "_Save";
+                            Edit.Name = RID + "_Save";
                             Edit.UseColumnTextForLinkValue = false;
                             dataGridView1.Rows[e.RowIndex].Cells[1].Value = "Cancel";
-                            Delete.Name = Rollnumber + "_Cancel";
+                            Delete.Name = RID + "_Cancel";
                             Delete.UseColumnTextForLinkValue = false;
                             Delete.ReadOnly = true;
                             dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].ReadOnly = true;
@@ -168,20 +169,15 @@ namespace I_IT
                 }
                 else if (Task == "Save")
                 {
-                    //if (Regex.IsMatch(@"^-?\d*\.{0,-1}\d+$", dataGridView1.Rows[e.RowIndex].Cells["RegYN"].Value.ToString()) &&
-                    //    Regex.IsMatch(@"^-?\d*\.{0,-1}\d+$", dataGridView1.Rows[e.RowIndex].Cells["StdYN"].Value.ToString()) &&
-                    //     Regex.IsMatch(@"^-?\d*\.{0,-1}\d+$", dataGridView1.Rows[e.RowIndex].Cells["OTYN"].Value.ToString()) &&
-                    //     Regex.IsMatch(@"^-?\d*\.{0,-1}\d+$", dataGridView1.Rows[e.RowIndex].Cells["VacYN"].Value.ToString()) &&
-                    //     Regex.IsMatch(@"^-?\d*\.{0,-1}\d+$", dataGridView1.Rows[e.RowIndex].Cells["AbsYN"].Value.ToString()))
-                    //{
+                    if (dataGridView1.Rows[e.RowIndex].Cells["RollNumber"].Value.ToString().Length == 19)
+                    {
                         result = MessageBox.Show("Are You sure want to Save this record?", "Confirmation", MessageBoxButtons.YesNo);
-
                         if (result == System.Windows.Forms.DialogResult.Yes)
                         {
-                            if (dataGridView1.Rows[e.RowIndex].Cells["RollNumber"].Value.ToString() == Rollnumber &&
-                                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != "Edit" && dataGridView1.CurrentCell.OwningColumn.Name == Rollnumber + "_Save")
+                            if (dataGridView1.Rows[e.RowIndex].Cells["id"].Value.ToString() == RID &&
+                                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != "Edit" && dataGridView1.CurrentCell.OwningColumn.Name == RID + "_Save")
                             {
-                                if (dataGridView1.CurrentCell.OwningColumn.Name != Rollnumber + "_Edit" || dataGridView1.CurrentCell.OwningColumn.Name != Rollnumber + "_Save")
+                                if (dataGridView1.CurrentCell.OwningColumn.Name != RID + "_Edit" || dataGridView1.CurrentCell.OwningColumn.Name != RID + "_Save")
                                 {
 
                                     for (int i = 0; i <= dataGridView1.ColumnCount - 1; i++)
@@ -192,18 +188,17 @@ namespace I_IT
                                             dataGridView1.Columns[i].ReadOnly = true;
                                     }
                                 }
-
-                                SQL sql = new SQL(@"UPDATE HydroAddresses SET
-                                    where PayType in (" + dataGridView1.Rows[e.RowIndex].Cells["RollNumber"].Value.ToString() + @")");
+                                SQL sql = new SQL(@"UPDATE HydroAddresses SET OldAddress=@OldAddress, RollNumber=@RollNumber
+                                    where id in  (" + dataGridView1.Rows[e.RowIndex].Cells["id"].Value.ToString() + @")");
 
                                 sql.AddParameter("@OldAddress", dataGridView1.Rows[e.RowIndex].Cells["OldAddress"].Value.ToString());
                                 sql.AddParameter("@RollNumber", dataGridView1.Rows[e.RowIndex].Cells["RollNumber"].Value.ToString());
 
-                                sql.Run();
+                               sql.Run();
 
                                 MessageBox.Show("Record Saved successfully!");
                                 Edit.UseColumnTextForLinkValue = true;
-                                Edit.Name = Rollnumber + "_Edit";
+                                Edit.Name = RID + "_Edit";
                                 Delete.UseColumnTextForLinkValue = true;
                                 Delete.Name = Rollnumber + "_Delete";
                                 loaddata();
@@ -211,12 +206,11 @@ namespace I_IT
                                 dataGridView1.Refresh();
                             }
                         }
-                    //}
-                    //else
-                    //{
-                    //    MessageBox.Show("Invalid number!The value must be a 0 or -1");
-
-                    //}
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid Roll Number!The Roll Number must in range of 19 character");
+                    }
                 }
             }
         }
@@ -228,7 +222,7 @@ namespace I_IT
         private void button1_Click(object sender, EventArgs e)
         {
             int output;
-            if (RollNo.Text.All(char.IsDigit))
+            if (RollNo.Text.All(char.IsDigit) && RollNo.Text.Length == 19)
             { 
                 //MessageBox.Show("output " + TypeText.ToString());  //Print 123434
                 RNo = RollNo.Text;
@@ -251,18 +245,17 @@ namespace I_IT
                     sql = new SQL(@"insert into HydroAddresses values (@Id,@OldAddress, @NewAddress, @RollNumber,@ParentRoll)");
                         sql.AddParameter("@Id", Newid);
                         sql.AddParameter("@OldAddress", OldAdd.Text);
-                        sql.AddParameter("@NewAddress", NewAdd.Text);
+                        sql.AddParameter("@NewAddress", "");
                         sql.AddParameter("@RollNumber", RollNo.Text);
                         sql.AddParameter("@ParentRoll", "False");
 
                     sql.Run();
 
-                        MessageBox.Show("That PayType is  successfuly Saved.");
+                        MessageBox.Show("Record Saved successfuly.");
                         loaddata();
                         dataGridView1.Update();
                         dataGridView1.Refresh();
                         OldAdd.Text = "";
-                        NewAdd.Text = "";
                         RollNo.Text = "";
                     }
                     else

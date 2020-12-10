@@ -32,16 +32,15 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.OldAdd = new System.Windows.Forms.TextBox();
-            this.NewAdd = new System.Windows.Forms.TextBox();
             this.RollNo = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.Edit = new System.Windows.Forms.DataGridViewLinkColumn();
             this.Delete = new System.Windows.Forms.DataGridViewLinkColumn();
             this.OldAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RollNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -76,11 +75,12 @@
             this.Edit,
             this.Delete,
             this.OldAddress,
-            this.RollNumber});
-            this.dataGridView1.Location = new System.Drawing.Point(230, 323);
+            this.RollNumber,
+            this.id});
+            this.dataGridView1.Location = new System.Drawing.Point(181, 235);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(728, 306);
+            this.dataGridView1.Size = new System.Drawing.Size(728, 337);
             this.dataGridView1.TabIndex = 21;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView1_DataError);
@@ -95,20 +95,10 @@
             this.label1.TabIndex = 71;
             this.label1.Text = "OldAddress";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(57, 151);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(99, 20);
-            this.label2.TabIndex = 72;
-            this.label2.Text = "NewAddress";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(57, 212);
+            this.label3.Location = new System.Drawing.Point(57, 171);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(92, 20);
@@ -124,18 +114,9 @@
             this.OldAdd.Size = new System.Drawing.Size(292, 26);
             this.OldAdd.TabIndex = 74;
             // 
-            // NewAdd
-            // 
-            this.NewAdd.Location = new System.Drawing.Point(230, 151);
-            this.NewAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.NewAdd.MaxLength = 30;
-            this.NewAdd.Name = "NewAdd";
-            this.NewAdd.Size = new System.Drawing.Size(292, 26);
-            this.NewAdd.TabIndex = 75;
-            // 
             // RollNo
             // 
-            this.RollNo.Location = new System.Drawing.Point(230, 212);
+            this.RollNo.Location = new System.Drawing.Point(230, 171);
             this.RollNo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.RollNo.MaxLength = 19;
             this.RollNo.Name = "RollNo";
@@ -144,7 +125,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(632, 197);
+            this.button1.Location = new System.Drawing.Point(630, 151);
             this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(220, 60);
@@ -189,6 +170,13 @@
             this.RollNumber.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.RollNumber.Width = 150;
             // 
+            // id
+            // 
+            this.id.DataPropertyName = "id";
+            this.id.HeaderText = "RecordID";
+            this.id.Name = "id";
+            this.id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // ManageHydroAddresses
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -196,10 +184,8 @@
             this.ClientSize = new System.Drawing.Size(1622, 692);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.RollNo);
-            this.Controls.Add(this.NewAdd);
             this.Controls.Add(this.OldAdd);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
@@ -220,15 +206,14 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox OldAdd;
-        private System.Windows.Forms.TextBox NewAdd;
         private System.Windows.Forms.TextBox RollNo;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridViewLinkColumn Edit;
         private System.Windows.Forms.DataGridViewLinkColumn Delete;
         private System.Windows.Forms.DataGridViewTextBoxColumn OldAddress;
         private System.Windows.Forms.DataGridViewTextBoxColumn RollNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
     }
 }
