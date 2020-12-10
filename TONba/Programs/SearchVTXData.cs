@@ -16,8 +16,8 @@ namespace I_IT
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //ReportVTXData rpt = new ReportVTXData(textBox1.Text, dtpTo.Value.Date);
-            //rpt.ShowDialog();
+            ReportVTXData rpt = new ReportVTXData(textBox1.Text, dtpTo.Value.Date);
+            rpt.ShowDialog();
         }
 
         private void chkLoc_CheckedChanged(object sender, EventArgs e)
@@ -26,12 +26,12 @@ namespace I_IT
             {
                 chkRoll.Checked = false;
                 chkOwn.Checked = false;
-                chkRoll.Enabled = false;
-                chkOwn.Enabled = false;
-                txtSearch.Enabled = false;
+               
                 textBox1.Enabled = false;
                 LocationText.Enabled = true;
                 OwnerText.Enabled = false;
+                OwnerText.Text = "";
+                textBox1.Text = "";
             }
         }
 
@@ -42,12 +42,11 @@ namespace I_IT
                 {
                     chkRoll.Checked = false;
                     chkLoc.Checked = false;
-                    chkRoll.Enabled = false;
-                    chkLoc.Enabled = false;
-                    txtSearch.Enabled = false;
                     textBox1.Enabled = false;
                     LocationText.Enabled = false;
                     OwnerText.Enabled = true;
+                    LocationText.Text = "";
+                    textBox1.Text = "";
             }
 
         }
@@ -59,12 +58,12 @@ namespace I_IT
                 {
                     chkLoc.Checked = false;
                     chkOwn.Checked = false;
-                    chkLoc.Enabled = false;
-                    chkOwn.Enabled = false;
-                    txtSearch.Enabled = false;
+                    
                     LocationText.Enabled = false;
                     OwnerText.Enabled = false;
-                    textBox1.Enabled = true;
+                    LocationText.Text = "";
+                    OwnerText.Text = "";
+                textBox1.Enabled = true;
             }
 
         }
@@ -72,8 +71,18 @@ namespace I_IT
         public SearchVTXData()
         {
             InitializeComponent();
+            chkLoc.Enabled = true;
+            chkOwn.Enabled = true;
+            chkRoll.Enabled = true;
+            if (chkRoll.Checked == true)
+            {
+                LocationText.Enabled = false;
+                OwnerText.Enabled = false;
+            }
+
         }
 
+        
         private void button1_Click(object sender, EventArgs e)
         {
             string sRoll, sOwner;
@@ -84,8 +93,8 @@ namespace I_IT
                 dt = SQL.Run(@"select street_no, street_name, owner_1, owner_2, mailing1, mailing2, mailing3, mailing4, mailing5,legal1, legal2,legal3,roll_no  from vtx.vailtech.tx_roll where owner_1 like @sOwner or owner_2 like @sOwner ", sOwner);
                 if (dt.Rows.Count > 0)
                 {
-                    //SearchCombo scbo = new SearchCombo(dt,2);
-                    //scbo.Show();
+                    SearchCombo scbo = new SearchCombo(dt, 2);
+                    scbo.Show();
                 }
                         
             }
@@ -96,9 +105,9 @@ namespace I_IT
                 dt = SQL.Run(@"select street_no, street_name, owner_1, owner_2, mailing1, mailing2, mailing3, mailing4, mailing5,legal1, legal2,legal3,roll_no  from vtx.vailtech.tx_roll where street_name like @sOwner ", sOwner);
                 if (dt.Rows.Count > 0)
                 {
-                    //SearchCombo scbo = new SearchCombo(dt, 1);
-                    //scbo.Show();
-                    //sRoll = scbo.itemSelected;
+                    SearchCombo scbo = new SearchCombo(dt, 1);
+                    scbo.Show();
+                    sRoll = scbo.itemSelected;
                 }
 
             }
@@ -109,7 +118,6 @@ namespace I_IT
                 {
                     MessageBox.Show("Please enter a roll number.");
                     return;
-
                 }
                 else
                 {
@@ -118,8 +126,8 @@ namespace I_IT
 
                     if (dt.Rows.Count > 0)
                     {
-                        lblAddress.Text = dt.Rows[0]["street_no"].ToString() + " " + dt.Rows[0]["street_name"].ToString();
-                        lblOwner.Text = dt.Rows[0]["Owner_1"].ToString() + " " + dt.Rows[0]["Owner_2"].ToString();
+                        LocationText.Text = dt.Rows[0]["street_no"].ToString() + " " + dt.Rows[0]["street_name"].ToString();
+                        OwnerText.Text = dt.Rows[0]["Owner_1"].ToString() + " " + dt.Rows[0]["Owner_2"].ToString();
                         button2.Enabled = true;
 
                     }

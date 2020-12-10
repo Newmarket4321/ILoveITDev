@@ -255,6 +255,18 @@
       <DependentUpon>ManageHydroAddresses.cs</DependentUpon>
     </Compile>
     <Compile Include="Programs\ReadWriteFiles.cs" />
+    <Compile Include="Programs\ReportVTXData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\ReportVTXData.designer.cs">
+      <DependentUpon>ReportVTXData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\SearchCombo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\SearchCombo.Designer.cs">
+      <DependentUpon>SearchCombo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Programs\SearchRoll.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1450,6 +1462,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Programs\ManageHydroAddresses.resx">
       <DependentUpon>ManageHydroAddresses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\ReportVTXData.resx">
+      <DependentUpon>ReportVTXData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\SearchCombo.resx">
+      <DependentUpon>SearchCombo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Programs\SearchRoll.resx">
       <DependentUpon>SearchRoll.cs</DependentUpon>
