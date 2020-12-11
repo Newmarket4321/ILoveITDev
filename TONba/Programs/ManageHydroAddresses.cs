@@ -156,6 +156,7 @@ namespace I_IT
 
                                 }
                             }
+                            dataGridView1.Rows[e.RowIndex].Cells["id"].ReadOnly = true;
                             dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "Save";
                             Edit.Name = RID + "_Save";
                             Edit.UseColumnTextForLinkValue = false;

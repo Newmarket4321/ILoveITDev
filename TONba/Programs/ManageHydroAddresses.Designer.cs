@@ -175,6 +175,7 @@
             this.id.DataPropertyName = "id";
             this.id.HeaderText = "RecordID";
             this.id.Name = "id";
+            this.id.ReadOnly = true;
             this.id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // ManageHydroAddresses
