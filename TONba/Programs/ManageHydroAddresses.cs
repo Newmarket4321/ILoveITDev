@@ -189,6 +189,7 @@ namespace I_IT
                                             dataGridView1.Columns[i].ReadOnly = true;
                                     }
                                 }
+                                dataGridView1.Rows[e.RowIndex].Cells["id"].ReadOnly = true;
                                 SQL sql = new SQL(@"UPDATE HydroAddresses SET OldAddress=@OldAddress, RollNumber=@RollNumber
                                     where id in  (" + dataGridView1.Rows[e.RowIndex].Cells["id"].Value.ToString() + @")");
 
