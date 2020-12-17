@@ -240,7 +240,7 @@ namespace I_IT
 
                 if (int.Parse(sql.Run().Rows[0][0].ToString()) >= 1)
                 {
-                    MessageBox.Show("This Address is already exist");
+                    MessageBox.Show("This Address already exist");
                 }
                 else
                 {
