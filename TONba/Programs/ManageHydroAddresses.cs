@@ -21,7 +21,8 @@ namespace I_IT
         public static string RID;
         public static string RNo;
         int ID = 0;
-
+        string old_add = "";
+        string Roll_num = "";
         public string Rollnumber
         {
             get { return Rollno; }
@@ -222,7 +223,9 @@ namespace I_IT
             {
                 ID = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString());
                 OldAdd.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+                old_add = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
                 RollNo.Text = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
+                Roll_num= dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString(); 
             }
         }
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -286,26 +289,35 @@ namespace I_IT
         private void button2_Click(object sender, EventArgs e)
         {
             DialogResult result;
-            result = MessageBox.Show("Are You sure want to Save this record?", "Confirmation", MessageBoxButtons.YesNo);
-            if (result == System.Windows.Forms.DialogResult.Yes)
+            if(OldAdd.Text == old_add  && RollNo.Text == Roll_num)
             {
-                if (RollNo.Text.All(char.IsDigit) && RollNo.Text.Length == 19)
+                MessageBox.Show("Record not changed !");
+                ClearData();
+            }
+            else
+            {
+                result = MessageBox.Show("Are You sure want to Update this record?", "Confirmation", MessageBoxButtons.YesNo);
+                if (result == System.Windows.Forms.DialogResult.Yes)
                 {
+                    if (RollNo.Text.All(char.IsDigit) && RollNo.Text.Length == 19)
+                    {
                    
-                    SQL sql = new SQL(@"UPDATE HydroAddresses SET OldAddress=@OldAddress, RollNumber=@RollNumber
+                        SQL sql = new SQL(@"UPDATE HydroAddresses SET OldAddress=@OldAddress, RollNumber=@RollNumber
                                     where id=@ID");
-                    sql.AddParameter("@ID", ID);
-                    sql.AddParameter("@OldAddress", OldAdd.Text);
-                    sql.AddParameter("@RollNumber", RollNo.Text);
+                        sql.AddParameter("@ID", ID);
+                        sql.AddParameter("@OldAddress", OldAdd.Text);
+                        sql.AddParameter("@RollNumber", RollNo.Text);
 
-                    sql.Run();
-                    loaddata();
-                    ClearData();
-                }
+                        sql.Run();
+                        loaddata();
+                        ClearData();
+                    }
                 else
                 {
                     MessageBox.Show("Please Select Record to Update");
                 }
+            }
+
             }
         }
 
