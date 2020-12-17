@@ -240,7 +240,7 @@ namespace I_IT
 
                 if (int.Parse(sql.Run().Rows[0][0].ToString()) >= 1)
                 {
-                    MessageBox.Show("This Address is already associated with a DATS account.");
+                    MessageBox.Show("This Address already exist.");
                 }
                 else
                 {
@@ -291,7 +291,7 @@ namespace I_IT
             {
                 if (RollNo.Text.All(char.IsDigit) && RollNo.Text.Length == 19)
                 {
-                    MessageBox.Show(ID.ToString());
+                    
                     SQL sql = new SQL(@"UPDATE HydroAddresses SET OldAddress=@OldAddress, RollNumber=@RollNumber
                                     where id=@ID");
                     sql.AddParameter("@ID", ID);
