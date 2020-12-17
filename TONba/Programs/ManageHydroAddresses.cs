@@ -20,6 +20,8 @@ namespace I_IT
         public static string Rollno;
         public static string RID;
         public static string RNo;
+        int ID = 0;
+
         public string Rollnumber
         {
             get { return Rollno; }
@@ -76,7 +78,7 @@ namespace I_IT
             DialogResult result;
             if (e.ColumnIndex == 1)
             {
-                // if(dataGridView1.Rows[e.RowIndex].Cells[3].Value != null)
+                
                 Rollno = Convert.ToString(dataGridView1.Rows[e.RowIndex].Cells["RollNumber"].Value);
                 RID = Convert.ToString(dataGridView1.Rows[e.RowIndex].Cells["id"].Value);
                 Delete.Name = Rollnumber + "_Delete";
@@ -88,9 +90,7 @@ namespace I_IT
 
                 if (Task == "Delete")
                 {
-
-                    //SQL sql = new SQL("Select count(*) from HydroAddresses where RollNumber = @RollNumber");
-                    //sql.AddParameter("@RollNumber", Rollnumber);
+                    
                     result = MessageBox.Show("Are You sure want to Delete?", "Confirmation", MessageBoxButtons.YesNo);
                         if (result == System.Windows.Forms.DialogResult.Yes &&
                             dataGridView1.CurrentCell.OwningColumn.Name == Rollnumber + "_Delete")
@@ -216,42 +216,47 @@ namespace I_IT
                 }
             }
         }
-            private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        private void dataGridView1_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString() != "")
+            {
+                ID = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString());
+                OldAdd.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+                RollNo.Text = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
+            }
+        }
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Core.export(Text, storage);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int output;
             if (RollNo.Text.All(char.IsDigit) && RollNo.Text.Length == 19)
             { 
-                //MessageBox.Show("output " + TypeText.ToString());  //Print 123434
                 RNo = RollNo.Text;
-                SQL sql = new SQL("Select count(*) from HydroAddresses where RollNumber = @RollNumber");
-                sql.AddParameter("@RollNumber", Rnumber);
+                SQL sql = new SQL("Select count(*) from HydroAddresses where OldAddress = @OldAddress");
+                sql.AddParameter("@OldAddress", OldAdd.Text);
 
                 if (int.Parse(sql.Run().Rows[0][0].ToString()) >= 1)
                 {
-                    MessageBox.Show("That RollNumber is already associated with a DATS account.");
+                    MessageBox.Show("This Address is already associated with a DATS account.");
                 }
                 else
                 {
                     if ( RollNo.Text != "")
                     {
+                        sql = new SQL("select max(id) from HydroAddresses");
+                        Newid = int.Parse(sql.Run().Rows[0][0].ToString()) + 1;
 
-                    // descreption = Description_txt.Text;
-                    sql = new SQL("select max(id) from HydroAddresses");
-                    Newid = int.Parse(sql.Run().Rows[0][0].ToString()) + 1;
-
-                    sql = new SQL(@"insert into HydroAddresses values (@Id,@OldAddress, @NewAddress, @RollNumber,@ParentRoll)");
+                        sql = new SQL(@"insert into HydroAddresses values (@Id,@OldAddress, @NewAddress, @RollNumber,@ParentRoll)");
                         sql.AddParameter("@Id", Newid);
                         sql.AddParameter("@OldAddress", OldAdd.Text);
                         sql.AddParameter("@NewAddress", "");
                         sql.AddParameter("@RollNumber", RollNo.Text);
                         sql.AddParameter("@ParentRoll", "False");
 
-                    sql.Run();
+                        sql.Run();
 
                         MessageBox.Show("Record Saved successfuly.");
                         loaddata();
@@ -271,5 +276,59 @@ namespace I_IT
                 MessageBox.Show("Invalid number! Plese Enter valid Roll Number.");
             }
 }
+        private void ClearData()
+        {
+            OldAdd.Text = "";
+            RollNo.Text = "";
+            ID = 0;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            DialogResult result;
+            result = MessageBox.Show("Are You sure want to Save this record?", "Confirmation", MessageBoxButtons.YesNo);
+            if (result == System.Windows.Forms.DialogResult.Yes)
+            {
+                if (RollNo.Text.All(char.IsDigit) && RollNo.Text.Length == 19)
+                {
+                    MessageBox.Show(ID.ToString());
+                    SQL sql = new SQL(@"UPDATE HydroAddresses SET OldAddress=@OldAddress, RollNumber=@RollNumber
+                                    where id=@ID");
+                    sql.AddParameter("@ID", ID);
+                    sql.AddParameter("@OldAddress", OldAdd.Text);
+                    sql.AddParameter("@RollNumber", RollNo.Text);
+
+                    sql.Run();
+                    loaddata();
+                    ClearData();
+                }
+                else
+                {
+                    MessageBox.Show("Please Select Record to Update");
+                }
+            }
+        }
+
+        private void DeleteRecord_Click(object sender, EventArgs e)
+        {
+            DialogResult result;
+            result = MessageBox.Show("Are You sure want to Delete?", "Confirmation", MessageBoxButtons.YesNo);
+            if (result == System.Windows.Forms.DialogResult.Yes && ID != 0)
+            {
+                SQL sql = new SQL("delete from HydroAddresses where id=@ID");
+                sql.AddParameter("@ID", ID);
+
+                sql.Run();
+                MessageBox.Show("Record deleted !");
+                loaddata();
+                ClearData();
+                dataGridView1.Update();
+                dataGridView1.Refresh();
+            }
+            else
+            {
+                MessageBox.Show("Record not deleted !");
+            }
+        }
     }
 }
