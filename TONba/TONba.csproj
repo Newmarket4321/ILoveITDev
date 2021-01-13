@@ -126,6 +126,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core.cs" />
     <Compile Include="Database\AccessIT.cs" />
     <Compile Include="Database\Trainer.cs" />
     <Compile Include="Database\CRM.cs" />
@@ -977,7 +978,6 @@
     <Compile Include="Programs\BuildingPermitDelete.Designer.cs">
       <DependentUpon>BuildingPermitDelete.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core.cs" />
     <Compile Include="Form1_Backup.cs">
       <SubType>Form</SubType>
     </Compile>

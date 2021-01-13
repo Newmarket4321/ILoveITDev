@@ -28,19 +28,44 @@ namespace I_IT
 
         public CityViewToAccelaDataPort()
         {
-            bool PermitHistory = true;
-            bool PermitStatus = true;
-            bool PermitAddress = true;
+            //bool PermitHistory = true;
+            //bool PermitStatus = true;
+            //bool PermitAddress = true;
+            //bool PermitComment = false; //Keep off for now; not needed
+            //bool PermitFee = true; //Keep off for now; use when CityView data is cleaned up
+            //bool PermitFeeAllocation = true; //Keep off for now; use when CityView data is cleaned up
+            //bool PermitInsp = true;
+            //bool PermitCustomFixtures = true; //Turned it On;  CityView
+            //bool PermitCustomEngineering = true; //Turned it On;  CityView
+            //bool PermitParcel = true;
+            //bool PermitPeople = true;
+            //bool ReferPeople = false;
+            //bool ReferActivity = false;
+            //bool PermitReferral = true;
+            //bool PermitOntarioNewHome = true;
+            //bool PermitApplicationInformation = true;
+            //bool PermitPurposeofApplication = true;
+
+
+            //testing
+            bool PermitHistory = false;
+            bool PermitStatus = false;
+            bool PermitAddress = false;
             bool PermitComment = false; //Keep off for now; not needed
-            bool PermitFee = true; //Keep off for now; use when CityView data is cleaned up
-            bool PermitFeeAllocation = true; //Keep off for now; use when CityView data is cleaned up
-            bool PermitInsp = true;
-            bool PermitCustomFixtures = false;
-            bool PermitCustomEngineering = false;
-            bool PermitParcel = true;
-            bool PermitPeople = true;
+            bool PermitFee = false; //Keep off for now; use when CityView data is cleaned up
+            bool PermitFeeAllocation = false; //Keep off for now; use when CityView data is cleaned up
+            bool PermitInsp = false;
+            bool PermitCustomFixtures = false; //Turned it On;  CityView
+            bool PermitCustomEngineering = false; //Turned it On;  CityView
+            bool PermitParcel = false;
+            bool PermitPeople = false;
             bool ReferPeople = false;
             bool ReferActivity = false;
+            bool PermitReferral = true;
+            bool PermitOntarioNewHome = false;
+            bool PermitApplicationInformation = false;
+            bool PermitPurposeofApplication = false;
+
 
             //   bool PermitHistory = true; // RW off for testing 
             //   bool PermitStatus = true;
@@ -2391,6 +2416,211 @@ and exists (select 1 from sysadmin.chequereqtable where bi_app_id=p.recordid)
                 }
             }
 
+            //
+            if (PermitApplicationInformation)
+            {
+
+            }
+            //AATABLE_PERMIT_ASI_REFERRALS
+            if (PermitReferral)
+            {
+                string[] Referral = {"REFERRAL_AGENCY", "APPROVED", "COMMENT_", "WORKFLOW_DATE" };
+                for (int i = 0; i < bp.Rows.Count; i++)
+                {
+                    
+                    DataTable ReferralTable = CityView.Run("select * from sysadmin.referrals where  bi_app_id = @ID ", g(bp, i, "recordid"));
+
+                   for(var rf=0; rf < ReferralTable.Rows.Count; rf++)
+                    {
+                        SQL sql = new SQL(@"
+                            use accelastage;
+                            insert into AATABLE_PERMIT_ASI_REFERRALS
+                            (
+                                PERMITNUM,
+                                PERMIT_TYPE,
+                                REFERRAL_AGENCY,
+                                APPROVED,
+                                COMMENT_,
+                                WORKFLOW_DATE
+                            )
+                            values 
+                           (
+                                @PERMITNUM,
+                                @PERMIT_TYPE,
+                                @REFERRAL_AGENCY,
+                                @APPROVED,
+                                @COMMENT_,
+                                @WORKFLOW_DATE
+                           )");
+
+                        sql.AddParameter("@PERMITNUM", g(bp, i, "APPLICATION_NUMBER"));
+                        sql.AddParameter("@PERMIT_TYPE", g(bp, i, "PERMIT_TYPE"));
+                       
+                        for (int R = 0; R < Referral.Length; R++)
+                        {
+                            var approve = "";
+                            var workflowdate = "";
+
+                            if (Referral[R] == "APPROVED" && g(ReferralTable, rf, "APPROVED") == "-1")
+                            {
+                                approve = "Yes";
+                            }
+                            else if (Referral[R] == "APPROVED" && g(ReferralTable, rf, "APPROVED") == "0")
+                            {
+                                approve = "No";
+                            }
+                            if (Referral[R] == "WORKFLOW_DATE" && g(ReferralTable, rf, "DATE_APPROVED") == null || g(ReferralTable, rf, "DATE_APPROVED") == "")
+                            {
+                                workflowdate = g(ReferralTable, rf, "DATE_SENT");
+                            }
+                            else if (Referral[R] == "WORKFLOW_DATE" && g(ReferralTable, rf, "DATE_APPROVED") != null || g(ReferralTable, rf, "DATE_APPROVED") != "")
+                            {
+                                workflowdate = g(ReferralTable, rf, "DATE_APPROVED");
+                            }
+
+                          
+                            if (Referral[R] == "APPROVED")
+                            {
+                                sql.AddParameter("@" + Referral[R], approve);
+                            }
+                            else if (Referral[R] == "WORKFLOW_DATE")
+                            {
+                                sql.AddParameter("@" + Referral[R], workflowdate);
+                            }
+                            else
+                            {
+                                sql.AddParameter("@" + Referral[R], g(ReferralTable, rf, Referral[R]));
+                            }
+                        //C:\Program Files\Microsoft SQL Server\MSSQL13.MSSQLSERVER\MSSQL\Backup\TON20210112.bak
+                        }
+                        sql.Run();
+                    }
+                   
+                }
+
+            }
+            //AATABLE_PERMIT_ASI_ON_NEWHOME
+            if (PermitOntarioNewHome)
+            {
+                string[] ON_NewHome = { "PERMIT_TYPE", "ONWPACT_PERMIT", "ONHWPACT_REGNUM", "ONHWPACT_CONSt" };
+
+                for(int i = 0; i < bp.Rows.Count; i++)
+                {
+                    SQL sql = new SQL(@"
+                        use accelastage;
+                        insert into AATABLE_PERMIT_ASI_ON_NEWHOME
+                        (
+                            PERMITNUM,
+                            PERMIT_TYPE,
+                            ONWPACT_PERMIT,
+                            ONHWPACT_REGNUM,
+                            ONHWPACT_CONSt
+                        )
+                        values 
+                       (
+                            @PERMITNUM,
+                            @PERMIT_TYPE,
+                            @ONWPACT_PERMIT,
+                            @ONHWPACT_REGNUM,
+                            @ONHWPACT_CONSt
+                       )");
+
+                    sql.AddParameter("@PERMITNUM", g(bp, i, "APPLICATION_NUMBER"));
+                  
+                    for (int H = 0; H < ON_NewHome.Length; H++)
+                    {
+                        sql.AddParameter("@" + ON_NewHome[H], g(bp, i, ON_NewHome[H]));
+                    }
+
+                    sql.Run();
+                }
+            }
+
+
+            //AATABLE_PERMIT_ASI_PurposeofApplication
+            if (PermitPurposeofApplication)
+            {
+                string[] Purpose_of_Application = { "PERMIT_TYPE", "DESCRIPTION", "PARTIAL", "FLAG_CONDPER","FLAG_DEMO","FLAG_ALTREP",
+                    "FLAG_CONST", "FLAG_ADDITIONAL", "APPLICATION_TYPE", "CONSTRUCTION_TYPE", "INSPECTOR", "Examiner", "MODEL",
+                     "OTHER_LOC_INFO", "BuildingClassfication", "TonConType", "STATSCANCODE", "CurrentUse" };
+                for (int i = 0; i < bp.Rows.Count; i++)
+                {
+
+                    SQL sql = new SQL(@"
+                        use accelastage;
+                        insert into AATABLE_PERMIT_ASI_PurposeofApplication
+                        (
+                            PERMITNUM,
+                            PERMIT_TYPE, 
+                            DESCRIPTION, 
+                            PARTIAL, 
+                            FLAG_CONDPER,
+                            FLAG_DEMO,
+                            FLAG_ALTREP,
+                            FLAG_CONST, 
+                            FLAG_ADDITIONAL, 
+                            APPLICATION_TYPE, 
+                            CONSTRUCTION_TYPE, 
+                            INSPECTOR, 
+                            Examiner, 
+                            MODEL,
+                            ADDITION_INFO, 
+                            OTHER_LOC_INFO, 
+                            BuildingClassfication, 
+                            TonConType, 
+                            STATSCANCODE, 
+                            CurrentUse
+                        )
+                        values 
+                       (
+                            @PERMITNUM,
+                            @PERMIT_TYPE, 
+                            @DESCRIPTION, 
+                            @PARTIAL, 
+                            @FLAG_CONDPER,
+                            @FLAG_DEMO,
+                            @FLAG_ALTREP,
+                            @FLAG_CONST, 
+                            @FLAG_ADDITIONAL, 
+                            @APPLICATION_TYPE, 
+                            @CONSTRUCTION_TYPE, 
+                            @INSPECTOR, 
+                            @Examiner, 
+                            @MODEL,
+                            @ADDITION_INFO, 
+                            @OTHER_LOC_INFO, 
+                            @BuildingClassfication, 
+                            @TonConType, 
+                            @STATSCANCODE, 
+                            @CurrentUse
+                       )");
+
+                    sql.AddParameter("@PERMITNUM", g(bp, i, "APPLICATION_NUMBER"));
+                    //Console.WriteLine("@PERMITNUM = " + i.ToString().Length + "= Length =" + g(bp, i, "APPLICATION_NUMBER"));
+                    for (int PA = 0; PA < Purpose_of_Application.Length; PA++)
+                    {
+                        
+                            sql.AddParameter("@" + Purpose_of_Application[PA], g(bp, i, Purpose_of_Application[PA]));
+                        ////Purpose_of_Application[PA] != "@DESCRIPTION" && Purpose_of_Application[PA] != "@ADDITION_INFO" &&Purpose_of_Application[PA] != "@OTHER_LOC_INFO" &&
+                        //if (g(bp, i, Purpose_of_Application[PA]).Length > 255)
+                        //    Console.WriteLine("@" + Purpose_of_Application[PA] + " = Length =" + g(bp, i, Purpose_of_Application[PA]).Length + " =" + g(bp, i, Purpose_of_Application[PA]) + " = RECORNUM =" + i + "</br>");
+
+
+
+                    }
+                    temp = CityView.Run("select addition_info from sysadmin.bp_additional where bi_app_id = @ID", g(bp, i, "recordid"));
+
+                    if (temp.Rows.Count > 0)
+                        sql.AddParameter("@ADDITION_INFO", g(temp, 0, "addition_info", 255));
+                    else
+                        sql.AddParameter("@ADDITION_INFO", DBNull.Value);
+
+                    sql.Run();
+                }
+
+
+            }
+
             //AATable_Permit_ASI_Fixtures
             if (PermitCustomFixtures)
             {
@@ -2663,7 +2893,8 @@ and exists (select 1 from sysadmin.chequereqtable where bi_app_id=p.recordid)
                             if (rollNo.Length == 19)
                                 rollNo = rollNo.Substring(4);
 
-                            temp = Vailtech.Run("select * from Vailtech.TX_ROLL where roll_no = @ID", rollNo);
+                            // temp = Vailtech.Run("select * from Vailtech.TX_ROLL where roll_no = @ID", rollNo); // Vailtech server is no longer in use now so we cahnge it to SQL
+                             temp = SQL.Run("select * from VTX.Vailtech.TX_ROLL where roll_no = @ID", rollNo);
 
                             if (temp.Rows.Count > 0)
                                 legalDesc = g(temp, 0, "LEGAL1") + " " + g(temp, 0, "LEGAL2") + " " + g(temp, 0, "LEGAL3") + " " + g(temp, 0, "LEGAL4") + " " + g(temp, 0, "LEGAL5");
