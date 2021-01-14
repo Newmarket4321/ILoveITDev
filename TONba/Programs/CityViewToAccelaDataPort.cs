@@ -55,13 +55,13 @@ namespace I_IT
             bool PermitFee = false; //Keep off for now; use when CityView data is cleaned up
             bool PermitFeeAllocation = false; //Keep off for now; use when CityView data is cleaned up
             bool PermitInsp = false;
-            bool PermitCustomFixtures = false; //Turned it On;  CityView
-            bool PermitCustomEngineering = false; //Turned it On;  CityView
+            bool PermitCustomFixtures = true; //Turned it On;  CityView
+            bool PermitCustomEngineering = true; //Turned it On;  CityView
             bool PermitParcel = false;
             bool PermitPeople = false;
             bool ReferPeople = false;
             bool ReferActivity = false;
-            bool PermitReferral = true;
+            bool PermitReferral = false;
             bool PermitOntarioNewHome = false;
             bool PermitApplicationInformation = false;
             bool PermitPurposeofApplication = false;
@@ -591,7 +591,15 @@ and exists (select 1 from sysadmin.chequereqtable where bi_app_id=p.recordid)
                     {
                         var temp3 = g(bp, i, "APPLICATION_NUMBER").ToString();
                         //var temp2 = g(bp, i, "APPLICATION_NUMBER").Substring(g(bp, i, "APPLICATION_NUMBER").Length - 1);
-                        converttoint = Int32.TryParse(g(bp, i, "APPLICATION_NUMBER").Substring(1, 4), out int result);
+                        if (i == 33716)
+                        {
+                            if(g(bp, i, "APPLICATION_NUMBER").Length > 0)
+                                Console.WriteLine(g(bp, i, "APPLICATION_NUMBER") + " Test " + temp3);
+                            else
+                                Console.WriteLine("Is Empty");
+                        }
+                        if (g(bp, i, "APPLICATION_NUMBER").Length > 0)
+                            converttoint = Int32.TryParse(g(bp, i, "APPLICATION_NUMBER").Substring(1, 4), out int result);
 
 
                         if (converttoint)
@@ -728,43 +736,43 @@ and exists (select 1 from sysadmin.chequereqtable where bi_app_id=p.recordid)
                                 }
                             }
                         }
-                        else if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "2199")
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "2199")
                         {
                             sql.AddParameter("@TT_RECORD", "Historic");
                         }
-                        else if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "2200")
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "2200")
                         {
                             sql.AddParameter("@TT_RECORD", "Historic");
                         }
-                        else if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "3199")
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "3199")
                         {
                             sql.AddParameter("@TT_RECORD", "Historic");
                         }
-                        else if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "3200")
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "3200")
                         {
                             sql.AddParameter("@TT_RECORD", "Historic");
                         }
-                        else if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "60")
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "60")
                         {
                             sql.AddParameter("@TT_RECORD", "Historic");
                         }
-                        else if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "990-")
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "990-")
                         {
                             sql.AddParameter("@TT_RECORD", "Historic");
                         }
-                        else if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "A200")
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "A200")
                         {
                             sql.AddParameter("@TT_RECORD", "Historic");
                         }
-                        else if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "D200")
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "D200")
                         {
                             sql.AddParameter("@TT_RECORD", "Historic");
                         }
-                        else if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "G199")
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "G199")
                         {
                             sql.AddParameter("@TT_RECORD", "Historic");
                         }
-                        else if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "P200")
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "P200")
                         {
                             sql.AddParameter("@TT_RECORD", "Historic");
                         }
@@ -2416,12 +2424,579 @@ and exists (select 1 from sysadmin.chequereqtable where bi_app_id=p.recordid)
                 }
             }
 
-            //
+            //ASI_ApplicationInformation
             if (PermitApplicationInformation)
             {
+                string[] App_Info = { "PERMIT_TYPE", "Applicant_name","Corp_part","Application_Date","Buildingpermit_issuedate","Applicant_Address","Applicant_unit",
+                                        "Applicant_prov","Applicant_postalcde","Applicant_phone","Applicant_email","Application_status","FAX_NUMBER","CELL_NUMBER","NO_Dwelling_units",
+                                        "estimated_cost","square_footage","square_meters","completed"};
+                for (int i = 0; i < bp.Rows.Count; i++)
+                {
+                    SQL sql = new SQL(@"
+                        use accelastage;
+                        insert into ASI_ApplicationInformation
+                        (
+                            PERMITNUM,
+                            Permit_Type,
+                            Applicant_name,
+                            Corp_part,
+                            Application_Date,
+                            Buildingpermit_issuedate,
+                            Applicant_Address,
+                            Applicant_unit,
+                            Applicant_prov,
+                            Applicant_postalcde,
+                            Applicant_phone,
+                            Applicant_email,
+                            Application_status,
+                            FAX_NUMBER,
+                            CELL_NUMBER,
+                            NO_Dwelling_units,
+                            estimated_cost,
+                            square_footage,
+                            square_meters,
+                            completed,
+                            TT_RECORD
+                        )
+                        values 
+                       (
+                            @PERMITNUM,
+                            @Permit_Type,
+                            @Applicant_name,
+                            @Corp_part,
+                            @Application_Date,
+                            @Buildingpermit_issuedate,
+                            @Applicant_Address,
+                            @Applicant_unit,
+                            @Applicant_prov,
+                            @Applicant_postalcde,
+                            @Applicant_phone,
+                            @Applicant_email,
+                            @Application_status,
+                            @FAX_NUMBER,
+                            @CELL_NUMBER,
+                            @NO_Dwelling_units,
+                            @estimated_cost,
+                            @square_footage,
+                            @square_meters,
+                            @completed,
+                            @TT_RECORD
+                       )");
+
+                        sql.AddParameter("@PERMITNUM", g(bp, i, "APPLICATION_NUMBER"));
+                        for (int AP = 0; AP < App_Info.Length; AP++)
+                        {
+                            sql.AddParameter("@" + App_Info[AP], g(bp, i, App_Info[AP]));
+                        }   
+
+
+                    string[] ADU = new string[] {
+                        "A2019-00318",
+                        "P2010-00020",
+                        "A2010-00851",
+                        "P2010-00722",
+                        "P2010-00961",
+                        "P2010-00547",
+                        "P2010-00548",
+                        "A2010-00813",
+                        "P2010-00831",
+                        "P2010-00934",
+                        "P2010-00534",
+                        "P2010-00282",
+                        "P2010-00261",
+                        "P2010-00944",
+                        "P2010-00723",
+                        "P2011-00478",
+                        "P2011-00479",
+                        "P2011-00561",
+                        "P2019-00036",
+                        "P2018-00040",
+                        "P2018-00224",
+                        "P2019-00493",
+                        "P2017-00517",
+                        "P2017-00561",
+                        "P2018-00037",
+                        "P2019-00396",
+                        "P2019-00121",
+                        "P2016-00292",
+                        "P2016-00133",
+                        "A2016-00118",
+                        "P2016-00173",
+                        "P2016-00069",
+                        "P2015-00763",
+                        "P2016-00068",
+                        "P2015-00959",
+                        "A2020-00005",
+                        "P2018-00235",
+                        "P2016-00335",
+                        "P2016-00353",
+                        "P2019-00035",
+                        "P2019-00420",
+                        "P2013-00308",
+                        "P2013-00213",
+                        "P2013-00300",
+                        "P2013-00893",
+                        "A2013-00900",
+                        "P2014-00302",
+                        "P2017-00615",
+                        "P2012-00055",
+                        "P2015-00961",
+                        "P2011-00672",
+                        "P2011-00497",
+                        "P2012-00392",
+                        "P2012-00579",
+                        "P2012-00381",
+                        "P2012-00738",
+                        "P2012-00576",
+                        "P2013-00765",
+                        "P2013-00762",
+                        "P2013-00767",
+                        "P2013-00048",
+                        "P2013-00860",
+                        "P2014-00136",
+                        "P2014-00361",
+                        "P2014-00583",
+                        "A2014-00674",
+                        "P2015-00422",
+                        "P2015-00790",
+                        "P2015-00479",
+                        "P2015-00792",
+                        "P2015-00685",
+                        "P2015-00672",
+                        "P2015-00347",
+                        "P2015-00601",
+                        "P2015-00736",
+                        "P2015-00644",
+                        "P2015-00610",
+                        "P2016-00222",
+                        "P2016-00247",
+                        "P2017-00264",
+                        "P2017-00076",
+                        "P2014-00359",
+                        "P2017-00826",
+                        "P2019-00267",
+                        "P2019-00527",
+                        "P2019-00328",
+                        "P2013-00798",
+                        "P2013-00662",
+                        "P2013-00314",
+                        "P2014-00584",
+                        "P2014-00363",
+                        "P2018-00301",
+                        "P2018-00002",
+                        "P2018-00661",
+                        "P2019-00324",
+                        "P2018-00699",
+                        "P2018-00688",
+                        "P2018-00284",
+                        "P2019-00426",
+                        "P2019-00293",
+                        "P2018-00373",
+                        "P2019-00321",
+                        "P2019-00064",
+                        "A2019-00501",
+                        "P2019-00246",
+                        "P2019-00483",
+                        "P2015-00830",
+                        "P2015-00461",
+                        "P2015-00842",
+                        "P2013-00872",
+                        "P2015-00891",
+                        "P2018-00271",
+                        "P2019-00270",
+                        "P2019-00232",
+                        "P2011-00507",
+                        "P2011-00584",
+                        "P2017-00673",
+                        "P2011-00416",
+                        "P2013-00117",
+                        "P2015-00512",
+                        "P2013-00663",
+                        "A2018-00712",
+                        "P2014-00069",
+                        "P2014-00362",
+                        "P2014-00026",
+                        "P2013-00626",
+                        "P2013-00620",
+                        "P2013-00610",
+                        "P2014-00030",
+                        "P2012-00325",
+                        "P2018-00601",
+                        "P2014-00077",
+                        "P2015-00511",
+                        "P2017-00874",
+                        "A2019-00535",
+                        "A2017-00672",
+                        "P2016-00228",
+                        "P2016-00063",
+                        "P2013-00745",
+                        "P2015-00421",
+                        "P2019-00424",
+                        "P2011-00603",
+                        "P2011-00095",
+                        "P2011-00834",
+                        "P2011-01102",
+                        "P2011-00081",
+                        "A2011-00193",
+                        "P2011-00299",
+                        "P2011-00715",
+                        "P2011-00836",
+                        "A2011-00744",
+                        "P2012-00170",
+                        "P2012-00042",
+                        "P2012-00087",
+                        "P2012-00109",
+                        "P2014-00354",
+                        "P2014-00337",
+                        "P2014-00143",
+                        "P2019-00212",
+                        "P2011-00004",
+                        "P2011-01173",
+                        "P2019-00325",
+                        "P2013-00147",
+                        "P2012-00313",
+                        "P2019-00194",
+                        "P2014-00179",
+                        "P2014-00243",
+                        "P2016-00240",
+                        "A2019-00333",
+                        "P2016-00003",
+                        "P2012-00316",
+                        "P2016-00057",
+                        "P2019-00488",
+                        "P2015-00710",
+                        "P2014-00241",
+                        "P2015-00709",
+                        "P2017-00675",
+                        "P2017-00816",
+                        "P2018-00551",
+                        "P2015-00907",
+                        "P2013-00028",
+                        "P2015-00864",
+                        "P2016-00242",
+                        "P2016-00006",
+                        "P2019-00011",
+                        "P2016-00105",
+                        "P2019-00144",
+                        "P2016-00215",
+                        "P2014-00194",
+                        "P2014-00635",
+                        "P2018-00292",
+                        "P2014-00608",
+                        "P2011-00691",
+                        "A2016-00339",
+                        "P2013-00141",
+                        "P2015-00888",
+                        "P2016-00546",
+                        "P2016-00551",
+                        "P2016-00114",
+                        "P2016-00115",
+                        "P2016-00360",
+                        "P2013-00134",
+                        "P2014-00540",
+                        "P2012-00631",
+                        "P2012-00079",
+                        "P2012-00186",
+                        "P2017-00597",
+                        "P2013-00575",
+                        "P2012-00289",
+                        "A2013-00562",
+                        "P2012-00253",
+                        "A2017-00752",
+                        "P2015-00537",
+                        "P2016-00107",
+                        "P2018-00584",
+                        "P2016-00220",
+                        "P2016-00163",
+                        "A2020-00003",
+                        "P2016-00517",
+                        "P2016-00552",
+                        "P2015-00455",
+                        "P2018-00003",
+                        "P2016-00564",
+                        "P2015-00714",
+                        "A2014-00257",
+                        "P2018-00028",
+                        "P2016-00446",
+                        "P2018-00055",
+                        "P2019-00012",
+                        "P2014-00607",
+                        "P2016-00537",
+                        "P2018-00245",
+                        "P2016-00570",
+                        "P2018-00560",
+                        "P2019-00540",
+                        "P2017-00098",
+                        "A2017-00841",
+                        "P2019-00120",
+                        "A2017-00084",
+                        "P2015-00924",
+                        "P2016-00392",
+                        "P2018-00729",
+                        "P2018-00007",
+                        "P2019-00541",
+                        "A2019-00394",
+                        "A2018-00730",
+                        "A2018-00202",
+                        "P2016-00036",
+                        "P2016-00058",
+                        "P2014-00203",
+                        "P2016-00438",
+                        "P2014-00617",
+                        "P2015-00952",
+                        "P2014-00631",
+                        "A2017-00589",
+                        "P2014-00614",
+                        "P2016-00338",
+                        "P2014-00622",
+                        "P2016-00545",
+                        "P2018-00383",
+                        "P2014-00250",
+                        "P2015-00879",
+                        "P2019-00506",
+                        "P2019-00380",
+                        "P2019-00066",
+                        "A2019-00059",
+                        "P2019-00114",
+                        "P2019-00391",
+                        "P2016-00064",
+                        "A2019-00086",
+                        "P2019-00448",
+                        "P2019-00235",
+                        "P2018-00690",
+                        "P2011-00399",
+                        "P2016-00044",
+                        "P2013-00869",
+                        "P2015-00973",
+                        "P2014-00364",
+                        "P2014-00118",
+                        "P2012-00301",
+                        "P2014-00594",
+                        "P2015-00897",
+                        "P2015-00110",
+                        "P2014-00391",
+                        "P2014-00120",
+                        "P2012-00278",
+                        "P2011-01058",
+                        "P2012-00177",
+                        "P2015-00847",
+                        "A2019-00178",
+                        "A2014-00170",
+                        "P2013-00148",
+                        "P2015-00102",
+                        "P2019-00333"
+                    };
+
+                    //sql.AddParameter("@TT_RECORD", "");
+                    var converttoint = false;
+                    if (g(bp, i, "APPLICATION_NUMBER") == "A2020-00059")
+                    {
+
+                    }
+                    if (g(bp, i, "APPLICATION_NUMBER") == "560" || g(bp, i, "APPLICATION_NUMBER") == "A0-26627" || g(bp, i, "APPLICATION_NUMBER") == "A0-26628" || g(bp, i, "APPLICATION_NUMBER") == "P012-10114")
+                    {
+                        //Console.WriteLine("line 544 permit number is " + bp);
+                        sql.AddParameter("@TT_RECORD", "Historic");
+                    }
+                    else if (g(bp, i, "APPLICATION_NUMBER") == "S0-0" || g(bp, i, "APPLICATION_NUMBER") == "B10-0")
+                    {
+                        sql.AddParameter("@TT_RECORD", "Historic");
+                    }
+
+                    else
+                    {
+                        var temp3 = g(bp, i, "APPLICATION_NUMBER").ToString();
+                        //var temp2 = g(bp, i, "APPLICATION_NUMBER").Substring(g(bp, i, "APPLICATION_NUMBER").Length - 1);
+
+                        if (g(bp, i, "APPLICATION_NUMBER").Length > 0)
+                            converttoint = Int32.TryParse(g(bp, i, "APPLICATION_NUMBER").Substring(1, 4), out int result);
+
+
+                        if (converttoint)
+                        {
+                            if (Int32.Parse(g(bp, i, "APPLICATION_NUMBER").Substring(1, 4)) <= 2009)
+                            {
+                                sql.AddParameter("@TT_RECORD", "Historic");
+                            }
+                            else
+                            {
+                                if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "2199")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Historic");
+                                }
+                                else if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "2200")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Historic");
+                                }
+                                else if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "3199")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Historic");
+                                }
+                                else if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "3200")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Historic");
+                                }
+                                else if (g(bp, i, "APPLICATION_NUMBER").Substring(g(bp, i, "APPLICATION_NUMBER").Length - 1) == "A")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Alternative Solution");
+                                }
+                                else if (g(bp, i, "APPLICATION_NUMBER").Substring(g(bp, i, "APPLICATION_NUMBER").Length - 1) == "P")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Partial Permit");
+                                }
+                                else if (g(bp, i, "APPLICATION_NUMBER").Substring(g(bp, i, "APPLICATION_NUMBER").Length - 1) == "C")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Conditional Permit");
+                                }
+                                else if (ADU.Contains(g(bp, i, "APPLICATION_NUMBER").ToString()))
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Accessory Dwelling Unit");
+                                }
+                                else if (g(bp, i, "APPLICATION_Type") == "01")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Building Permit - New");
+                                }
+                                else if (g(bp, i, "FLAG_ALTREP") == "1")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Altration");
+                                }
+                                else if (g(bp, i, "FLAG_DEMO") == "1")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Demolision");
+                                }
+                                else if (g(bp, i, "BUILDINGCLASSFICATION") == "0014")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Deck");
+                                }
+                                else if (g(bp, i, "FLAG_ADDITIONAL") == "1")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Addition");
+                                }
+                                else if (g(bp, i, "APPLICATION_Type") == "06")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Mechanical");
+                                }
+                                else if (g(bp, i, "BUILDINGCLASSFICATION") == "0012")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Solar Panel");
+                                }
+                                else if (g(bp, i, "BUILDINGCLASSFICATION") == "0016")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Temporary");
+                                }
+                                else if (g(bp, i, "BUILDINGCLASSFICATION") == "0017")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Change Of Use");
+                                }
+                                else if (g(bp, i, "PERMIT_TYPE") == "S" || g(bp, i, "PERMIT_TYPE") == "s")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Signs");
+                                }
+                                else if (g(bp, i, "PERMIT_TYPE") == "P" || g(bp, i, "PERMIT_TYPE") == "p")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Pool");
+                                }
+                                else if (g(bp, i, "APPLICATION_TYPE") == "15")
+                                {
+                                    if (g(bp, i, "CONSTRUCTION_TYPE") == "101")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Building Permit - New");
+                                    }
+                                    else if (g(bp, i, "CONSTRUCTION_TYPE") == "116")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Addition");
+                                    }
+                                    else if (g(bp, i, "CONSTRUCTION_TYPE") == "117")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Addition");
+                                    }
+                                    else
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "");
+                                    }
+
+                                }
+                                else if (g(bp, i, "APPLICATION_TYPE") == "02")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Addition");
+                                }
+                                else if (g(bp, i, "APPLICATION_TYPE") == "02")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Altration");
+                                }
+                                else if (g(bp, i, "APPLICATION_TYPE") == "11")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Change Of Use");
+                                }
+                                else if (g(bp, i, "APPLICATION_TYPE") == "111")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Signs");
+                                }
+                                else if (g(bp, i, "APPLICATION_TYPE") == "12")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Building Permit - New");
+                                }
+                                else if (g(bp, i, "APPLICATION_TYPE") == "999")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Demolision");
+                                }
+                                else
+                                {
+                                    sql.AddParameter("@TT_RECORD", "");
+                                }
+                            }
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "2199")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "2200")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "3199")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "3200")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "60")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "990-")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "A200")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "D200")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "G199")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "P200")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else
+                        {
+                            sql.AddParameter("@TT_RECORD", "");
+                        }
+
+                    }
+                    sql.Run();
+                }
 
             }
-            //AATABLE_PERMIT_ASI_REFERRALS
+            //ASI_REFERRALS
             if (PermitReferral)
             {
                 string[] Referral = {"REFERRAL_AGENCY", "APPROVED", "COMMENT_", "WORKFLOW_DATE" };
@@ -2434,14 +3009,15 @@ and exists (select 1 from sysadmin.chequereqtable where bi_app_id=p.recordid)
                     {
                         SQL sql = new SQL(@"
                             use accelastage;
-                            insert into AATABLE_PERMIT_ASI_REFERRALS
+                            insert into ASI_REFERRALS
                             (
                                 PERMITNUM,
                                 PERMIT_TYPE,
                                 REFERRAL_AGENCY,
                                 APPROVED,
                                 COMMENT_,
-                                WORKFLOW_DATE
+                                WORKFLOW_DATE,
+                                TT_RECORD
                             )
                             values 
                            (
@@ -2450,7 +3026,8 @@ and exists (select 1 from sysadmin.chequereqtable where bi_app_id=p.recordid)
                                 @REFERRAL_AGENCY,
                                 @APPROVED,
                                 @COMMENT_,
-                                @WORKFLOW_DATE
+                                @WORKFLOW_DATE,
+                                @TT_RECORD
                            )");
 
                         sql.AddParameter("@PERMITNUM", g(bp, i, "APPLICATION_NUMBER"));
@@ -2493,13 +3070,516 @@ and exists (select 1 from sysadmin.chequereqtable where bi_app_id=p.recordid)
                             }
                         //C:\Program Files\Microsoft SQL Server\MSSQL13.MSSQLSERVER\MSSQL\Backup\TON20210112.bak
                         }
+
+                        string[] ADU = new string[] {
+                        "A2019-00318",
+                        "P2010-00020",
+                        "A2010-00851",
+                        "P2010-00722",
+                        "P2010-00961",
+                        "P2010-00547",
+                        "P2010-00548",
+                        "A2010-00813",
+                        "P2010-00831",
+                        "P2010-00934",
+                        "P2010-00534",
+                        "P2010-00282",
+                        "P2010-00261",
+                        "P2010-00944",
+                        "P2010-00723",
+                        "P2011-00478",
+                        "P2011-00479",
+                        "P2011-00561",
+                        "P2019-00036",
+                        "P2018-00040",
+                        "P2018-00224",
+                        "P2019-00493",
+                        "P2017-00517",
+                        "P2017-00561",
+                        "P2018-00037",
+                        "P2019-00396",
+                        "P2019-00121",
+                        "P2016-00292",
+                        "P2016-00133",
+                        "A2016-00118",
+                        "P2016-00173",
+                        "P2016-00069",
+                        "P2015-00763",
+                        "P2016-00068",
+                        "P2015-00959",
+                        "A2020-00005",
+                        "P2018-00235",
+                        "P2016-00335",
+                        "P2016-00353",
+                        "P2019-00035",
+                        "P2019-00420",
+                        "P2013-00308",
+                        "P2013-00213",
+                        "P2013-00300",
+                        "P2013-00893",
+                        "A2013-00900",
+                        "P2014-00302",
+                        "P2017-00615",
+                        "P2012-00055",
+                        "P2015-00961",
+                        "P2011-00672",
+                        "P2011-00497",
+                        "P2012-00392",
+                        "P2012-00579",
+                        "P2012-00381",
+                        "P2012-00738",
+                        "P2012-00576",
+                        "P2013-00765",
+                        "P2013-00762",
+                        "P2013-00767",
+                        "P2013-00048",
+                        "P2013-00860",
+                        "P2014-00136",
+                        "P2014-00361",
+                        "P2014-00583",
+                        "A2014-00674",
+                        "P2015-00422",
+                        "P2015-00790",
+                        "P2015-00479",
+                        "P2015-00792",
+                        "P2015-00685",
+                        "P2015-00672",
+                        "P2015-00347",
+                        "P2015-00601",
+                        "P2015-00736",
+                        "P2015-00644",
+                        "P2015-00610",
+                        "P2016-00222",
+                        "P2016-00247",
+                        "P2017-00264",
+                        "P2017-00076",
+                        "P2014-00359",
+                        "P2017-00826",
+                        "P2019-00267",
+                        "P2019-00527",
+                        "P2019-00328",
+                        "P2013-00798",
+                        "P2013-00662",
+                        "P2013-00314",
+                        "P2014-00584",
+                        "P2014-00363",
+                        "P2018-00301",
+                        "P2018-00002",
+                        "P2018-00661",
+                        "P2019-00324",
+                        "P2018-00699",
+                        "P2018-00688",
+                        "P2018-00284",
+                        "P2019-00426",
+                        "P2019-00293",
+                        "P2018-00373",
+                        "P2019-00321",
+                        "P2019-00064",
+                        "A2019-00501",
+                        "P2019-00246",
+                        "P2019-00483",
+                        "P2015-00830",
+                        "P2015-00461",
+                        "P2015-00842",
+                        "P2013-00872",
+                        "P2015-00891",
+                        "P2018-00271",
+                        "P2019-00270",
+                        "P2019-00232",
+                        "P2011-00507",
+                        "P2011-00584",
+                        "P2017-00673",
+                        "P2011-00416",
+                        "P2013-00117",
+                        "P2015-00512",
+                        "P2013-00663",
+                        "A2018-00712",
+                        "P2014-00069",
+                        "P2014-00362",
+                        "P2014-00026",
+                        "P2013-00626",
+                        "P2013-00620",
+                        "P2013-00610",
+                        "P2014-00030",
+                        "P2012-00325",
+                        "P2018-00601",
+                        "P2014-00077",
+                        "P2015-00511",
+                        "P2017-00874",
+                        "A2019-00535",
+                        "A2017-00672",
+                        "P2016-00228",
+                        "P2016-00063",
+                        "P2013-00745",
+                        "P2015-00421",
+                        "P2019-00424",
+                        "P2011-00603",
+                        "P2011-00095",
+                        "P2011-00834",
+                        "P2011-01102",
+                        "P2011-00081",
+                        "A2011-00193",
+                        "P2011-00299",
+                        "P2011-00715",
+                        "P2011-00836",
+                        "A2011-00744",
+                        "P2012-00170",
+                        "P2012-00042",
+                        "P2012-00087",
+                        "P2012-00109",
+                        "P2014-00354",
+                        "P2014-00337",
+                        "P2014-00143",
+                        "P2019-00212",
+                        "P2011-00004",
+                        "P2011-01173",
+                        "P2019-00325",
+                        "P2013-00147",
+                        "P2012-00313",
+                        "P2019-00194",
+                        "P2014-00179",
+                        "P2014-00243",
+                        "P2016-00240",
+                        "A2019-00333",
+                        "P2016-00003",
+                        "P2012-00316",
+                        "P2016-00057",
+                        "P2019-00488",
+                        "P2015-00710",
+                        "P2014-00241",
+                        "P2015-00709",
+                        "P2017-00675",
+                        "P2017-00816",
+                        "P2018-00551",
+                        "P2015-00907",
+                        "P2013-00028",
+                        "P2015-00864",
+                        "P2016-00242",
+                        "P2016-00006",
+                        "P2019-00011",
+                        "P2016-00105",
+                        "P2019-00144",
+                        "P2016-00215",
+                        "P2014-00194",
+                        "P2014-00635",
+                        "P2018-00292",
+                        "P2014-00608",
+                        "P2011-00691",
+                        "A2016-00339",
+                        "P2013-00141",
+                        "P2015-00888",
+                        "P2016-00546",
+                        "P2016-00551",
+                        "P2016-00114",
+                        "P2016-00115",
+                        "P2016-00360",
+                        "P2013-00134",
+                        "P2014-00540",
+                        "P2012-00631",
+                        "P2012-00079",
+                        "P2012-00186",
+                        "P2017-00597",
+                        "P2013-00575",
+                        "P2012-00289",
+                        "A2013-00562",
+                        "P2012-00253",
+                        "A2017-00752",
+                        "P2015-00537",
+                        "P2016-00107",
+                        "P2018-00584",
+                        "P2016-00220",
+                        "P2016-00163",
+                        "A2020-00003",
+                        "P2016-00517",
+                        "P2016-00552",
+                        "P2015-00455",
+                        "P2018-00003",
+                        "P2016-00564",
+                        "P2015-00714",
+                        "A2014-00257",
+                        "P2018-00028",
+                        "P2016-00446",
+                        "P2018-00055",
+                        "P2019-00012",
+                        "P2014-00607",
+                        "P2016-00537",
+                        "P2018-00245",
+                        "P2016-00570",
+                        "P2018-00560",
+                        "P2019-00540",
+                        "P2017-00098",
+                        "A2017-00841",
+                        "P2019-00120",
+                        "A2017-00084",
+                        "P2015-00924",
+                        "P2016-00392",
+                        "P2018-00729",
+                        "P2018-00007",
+                        "P2019-00541",
+                        "A2019-00394",
+                        "A2018-00730",
+                        "A2018-00202",
+                        "P2016-00036",
+                        "P2016-00058",
+                        "P2014-00203",
+                        "P2016-00438",
+                        "P2014-00617",
+                        "P2015-00952",
+                        "P2014-00631",
+                        "A2017-00589",
+                        "P2014-00614",
+                        "P2016-00338",
+                        "P2014-00622",
+                        "P2016-00545",
+                        "P2018-00383",
+                        "P2014-00250",
+                        "P2015-00879",
+                        "P2019-00506",
+                        "P2019-00380",
+                        "P2019-00066",
+                        "A2019-00059",
+                        "P2019-00114",
+                        "P2019-00391",
+                        "P2016-00064",
+                        "A2019-00086",
+                        "P2019-00448",
+                        "P2019-00235",
+                        "P2018-00690",
+                        "P2011-00399",
+                        "P2016-00044",
+                        "P2013-00869",
+                        "P2015-00973",
+                        "P2014-00364",
+                        "P2014-00118",
+                        "P2012-00301",
+                        "P2014-00594",
+                        "P2015-00897",
+                        "P2015-00110",
+                        "P2014-00391",
+                        "P2014-00120",
+                        "P2012-00278",
+                        "P2011-01058",
+                        "P2012-00177",
+                        "P2015-00847",
+                        "A2019-00178",
+                        "A2014-00170",
+                        "P2013-00148",
+                        "P2015-00102",
+                        "P2019-00333"
+                    };
+
+                        //sql.AddParameter("@TT_RECORD", "");
+                        var converttoint = false;
+                        if (g(bp, i, "APPLICATION_NUMBER") == "A2020-00059")
+                        {
+
+                        }
+                        if (g(bp, i, "APPLICATION_NUMBER") == "560" || g(bp, i, "APPLICATION_NUMBER") == "A0-26627" || g(bp, i, "APPLICATION_NUMBER") == "A0-26628" || g(bp, i, "APPLICATION_NUMBER") == "P012-10114")
+                        {
+                            //Console.WriteLine("line 544 permit number is " + bp);
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER") == "S0-0" || g(bp, i, "APPLICATION_NUMBER") == "B10-0")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+
+                        else
+                        {
+                            var temp3 = g(bp, i, "APPLICATION_NUMBER").ToString();
+                            //var temp2 = g(bp, i, "APPLICATION_NUMBER").Substring(g(bp, i, "APPLICATION_NUMBER").Length - 1);
+
+                            if (g(bp, i, "APPLICATION_NUMBER").Length > 0)
+                                converttoint = Int32.TryParse(g(bp, i, "APPLICATION_NUMBER").Substring(1, 4), out int result);
+
+
+                            if (converttoint)
+                            {
+                                if (Int32.Parse(g(bp, i, "APPLICATION_NUMBER").Substring(1, 4)) <= 2009)
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Historic");
+                                }
+                                else
+                                {
+                                    if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "2199")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Historic");
+                                    }
+                                    else if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "2200")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Historic");
+                                    }
+                                    else if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "3199")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Historic");
+                                    }
+                                    else if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "3200")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Historic");
+                                    }
+                                    else if (g(bp, i, "APPLICATION_NUMBER").Substring(g(bp, i, "APPLICATION_NUMBER").Length - 1) == "A")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Alternative Solution");
+                                    }
+                                    else if (g(bp, i, "APPLICATION_NUMBER").Substring(g(bp, i, "APPLICATION_NUMBER").Length - 1) == "P")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Partial Permit");
+                                    }
+                                    else if (g(bp, i, "APPLICATION_NUMBER").Substring(g(bp, i, "APPLICATION_NUMBER").Length - 1) == "C")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Conditional Permit");
+                                    }
+                                    else if (ADU.Contains(g(bp, i, "APPLICATION_NUMBER").ToString()))
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Accessory Dwelling Unit");
+                                    }
+                                    else if (g(bp, i, "APPLICATION_Type") == "01")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Building Permit - New");
+                                    }
+                                    else if (g(bp, i, "FLAG_ALTREP") == "1")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Altration");
+                                    }
+                                    else if (g(bp, i, "FLAG_DEMO") == "1")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Demolision");
+                                    }
+                                    else if (g(bp, i, "BUILDINGCLASSFICATION") == "0014")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Deck");
+                                    }
+                                    else if (g(bp, i, "FLAG_ADDITIONAL") == "1")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Addition");
+                                    }
+                                    else if (g(bp, i, "APPLICATION_Type") == "06")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Mechanical");
+                                    }
+                                    else if (g(bp, i, "BUILDINGCLASSFICATION") == "0012")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Solar Panel");
+                                    }
+                                    else if (g(bp, i, "BUILDINGCLASSFICATION") == "0016")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Temporary");
+                                    }
+                                    else if (g(bp, i, "BUILDINGCLASSFICATION") == "0017")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Change Of Use");
+                                    }
+                                    else if (g(bp, i, "PERMIT_TYPE") == "S" || g(bp, i, "PERMIT_TYPE") == "s")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Signs");
+                                    }
+                                    else if (g(bp, i, "PERMIT_TYPE") == "P" || g(bp, i, "PERMIT_TYPE") == "p")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Pool");
+                                    }
+                                    else if (g(bp, i, "APPLICATION_TYPE") == "15")
+                                    {
+                                        if (g(bp, i, "CONSTRUCTION_TYPE") == "101")
+                                        {
+                                            sql.AddParameter("@TT_RECORD", "Building Permit - New");
+                                        }
+                                        else if (g(bp, i, "CONSTRUCTION_TYPE") == "116")
+                                        {
+                                            sql.AddParameter("@TT_RECORD", "Addition");
+                                        }
+                                        else if (g(bp, i, "CONSTRUCTION_TYPE") == "117")
+                                        {
+                                            sql.AddParameter("@TT_RECORD", "Addition");
+                                        }
+                                        else
+                                        {
+                                            sql.AddParameter("@TT_RECORD", "");
+                                        }
+
+                                    }
+                                    else if (g(bp, i, "APPLICATION_TYPE") == "02")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Addition");
+                                    }
+                                    else if (g(bp, i, "APPLICATION_TYPE") == "02")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Altration");
+                                    }
+                                    else if (g(bp, i, "APPLICATION_TYPE") == "11")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Change Of Use");
+                                    }
+                                    else if (g(bp, i, "APPLICATION_TYPE") == "111")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Signs");
+                                    }
+                                    else if (g(bp, i, "APPLICATION_TYPE") == "12")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Building Permit - New");
+                                    }
+                                    else if (g(bp, i, "APPLICATION_TYPE") == "999")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Demolision");
+                                    }
+                                    else
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "");
+                                    }
+                                }
+                            }
+                            else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "2199")
+                            {
+                                sql.AddParameter("@TT_RECORD", "Historic");
+                            }
+                            else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "2200")
+                            {
+                                sql.AddParameter("@TT_RECORD", "Historic");
+                            }
+                            else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "3199")
+                            {
+                                sql.AddParameter("@TT_RECORD", "Historic");
+                            }
+                            else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "3200")
+                            {
+                                sql.AddParameter("@TT_RECORD", "Historic");
+                            }
+                            else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "60")
+                            {
+                                sql.AddParameter("@TT_RECORD", "Historic");
+                            }
+                            else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "990-")
+                            {
+                                sql.AddParameter("@TT_RECORD", "Historic");
+                            }
+                            else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "A200")
+                            {
+                                sql.AddParameter("@TT_RECORD", "Historic");
+                            }
+                            else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "D200")
+                            {
+                                sql.AddParameter("@TT_RECORD", "Historic");
+                            }
+                            else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "G199")
+                            {
+                                sql.AddParameter("@TT_RECORD", "Historic");
+                            }
+                            else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "P200")
+                            {
+                                sql.AddParameter("@TT_RECORD", "Historic");
+                            }
+                            else
+                            {
+                                sql.AddParameter("@TT_RECORD", "");
+                            }
+
+                        }
                         sql.Run();
                     }
                    
                 }
 
             }
-            //AATABLE_PERMIT_ASI_ON_NEWHOME
+            //ASI_ON_NEWHOME
             if (PermitOntarioNewHome)
             {
                 string[] ON_NewHome = { "PERMIT_TYPE", "ONWPACT_PERMIT", "ONHWPACT_REGNUM", "ONHWPACT_CONSt" };
@@ -2508,13 +3588,14 @@ and exists (select 1 from sysadmin.chequereqtable where bi_app_id=p.recordid)
                 {
                     SQL sql = new SQL(@"
                         use accelastage;
-                        insert into AATABLE_PERMIT_ASI_ON_NEWHOME
+                        insert into ASI_ON_NEWHOME
                         (
                             PERMITNUM,
                             PERMIT_TYPE,
                             ONWPACT_PERMIT,
                             ONHWPACT_REGNUM,
-                            ONHWPACT_CONSt
+                            ONHWPACT_CONSt,
+                            TT_RECORD
                         )
                         values 
                        (
@@ -2522,7 +3603,8 @@ and exists (select 1 from sysadmin.chequereqtable where bi_app_id=p.recordid)
                             @PERMIT_TYPE,
                             @ONWPACT_PERMIT,
                             @ONHWPACT_REGNUM,
-                            @ONHWPACT_CONSt
+                            @ONHWPACT_CONSt,
+                            @TT_RECORD
                        )");
 
                     sql.AddParameter("@PERMITNUM", g(bp, i, "APPLICATION_NUMBER"));
@@ -2532,12 +3614,515 @@ and exists (select 1 from sysadmin.chequereqtable where bi_app_id=p.recordid)
                         sql.AddParameter("@" + ON_NewHome[H], g(bp, i, ON_NewHome[H]));
                     }
 
+
+                    string[] ADU = new string[] {
+                        "A2019-00318",
+                        "P2010-00020",
+                        "A2010-00851",
+                        "P2010-00722",
+                        "P2010-00961",
+                        "P2010-00547",
+                        "P2010-00548",
+                        "A2010-00813",
+                        "P2010-00831",
+                        "P2010-00934",
+                        "P2010-00534",
+                        "P2010-00282",
+                        "P2010-00261",
+                        "P2010-00944",
+                        "P2010-00723",
+                        "P2011-00478",
+                        "P2011-00479",
+                        "P2011-00561",
+                        "P2019-00036",
+                        "P2018-00040",
+                        "P2018-00224",
+                        "P2019-00493",
+                        "P2017-00517",
+                        "P2017-00561",
+                        "P2018-00037",
+                        "P2019-00396",
+                        "P2019-00121",
+                        "P2016-00292",
+                        "P2016-00133",
+                        "A2016-00118",
+                        "P2016-00173",
+                        "P2016-00069",
+                        "P2015-00763",
+                        "P2016-00068",
+                        "P2015-00959",
+                        "A2020-00005",
+                        "P2018-00235",
+                        "P2016-00335",
+                        "P2016-00353",
+                        "P2019-00035",
+                        "P2019-00420",
+                        "P2013-00308",
+                        "P2013-00213",
+                        "P2013-00300",
+                        "P2013-00893",
+                        "A2013-00900",
+                        "P2014-00302",
+                        "P2017-00615",
+                        "P2012-00055",
+                        "P2015-00961",
+                        "P2011-00672",
+                        "P2011-00497",
+                        "P2012-00392",
+                        "P2012-00579",
+                        "P2012-00381",
+                        "P2012-00738",
+                        "P2012-00576",
+                        "P2013-00765",
+                        "P2013-00762",
+                        "P2013-00767",
+                        "P2013-00048",
+                        "P2013-00860",
+                        "P2014-00136",
+                        "P2014-00361",
+                        "P2014-00583",
+                        "A2014-00674",
+                        "P2015-00422",
+                        "P2015-00790",
+                        "P2015-00479",
+                        "P2015-00792",
+                        "P2015-00685",
+                        "P2015-00672",
+                        "P2015-00347",
+                        "P2015-00601",
+                        "P2015-00736",
+                        "P2015-00644",
+                        "P2015-00610",
+                        "P2016-00222",
+                        "P2016-00247",
+                        "P2017-00264",
+                        "P2017-00076",
+                        "P2014-00359",
+                        "P2017-00826",
+                        "P2019-00267",
+                        "P2019-00527",
+                        "P2019-00328",
+                        "P2013-00798",
+                        "P2013-00662",
+                        "P2013-00314",
+                        "P2014-00584",
+                        "P2014-00363",
+                        "P2018-00301",
+                        "P2018-00002",
+                        "P2018-00661",
+                        "P2019-00324",
+                        "P2018-00699",
+                        "P2018-00688",
+                        "P2018-00284",
+                        "P2019-00426",
+                        "P2019-00293",
+                        "P2018-00373",
+                        "P2019-00321",
+                        "P2019-00064",
+                        "A2019-00501",
+                        "P2019-00246",
+                        "P2019-00483",
+                        "P2015-00830",
+                        "P2015-00461",
+                        "P2015-00842",
+                        "P2013-00872",
+                        "P2015-00891",
+                        "P2018-00271",
+                        "P2019-00270",
+                        "P2019-00232",
+                        "P2011-00507",
+                        "P2011-00584",
+                        "P2017-00673",
+                        "P2011-00416",
+                        "P2013-00117",
+                        "P2015-00512",
+                        "P2013-00663",
+                        "A2018-00712",
+                        "P2014-00069",
+                        "P2014-00362",
+                        "P2014-00026",
+                        "P2013-00626",
+                        "P2013-00620",
+                        "P2013-00610",
+                        "P2014-00030",
+                        "P2012-00325",
+                        "P2018-00601",
+                        "P2014-00077",
+                        "P2015-00511",
+                        "P2017-00874",
+                        "A2019-00535",
+                        "A2017-00672",
+                        "P2016-00228",
+                        "P2016-00063",
+                        "P2013-00745",
+                        "P2015-00421",
+                        "P2019-00424",
+                        "P2011-00603",
+                        "P2011-00095",
+                        "P2011-00834",
+                        "P2011-01102",
+                        "P2011-00081",
+                        "A2011-00193",
+                        "P2011-00299",
+                        "P2011-00715",
+                        "P2011-00836",
+                        "A2011-00744",
+                        "P2012-00170",
+                        "P2012-00042",
+                        "P2012-00087",
+                        "P2012-00109",
+                        "P2014-00354",
+                        "P2014-00337",
+                        "P2014-00143",
+                        "P2019-00212",
+                        "P2011-00004",
+                        "P2011-01173",
+                        "P2019-00325",
+                        "P2013-00147",
+                        "P2012-00313",
+                        "P2019-00194",
+                        "P2014-00179",
+                        "P2014-00243",
+                        "P2016-00240",
+                        "A2019-00333",
+                        "P2016-00003",
+                        "P2012-00316",
+                        "P2016-00057",
+                        "P2019-00488",
+                        "P2015-00710",
+                        "P2014-00241",
+                        "P2015-00709",
+                        "P2017-00675",
+                        "P2017-00816",
+                        "P2018-00551",
+                        "P2015-00907",
+                        "P2013-00028",
+                        "P2015-00864",
+                        "P2016-00242",
+                        "P2016-00006",
+                        "P2019-00011",
+                        "P2016-00105",
+                        "P2019-00144",
+                        "P2016-00215",
+                        "P2014-00194",
+                        "P2014-00635",
+                        "P2018-00292",
+                        "P2014-00608",
+                        "P2011-00691",
+                        "A2016-00339",
+                        "P2013-00141",
+                        "P2015-00888",
+                        "P2016-00546",
+                        "P2016-00551",
+                        "P2016-00114",
+                        "P2016-00115",
+                        "P2016-00360",
+                        "P2013-00134",
+                        "P2014-00540",
+                        "P2012-00631",
+                        "P2012-00079",
+                        "P2012-00186",
+                        "P2017-00597",
+                        "P2013-00575",
+                        "P2012-00289",
+                        "A2013-00562",
+                        "P2012-00253",
+                        "A2017-00752",
+                        "P2015-00537",
+                        "P2016-00107",
+                        "P2018-00584",
+                        "P2016-00220",
+                        "P2016-00163",
+                        "A2020-00003",
+                        "P2016-00517",
+                        "P2016-00552",
+                        "P2015-00455",
+                        "P2018-00003",
+                        "P2016-00564",
+                        "P2015-00714",
+                        "A2014-00257",
+                        "P2018-00028",
+                        "P2016-00446",
+                        "P2018-00055",
+                        "P2019-00012",
+                        "P2014-00607",
+                        "P2016-00537",
+                        "P2018-00245",
+                        "P2016-00570",
+                        "P2018-00560",
+                        "P2019-00540",
+                        "P2017-00098",
+                        "A2017-00841",
+                        "P2019-00120",
+                        "A2017-00084",
+                        "P2015-00924",
+                        "P2016-00392",
+                        "P2018-00729",
+                        "P2018-00007",
+                        "P2019-00541",
+                        "A2019-00394",
+                        "A2018-00730",
+                        "A2018-00202",
+                        "P2016-00036",
+                        "P2016-00058",
+                        "P2014-00203",
+                        "P2016-00438",
+                        "P2014-00617",
+                        "P2015-00952",
+                        "P2014-00631",
+                        "A2017-00589",
+                        "P2014-00614",
+                        "P2016-00338",
+                        "P2014-00622",
+                        "P2016-00545",
+                        "P2018-00383",
+                        "P2014-00250",
+                        "P2015-00879",
+                        "P2019-00506",
+                        "P2019-00380",
+                        "P2019-00066",
+                        "A2019-00059",
+                        "P2019-00114",
+                        "P2019-00391",
+                        "P2016-00064",
+                        "A2019-00086",
+                        "P2019-00448",
+                        "P2019-00235",
+                        "P2018-00690",
+                        "P2011-00399",
+                        "P2016-00044",
+                        "P2013-00869",
+                        "P2015-00973",
+                        "P2014-00364",
+                        "P2014-00118",
+                        "P2012-00301",
+                        "P2014-00594",
+                        "P2015-00897",
+                        "P2015-00110",
+                        "P2014-00391",
+                        "P2014-00120",
+                        "P2012-00278",
+                        "P2011-01058",
+                        "P2012-00177",
+                        "P2015-00847",
+                        "A2019-00178",
+                        "A2014-00170",
+                        "P2013-00148",
+                        "P2015-00102",
+                        "P2019-00333"
+                    };
+
+                    //sql.AddParameter("@TT_RECORD", "");
+                    var converttoint = false;
+                    if (g(bp, i, "APPLICATION_NUMBER") == "A2020-00059")
+                    {
+
+                    }
+                    if (g(bp, i, "APPLICATION_NUMBER") == "560" || g(bp, i, "APPLICATION_NUMBER") == "A0-26627" || g(bp, i, "APPLICATION_NUMBER") == "A0-26628" || g(bp, i, "APPLICATION_NUMBER") == "P012-10114")
+                    {
+                        //Console.WriteLine("line 544 permit number is " + bp);
+                        sql.AddParameter("@TT_RECORD", "Historic");
+                    }
+                    else if (g(bp, i, "APPLICATION_NUMBER") == "S0-0" || g(bp, i, "APPLICATION_NUMBER") == "B10-0")
+                    {
+                        sql.AddParameter("@TT_RECORD", "Historic");
+                    }
+
+                    else
+                    {
+                        var temp3 = g(bp, i, "APPLICATION_NUMBER").ToString();
+                        //var temp2 = g(bp, i, "APPLICATION_NUMBER").Substring(g(bp, i, "APPLICATION_NUMBER").Length - 1);
+                       
+                        if (g(bp, i, "APPLICATION_NUMBER").Length > 0)
+                            converttoint = Int32.TryParse(g(bp, i, "APPLICATION_NUMBER").Substring(1, 4), out int result);
+
+
+                        if (converttoint)
+                        {
+                            if (Int32.Parse(g(bp, i, "APPLICATION_NUMBER").Substring(1, 4)) <= 2009)
+                            {
+                                sql.AddParameter("@TT_RECORD", "Historic");
+                            }
+                            else
+                            {
+                                if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "2199")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Historic");
+                                }
+                                else if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "2200")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Historic");
+                                }
+                                else if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "3199")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Historic");
+                                }
+                                else if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "3200")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Historic");
+                                }
+                                else if (g(bp, i, "APPLICATION_NUMBER").Substring(g(bp, i, "APPLICATION_NUMBER").Length - 1) == "A")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Alternative Solution");
+                                }
+                                else if (g(bp, i, "APPLICATION_NUMBER").Substring(g(bp, i, "APPLICATION_NUMBER").Length - 1) == "P")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Partial Permit");
+                                }
+                                else if (g(bp, i, "APPLICATION_NUMBER").Substring(g(bp, i, "APPLICATION_NUMBER").Length - 1) == "C")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Conditional Permit");
+                                }
+                                else if (ADU.Contains(g(bp, i, "APPLICATION_NUMBER").ToString()))
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Accessory Dwelling Unit");
+                                }
+                                else if (g(bp, i, "APPLICATION_Type") == "01")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Building Permit - New");
+                                }
+                                else if (g(bp, i, "FLAG_ALTREP") == "1")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Altration");
+                                }
+                                else if (g(bp, i, "FLAG_DEMO") == "1")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Demolision");
+                                }
+                                else if (g(bp, i, "BUILDINGCLASSFICATION") == "0014")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Deck");
+                                }
+                                else if (g(bp, i, "FLAG_ADDITIONAL") == "1")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Addition");
+                                }
+                                else if (g(bp, i, "APPLICATION_Type") == "06")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Mechanical");
+                                }
+                                else if (g(bp, i, "BUILDINGCLASSFICATION") == "0012")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Solar Panel");
+                                }
+                                else if (g(bp, i, "BUILDINGCLASSFICATION") == "0016")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Temporary");
+                                }
+                                else if (g(bp, i, "BUILDINGCLASSFICATION") == "0017")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Change Of Use");
+                                }
+                                else if (g(bp, i, "PERMIT_TYPE") == "S" || g(bp, i, "PERMIT_TYPE") == "s")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Signs");
+                                }
+                                else if (g(bp, i, "PERMIT_TYPE") == "P" || g(bp, i, "PERMIT_TYPE") == "p")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Pool");
+                                }
+                                else if (g(bp, i, "APPLICATION_TYPE") == "15")
+                                {
+                                    if (g(bp, i, "CONSTRUCTION_TYPE") == "101")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Building Permit - New");
+                                    }
+                                    else if (g(bp, i, "CONSTRUCTION_TYPE") == "116")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Addition");
+                                    }
+                                    else if (g(bp, i, "CONSTRUCTION_TYPE") == "117")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Addition");
+                                    }
+                                    else
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "");
+                                    }
+
+                                }
+                                else if (g(bp, i, "APPLICATION_TYPE") == "02")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Addition");
+                                }
+                                else if (g(bp, i, "APPLICATION_TYPE") == "02")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Altration");
+                                }
+                                else if (g(bp, i, "APPLICATION_TYPE") == "11")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Change Of Use");
+                                }
+                                else if (g(bp, i, "APPLICATION_TYPE") == "111")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Signs");
+                                }
+                                else if (g(bp, i, "APPLICATION_TYPE") == "12")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Building Permit - New");
+                                }
+                                else if (g(bp, i, "APPLICATION_TYPE") == "999")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Demolision");
+                                }
+                                else
+                                {
+                                    sql.AddParameter("@TT_RECORD", "");
+                                }
+                            }
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "2199")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "2200")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "3199")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "3200")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "60")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "990-")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "A200")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "D200")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "G199")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "P200")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else
+                        {
+                            sql.AddParameter("@TT_RECORD", "");
+                        }
+
+                    }
                     sql.Run();
                 }
             }
 
 
-            //AATABLE_PERMIT_ASI_PurposeofApplication
+            //ASI_PurposeofApplication
             if (PermitPurposeofApplication)
             {
                 string[] Purpose_of_Application = { "PERMIT_TYPE", "DESCRIPTION", "PARTIAL", "FLAG_CONDPER","FLAG_DEMO","FLAG_ALTREP",
@@ -2548,7 +4133,7 @@ and exists (select 1 from sysadmin.chequereqtable where bi_app_id=p.recordid)
 
                     SQL sql = new SQL(@"
                         use accelastage;
-                        insert into AATABLE_PERMIT_ASI_PurposeofApplication
+                        insert into ASI_PurposeofApplication
                         (
                             PERMITNUM,
                             PERMIT_TYPE, 
@@ -2569,7 +4154,8 @@ and exists (select 1 from sysadmin.chequereqtable where bi_app_id=p.recordid)
                             BuildingClassfication, 
                             TonConType, 
                             STATSCANCODE, 
-                            CurrentUse
+                            CurrentUse,
+                            TT_RECORD
                         )
                         values 
                        (
@@ -2592,7 +4178,8 @@ and exists (select 1 from sysadmin.chequereqtable where bi_app_id=p.recordid)
                             @BuildingClassfication, 
                             @TonConType, 
                             @STATSCANCODE, 
-                            @CurrentUse
+                            @CurrentUse,
+                            @TT_RECORD
                        )");
 
                     sql.AddParameter("@PERMITNUM", g(bp, i, "APPLICATION_NUMBER"));
@@ -2615,6 +4202,508 @@ and exists (select 1 from sysadmin.chequereqtable where bi_app_id=p.recordid)
                     else
                         sql.AddParameter("@ADDITION_INFO", DBNull.Value);
 
+                    string[] ADU = new string[] {
+                        "A2019-00318",
+                        "P2010-00020",
+                        "A2010-00851",
+                        "P2010-00722",
+                        "P2010-00961",
+                        "P2010-00547",
+                        "P2010-00548",
+                        "A2010-00813",
+                        "P2010-00831",
+                        "P2010-00934",
+                        "P2010-00534",
+                        "P2010-00282",
+                        "P2010-00261",
+                        "P2010-00944",
+                        "P2010-00723",
+                        "P2011-00478",
+                        "P2011-00479",
+                        "P2011-00561",
+                        "P2019-00036",
+                        "P2018-00040",
+                        "P2018-00224",
+                        "P2019-00493",
+                        "P2017-00517",
+                        "P2017-00561",
+                        "P2018-00037",
+                        "P2019-00396",
+                        "P2019-00121",
+                        "P2016-00292",
+                        "P2016-00133",
+                        "A2016-00118",
+                        "P2016-00173",
+                        "P2016-00069",
+                        "P2015-00763",
+                        "P2016-00068",
+                        "P2015-00959",
+                        "A2020-00005",
+                        "P2018-00235",
+                        "P2016-00335",
+                        "P2016-00353",
+                        "P2019-00035",
+                        "P2019-00420",
+                        "P2013-00308",
+                        "P2013-00213",
+                        "P2013-00300",
+                        "P2013-00893",
+                        "A2013-00900",
+                        "P2014-00302",
+                        "P2017-00615",
+                        "P2012-00055",
+                        "P2015-00961",
+                        "P2011-00672",
+                        "P2011-00497",
+                        "P2012-00392",
+                        "P2012-00579",
+                        "P2012-00381",
+                        "P2012-00738",
+                        "P2012-00576",
+                        "P2013-00765",
+                        "P2013-00762",
+                        "P2013-00767",
+                        "P2013-00048",
+                        "P2013-00860",
+                        "P2014-00136",
+                        "P2014-00361",
+                        "P2014-00583",
+                        "A2014-00674",
+                        "P2015-00422",
+                        "P2015-00790",
+                        "P2015-00479",
+                        "P2015-00792",
+                        "P2015-00685",
+                        "P2015-00672",
+                        "P2015-00347",
+                        "P2015-00601",
+                        "P2015-00736",
+                        "P2015-00644",
+                        "P2015-00610",
+                        "P2016-00222",
+                        "P2016-00247",
+                        "P2017-00264",
+                        "P2017-00076",
+                        "P2014-00359",
+                        "P2017-00826",
+                        "P2019-00267",
+                        "P2019-00527",
+                        "P2019-00328",
+                        "P2013-00798",
+                        "P2013-00662",
+                        "P2013-00314",
+                        "P2014-00584",
+                        "P2014-00363",
+                        "P2018-00301",
+                        "P2018-00002",
+                        "P2018-00661",
+                        "P2019-00324",
+                        "P2018-00699",
+                        "P2018-00688",
+                        "P2018-00284",
+                        "P2019-00426",
+                        "P2019-00293",
+                        "P2018-00373",
+                        "P2019-00321",
+                        "P2019-00064",
+                        "A2019-00501",
+                        "P2019-00246",
+                        "P2019-00483",
+                        "P2015-00830",
+                        "P2015-00461",
+                        "P2015-00842",
+                        "P2013-00872",
+                        "P2015-00891",
+                        "P2018-00271",
+                        "P2019-00270",
+                        "P2019-00232",
+                        "P2011-00507",
+                        "P2011-00584",
+                        "P2017-00673",
+                        "P2011-00416",
+                        "P2013-00117",
+                        "P2015-00512",
+                        "P2013-00663",
+                        "A2018-00712",
+                        "P2014-00069",
+                        "P2014-00362",
+                        "P2014-00026",
+                        "P2013-00626",
+                        "P2013-00620",
+                        "P2013-00610",
+                        "P2014-00030",
+                        "P2012-00325",
+                        "P2018-00601",
+                        "P2014-00077",
+                        "P2015-00511",
+                        "P2017-00874",
+                        "A2019-00535",
+                        "A2017-00672",
+                        "P2016-00228",
+                        "P2016-00063",
+                        "P2013-00745",
+                        "P2015-00421",
+                        "P2019-00424",
+                        "P2011-00603",
+                        "P2011-00095",
+                        "P2011-00834",
+                        "P2011-01102",
+                        "P2011-00081",
+                        "A2011-00193",
+                        "P2011-00299",
+                        "P2011-00715",
+                        "P2011-00836",
+                        "A2011-00744",
+                        "P2012-00170",
+                        "P2012-00042",
+                        "P2012-00087",
+                        "P2012-00109",
+                        "P2014-00354",
+                        "P2014-00337",
+                        "P2014-00143",
+                        "P2019-00212",
+                        "P2011-00004",
+                        "P2011-01173",
+                        "P2019-00325",
+                        "P2013-00147",
+                        "P2012-00313",
+                        "P2019-00194",
+                        "P2014-00179",
+                        "P2014-00243",
+                        "P2016-00240",
+                        "A2019-00333",
+                        "P2016-00003",
+                        "P2012-00316",
+                        "P2016-00057",
+                        "P2019-00488",
+                        "P2015-00710",
+                        "P2014-00241",
+                        "P2015-00709",
+                        "P2017-00675",
+                        "P2017-00816",
+                        "P2018-00551",
+                        "P2015-00907",
+                        "P2013-00028",
+                        "P2015-00864",
+                        "P2016-00242",
+                        "P2016-00006",
+                        "P2019-00011",
+                        "P2016-00105",
+                        "P2019-00144",
+                        "P2016-00215",
+                        "P2014-00194",
+                        "P2014-00635",
+                        "P2018-00292",
+                        "P2014-00608",
+                        "P2011-00691",
+                        "A2016-00339",
+                        "P2013-00141",
+                        "P2015-00888",
+                        "P2016-00546",
+                        "P2016-00551",
+                        "P2016-00114",
+                        "P2016-00115",
+                        "P2016-00360",
+                        "P2013-00134",
+                        "P2014-00540",
+                        "P2012-00631",
+                        "P2012-00079",
+                        "P2012-00186",
+                        "P2017-00597",
+                        "P2013-00575",
+                        "P2012-00289",
+                        "A2013-00562",
+                        "P2012-00253",
+                        "A2017-00752",
+                        "P2015-00537",
+                        "P2016-00107",
+                        "P2018-00584",
+                        "P2016-00220",
+                        "P2016-00163",
+                        "A2020-00003",
+                        "P2016-00517",
+                        "P2016-00552",
+                        "P2015-00455",
+                        "P2018-00003",
+                        "P2016-00564",
+                        "P2015-00714",
+                        "A2014-00257",
+                        "P2018-00028",
+                        "P2016-00446",
+                        "P2018-00055",
+                        "P2019-00012",
+                        "P2014-00607",
+                        "P2016-00537",
+                        "P2018-00245",
+                        "P2016-00570",
+                        "P2018-00560",
+                        "P2019-00540",
+                        "P2017-00098",
+                        "A2017-00841",
+                        "P2019-00120",
+                        "A2017-00084",
+                        "P2015-00924",
+                        "P2016-00392",
+                        "P2018-00729",
+                        "P2018-00007",
+                        "P2019-00541",
+                        "A2019-00394",
+                        "A2018-00730",
+                        "A2018-00202",
+                        "P2016-00036",
+                        "P2016-00058",
+                        "P2014-00203",
+                        "P2016-00438",
+                        "P2014-00617",
+                        "P2015-00952",
+                        "P2014-00631",
+                        "A2017-00589",
+                        "P2014-00614",
+                        "P2016-00338",
+                        "P2014-00622",
+                        "P2016-00545",
+                        "P2018-00383",
+                        "P2014-00250",
+                        "P2015-00879",
+                        "P2019-00506",
+                        "P2019-00380",
+                        "P2019-00066",
+                        "A2019-00059",
+                        "P2019-00114",
+                        "P2019-00391",
+                        "P2016-00064",
+                        "A2019-00086",
+                        "P2019-00448",
+                        "P2019-00235",
+                        "P2018-00690",
+                        "P2011-00399",
+                        "P2016-00044",
+                        "P2013-00869",
+                        "P2015-00973",
+                        "P2014-00364",
+                        "P2014-00118",
+                        "P2012-00301",
+                        "P2014-00594",
+                        "P2015-00897",
+                        "P2015-00110",
+                        "P2014-00391",
+                        "P2014-00120",
+                        "P2012-00278",
+                        "P2011-01058",
+                        "P2012-00177",
+                        "P2015-00847",
+                        "A2019-00178",
+                        "A2014-00170",
+                        "P2013-00148",
+                        "P2015-00102",
+                        "P2019-00333"
+                    };
+
+                    //sql.AddParameter("@TT_RECORD", "");
+                    var converttoint = false;
+                    if (g(bp, i, "APPLICATION_NUMBER") == "A2020-00059")
+                    {
+
+                    }
+                    if (g(bp, i, "APPLICATION_NUMBER") == "560" || g(bp, i, "APPLICATION_NUMBER") == "A0-26627" || g(bp, i, "APPLICATION_NUMBER") == "A0-26628" || g(bp, i, "APPLICATION_NUMBER") == "P012-10114")
+                    {
+                        //Console.WriteLine("line 544 permit number is " + bp);
+                        sql.AddParameter("@TT_RECORD", "Historic");
+                    }
+                    else if (g(bp, i, "APPLICATION_NUMBER") == "S0-0" || g(bp, i, "APPLICATION_NUMBER") == "B10-0")
+                    {
+                        sql.AddParameter("@TT_RECORD", "Historic");
+                    }
+
+                    else
+                    {
+                        var temp3 = g(bp, i, "APPLICATION_NUMBER").ToString();
+                        //var temp2 = g(bp, i, "APPLICATION_NUMBER").Substring(g(bp, i, "APPLICATION_NUMBER").Length - 1);
+
+                        if (g(bp, i, "APPLICATION_NUMBER").Length > 0)
+                            converttoint = Int32.TryParse(g(bp, i, "APPLICATION_NUMBER").Substring(1, 4), out int result);
+
+
+                        if (converttoint)
+                        {
+                            if (Int32.Parse(g(bp, i, "APPLICATION_NUMBER").Substring(1, 4)) <= 2009)
+                            {
+                                sql.AddParameter("@TT_RECORD", "Historic");
+                            }
+                            else
+                            {
+                                if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "2199")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Historic");
+                                }
+                                else if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "2200")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Historic");
+                                }
+                                else if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "3199")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Historic");
+                                }
+                                else if (g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "3200")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Historic");
+                                }
+                                else if (g(bp, i, "APPLICATION_NUMBER").Substring(g(bp, i, "APPLICATION_NUMBER").Length - 1) == "A")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Alternative Solution");
+                                }
+                                else if (g(bp, i, "APPLICATION_NUMBER").Substring(g(bp, i, "APPLICATION_NUMBER").Length - 1) == "P")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Partial Permit");
+                                }
+                                else if (g(bp, i, "APPLICATION_NUMBER").Substring(g(bp, i, "APPLICATION_NUMBER").Length - 1) == "C")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Conditional Permit");
+                                }
+                                else if (ADU.Contains(g(bp, i, "APPLICATION_NUMBER").ToString()))
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Accessory Dwelling Unit");
+                                }
+                                else if (g(bp, i, "APPLICATION_Type") == "01")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Building Permit - New");
+                                }
+                                else if (g(bp, i, "FLAG_ALTREP") == "1")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Altration");
+                                }
+                                else if (g(bp, i, "FLAG_DEMO") == "1")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Demolision");
+                                }
+                                else if (g(bp, i, "BUILDINGCLASSFICATION") == "0014")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Deck");
+                                }
+                                else if (g(bp, i, "FLAG_ADDITIONAL") == "1")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Addition");
+                                }
+                                else if (g(bp, i, "APPLICATION_Type") == "06")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Mechanical");
+                                }
+                                else if (g(bp, i, "BUILDINGCLASSFICATION") == "0012")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Solar Panel");
+                                }
+                                else if (g(bp, i, "BUILDINGCLASSFICATION") == "0016")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Temporary");
+                                }
+                                else if (g(bp, i, "BUILDINGCLASSFICATION") == "0017")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Change Of Use");
+                                }
+                                else if (g(bp, i, "PERMIT_TYPE") == "S" || g(bp, i, "PERMIT_TYPE") == "s")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Signs");
+                                }
+                                else if (g(bp, i, "PERMIT_TYPE") == "P" || g(bp, i, "PERMIT_TYPE") == "p")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Pool");
+                                }
+                                else if (g(bp, i, "APPLICATION_TYPE") == "15")
+                                {
+                                    if (g(bp, i, "CONSTRUCTION_TYPE") == "101")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Building Permit - New");
+                                    }
+                                    else if (g(bp, i, "CONSTRUCTION_TYPE") == "116")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Addition");
+                                    }
+                                    else if (g(bp, i, "CONSTRUCTION_TYPE") == "117")
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "Addition");
+                                    }
+                                    else
+                                    {
+                                        sql.AddParameter("@TT_RECORD", "");
+                                    }
+
+                                }
+                                else if (g(bp, i, "APPLICATION_TYPE") == "02")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Addition");
+                                }
+                                else if (g(bp, i, "APPLICATION_TYPE") == "02")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Altration");
+                                }
+                                else if (g(bp, i, "APPLICATION_TYPE") == "11")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Change Of Use");
+                                }
+                                else if (g(bp, i, "APPLICATION_TYPE") == "111")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Signs");
+                                }
+                                else if (g(bp, i, "APPLICATION_TYPE") == "12")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Building Permit - New");
+                                }
+                                else if (g(bp, i, "APPLICATION_TYPE") == "999")
+                                {
+                                    sql.AddParameter("@TT_RECORD", "Demolision");
+                                }
+                                else
+                                {
+                                    sql.AddParameter("@TT_RECORD", "");
+                                }
+                            }
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "2199")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "2200")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "3199")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "3200")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "60")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "990-")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "A200")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "D200")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "G199")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else if (g(bp, i, "APPLICATION_NUMBER").Length > 0 && g(bp, i, "APPLICATION_NUMBER").Substring(1, 4) == "P200")
+                        {
+                            sql.AddParameter("@TT_RECORD", "Historic");
+                        }
+                        else
+                        {
+                            sql.AddParameter("@TT_RECORD", "");
+                        }
+
+                    }
                     sql.Run();
                 }
 
