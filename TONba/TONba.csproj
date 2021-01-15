@@ -126,6 +126,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core.cs" />
     <Compile Include="Database\AccessIT.cs" />
     <Compile Include="Database\Trainer.cs" />
     <Compile Include="Database\CRM.cs" />
@@ -248,6 +249,13 @@
     </Compile>
     <Compile Include="Programs\CVInfoUpdateCopy.cs" />
     <Compile Include="Programs\DigiPenImportFix.cs" />
+    <Compile Include="Programs\HydroAddressesList.cs" />
+    <Compile Include="Programs\HydroAddressList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\HydroAddressList.Designer.cs">
+      <DependentUpon>HydroAddressList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Programs\ManageHydroAddresses.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -977,7 +985,6 @@
     <Compile Include="Programs\BuildingPermitDelete.Designer.cs">
       <DependentUpon>BuildingPermitDelete.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core.cs" />
     <Compile Include="Form1_Backup.cs">
       <SubType>Form</SubType>
     </Compile>
