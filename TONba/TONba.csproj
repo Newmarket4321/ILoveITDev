@@ -249,7 +249,7 @@
     </Compile>
     <Compile Include="Programs\CVInfoUpdateCopy.cs" />
     <Compile Include="Programs\DigiPenImportFix.cs" />
-    <Compile Include="Programs\HydroAddressesList.cs" />
+    <Compile Include="Programs\HydroAddReport.cs" />
     <Compile Include="Programs\HydroAddressList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1466,6 +1466,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Programs\ConvertMTOFile.resx">
       <DependentUpon>ConvertMTOFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\HydroAddressList.resx">
+      <DependentUpon>HydroAddressList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Programs\ManageHydroAddresses.resx">
       <DependentUpon>ManageHydroAddresses.cs</DependentUpon>

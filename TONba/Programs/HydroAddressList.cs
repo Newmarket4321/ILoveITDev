@@ -12,40 +12,65 @@ namespace I_IT.Programs
 {
     public partial class HydroAddressList : Form
     {
+        public int Newid = 0;
+        public static string RNo;
+        public string Rnumber
+        {
+            get { return RNo; }
+            set { RNo = value; }
+        }
         public HydroAddressList()
         {
             InitializeComponent();
         }
-        private void Hydroaddress_Load()
+        public HydroAddressList(int id) : this() //Edit
         {
 
-            SQL sql = new SQL("select OldAddress,RollNumber,id from HydroAddresses order by id");
-            Report r = new Report("ManageHydroAddresses", sql, true, true, true);
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
 
-            r.Add_Click += (s, e2) =>
+            if (RollNo.Text.All(char.IsDigit) && RollNo.Text.Length == 19)
             {
-                SQL.Run(@"
+                RNo = RollNo.Text;
+                SQL sql = new SQL("Select count(*) from HydroAddresses where OldAddress = @OldAddress");
+                sql.AddParameter("@OldAddress", OldAdd.Text);
 
-                ");
+                if (int.Parse(sql.Run().Rows[0][0].ToString()) >= 1)
+                {
+                    MessageBox.Show("This Address already exist");
+                }
+                else
+                {
+                    if (RollNo.Text != "")
+                    {
+                        sql = new SQL("select max(id) from HydroAddresses");
+                        Newid = int.Parse(sql.Run().Rows[0][0].ToString()) + 1;
 
-                int id = int.Parse(r.selectedRow["id"].ToString());
+                        sql = new SQL(@"insert into HydroAddresses values (@Id,@OldAddress, @NewAddress, @RollNumber,@ParentRoll)");
+                        sql.AddParameter("@Id", Newid);
+                        sql.AddParameter("@OldAddress", OldAdd.Text);
+                        sql.AddParameter("@NewAddress", "");
+                        sql.AddParameter("@RollNumber", RollNo.Text);
+                        sql.AddParameter("@ParentRoll", "False");
 
-                ManageHydroAddresses item = new ManageHydroAddresses();
-                item.ShowDialog();
-            };
+                        sql.Run();
 
-            r.Edit_Click += (s, e2) =>
+                        MessageBox.Show("Record Saved successfuly.");
+                       
+                        OldAdd.Text = "";
+                        RollNo.Text = "";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Roll Number is required ! Please fill it with valid values");
+                    }
+                }
+            }
+            else
             {
-                int id = int.Parse(r.selectedRow["id"].ToString());
-                ManageHydroAddresses item = new ManageHydroAddresses(id);
-                item.ShowDialog();
-            };
-
-            r.Delete_Click += (s, e2) =>
-            {
-                int id = int.Parse(r.selectedRow["id"].ToString());
-                SQL.Run("delete from HydroAddresses where ID = @ID", id);
-            };
+                MessageBox.Show("Invalid number! Plese Enter valid Roll Number.");
+            }
         }
     }
 }
