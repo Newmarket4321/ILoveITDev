@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
-namespace I_IT.Programs
+using I_IT.Programs;
+
+namespace I_IT
 {
     class HydroAddReport
     {
@@ -27,7 +29,9 @@ namespace I_IT.Programs
             r.Edit_Click += (s, e2) =>
             {
                 int id = int.Parse(r.selectedRow["id"].ToString());
-                HydroAddressList item = new HydroAddressList(id);
+                string Rollnum = r.selectedRow["RollNumber"].ToString();
+                string Oldadd= r.selectedRow["OldAddress"].ToString();
+                HydroAddressList item = new HydroAddressList(id,Rollnum,Oldadd);
                 item.ShowDialog();
             };
 
