@@ -248,13 +248,6 @@
     </Compile>
     <Compile Include="Programs\CVInfoUpdateCopy.cs" />
     <Compile Include="Programs\DigiPenImportFix.cs" />
-    <Compile Include="Programs\ManageHydroAddresses.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Programs\ManageHydroAddresses.Designer.cs">
-      <DependentUpon>ManageHydroAddresses.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Programs\ReadWriteFiles.cs" />
     <Compile Include="Programs\SearchRoll.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1441,9 +1434,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Programs\ConvertMTOFile.resx">
       <DependentUpon>ConvertMTOFile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Programs\ManageHydroAddresses.resx">
-      <DependentUpon>ManageHydroAddresses.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Programs\SearchRoll.resx">
       <DependentUpon>SearchRoll.cs</DependentUpon>

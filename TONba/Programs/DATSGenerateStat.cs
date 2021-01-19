@@ -104,18 +104,21 @@ and p.RegYN <> 0", employeeID, from, to);
 
             if (isHolidayForFulltime(today))
             {
+                // dt = SQL.Run("use DATS; select employeeid from users u join departmentassociations da on u.userid = da.userid where u.active=1 and u.emptype <> 'S'  group by employeeid");
+
                 dt = SQL.Run("use DATS; select employeeid from users u join departmentassociations da on u.userid = da.userid where u.active=1  group by employeeid");
-                //and u.emptype <> 'S'
+
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     string employeeID = dt.Rows[i]["employeeid"].ToString();
-                   // string employeeID = "106051";
-                    if (employeeID != "999999"
-                        && isFullTime(employeeID)
-                        && !isIT(employeeID)
-                        && !isPayroll(employeeID)
-                        && (!isFacilities(employeeID) || isOpsAdmin(employeeID))
-                        && !alreadyHasStat(employeeID, today))
+                    // string employeeID = "106051";
+                    //if (employeeID != "999999"
+                    //    && isFullTime(employeeID)
+                    //    && !isIT(employeeID)
+                    //    && !isPayroll(employeeID)
+                    //    && (!isFacilities(employeeID) || isOpsAdmin(employeeID))
+                    //    && !alreadyHasStat(employeeID, today))
+                    if (employeeID != "999999" && isFullTime(employeeID))
                     {
                         createStat(employeeID, today);
                     }
@@ -135,6 +138,28 @@ and p.RegYN <> 0", employeeID, from, to);
 
         public static void createStat(string empID, DateTime today)
         {
+            Oracle ora = new Oracle(@"
+select YAEST from CRPDTA.F060116 where YAAN8 = @EMPNO");
+            ora.AddParameter("@EMPNO", empID);
+            string code = ora.Run().Rows[0]["YAEST"].ToString().Trim();
+
+            //   Full - time Regular
+            //1  Part - Time Casual
+            //2  Part - Time Hourly
+            //3  Contract
+            //4  Elected Officials
+            //5  Full Time Hourly
+            //6  Contract Salary
+            //7  LTD
+            float Hours = 0;
+
+            if (code == "")
+                Hours = 7;
+            else if (code == "5")
+                Hours = 8;
+           else if (isFacilities(empID) && isFullTime(empID))
+                Hours = 8;
+
             SQL sql = new SQL(@"use DATS; insert into timesheets output inserted.timecarddetailid values(
                                     @CREATEUSER,
                                     @PERIOD,
@@ -160,7 +185,7 @@ and p.RegYN <> 0", employeeID, from, to);
             sql.AddParameter("@EMPLOYEEID", empID);
             sql.AddParameter("@DATEWORKED", today);
             sql.AddParameter("@PAYTYPE", 811);
-            sql.AddParameter("@HOURS", 8);
+            sql.AddParameter("@HOURS", Hours);
             sql.AddParameter("@WORKORDER", DBNull.Value);
             sql.AddParameter("@LUMPSUM", 0);
             sql.AddParameter("@OVERRIDERATE", DBNull.Value);
@@ -377,6 +402,7 @@ select YAEST from CRPDTA.F060116 where YAAN8 = @EMPNO");
             //5  Full Time Hourly
             //6  Contract Salary
             //7  LTD
+          
 
             if (code == "" || code == "5")
                 return true;
