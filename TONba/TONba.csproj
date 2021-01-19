@@ -126,6 +126,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core.cs" />
     <Compile Include="Database\AccessIT.cs" />
     <Compile Include="Database\Trainer.cs" />
     <Compile Include="Database\CRM.cs" />
@@ -248,11 +249,43 @@
     </Compile>
     <Compile Include="Programs\CVInfoUpdateCopy.cs" />
     <Compile Include="Programs\DigiPenImportFix.cs" />
+    <Compile Include="Programs\HydroAddReport.cs" />
+    <Compile Include="Programs\HydroAddressList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\HydroAddressList.Designer.cs">
+      <DependentUpon>HydroAddressList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\ManageHydroAddresses.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\ManageHydroAddresses.Designer.cs">
+      <DependentUpon>ManageHydroAddresses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\ReadWriteFiles.cs" />
+    <Compile Include="Programs\ReportVTXData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\ReportVTXData.designer.cs">
+      <DependentUpon>ReportVTXData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\SearchCombo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\SearchCombo.Designer.cs">
+      <DependentUpon>SearchCombo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Programs\SearchRoll.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Programs\SearchRoll.Designer.cs">
       <DependentUpon>SearchRoll.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Programs\SearchVTXData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Programs\SearchVTXData.designer.cs">
+      <DependentUpon>SearchVTXData.cs</DependentUpon>
     </Compile>
     <Compile Include="Programs\sqlinsert.cs">
       <SubType>Form</SubType>
@@ -952,7 +985,6 @@
     <Compile Include="Programs\BuildingPermitDelete.Designer.cs">
       <DependentUpon>BuildingPermitDelete.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core.cs" />
     <Compile Include="Form1_Backup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1435,6 +1467,18 @@
     <EmbeddedResource Include="Programs\ConvertMTOFile.resx">
       <DependentUpon>ConvertMTOFile.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Programs\HydroAddressList.resx">
+      <DependentUpon>HydroAddressList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\ManageHydroAddresses.resx">
+      <DependentUpon>ManageHydroAddresses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\ReportVTXData.resx">
+      <DependentUpon>ReportVTXData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\SearchCombo.resx">
+      <DependentUpon>SearchCombo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Programs\SearchRoll.resx">
       <DependentUpon>SearchRoll.cs</DependentUpon>
     </EmbeddedResource>
@@ -1470,6 +1514,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Programs\RollInquiry.resx">
       <DependentUpon>RollInquiry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Programs\SearchVTXData.resx">
+      <DependentUpon>SearchVTXData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Programs\sqlinsert.resx">
       <DependentUpon>sqlinsert.cs</DependentUpon>
