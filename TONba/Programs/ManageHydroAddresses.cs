@@ -43,10 +43,6 @@ namespace I_IT
             InitializeComponent();
             loaddata();
         }
-        public ManageHydroAddresses(int id) : this() //Edit
-        {
-
-        }
         public void loaddata()
         {
             SQL sql = new SQL("select OldAddress,RollNumber,id from HydroAddresses order by id");
