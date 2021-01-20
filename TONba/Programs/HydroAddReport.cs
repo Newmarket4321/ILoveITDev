@@ -36,6 +36,7 @@ namespace I_IT
                 int id = int.Parse(r.selectedRow["id"].ToString());
                 SQL.Run("delete from HydroAddresses where ID = @ID", id);
             };
+
             r.Show();
         }
     }
