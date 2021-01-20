@@ -18,10 +18,6 @@ namespace I_IT
 
             r.Add_Click += (s, e2) =>
             {
-                //SQL.Run(@"
-
-                //");
-
                 HydroAddressList item = new HydroAddressList();
                 item.ShowDialog();
             };
