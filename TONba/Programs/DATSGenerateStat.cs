@@ -144,9 +144,7 @@ and p.RegYN <> 0", employeeID, from, to);
             Oracle ora = new Oracle(@"
 select YAEST from CRPDTA.F060116 where YAAN8 = @EMPNO");
             ora.AddParameter("@EMPNO", empID);
-            string code = "";
-            if (ora.Run().Rows.Count > 0)
-                code = ora.Run().Rows[0]["YAEST"].ToString().Trim();
+            string code  = ora.Run().Rows[0]["YAEST"].ToString().Trim();
             
 
             //   Full - time Regular
@@ -398,9 +396,7 @@ u.employeeid = @EMPID");
             Oracle ora = new Oracle(@"
 select YAEST from CRPDTA.F060116 where YAAN8 = @EMPNO");
             ora.AddParameter("@EMPNO", empID);
-            string code = "";
-            if (ora.Run().Rows.Count > 0)
-                code = ora.Run().Rows[0]["YAEST"].ToString().Trim();
+            string code = ora.Run().Rows[0]["YAEST"].ToString().Trim();
                 
             //else
             //Console.WriteLine("No "+ empID +" found at -" + ora.Run().Rows.Count);
