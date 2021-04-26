@@ -16,12 +16,14 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using DocumentFormat.OpenXml.Spreadsheet;
+using System.IO.Compression;
 using Color = System.Drawing.Color;
 
 namespace I_IT
 {
     class ReadWriteFiles
     {
+        
         static ReadWriteFiles()
         {
            
@@ -48,7 +50,7 @@ namespace I_IT
                         Console.WriteLine("The process failed: {0}", e.ToString());
                     }
                 }
-                
+
                 using (var workbook = new XLWorkbook())
                 {
                     var worksheet = workbook.Worksheets.Add("Sheet1");
@@ -67,25 +69,49 @@ namespace I_IT
                     worksheet.Cell("J1").Value = "FILEPATH";
                     worksheet.Cell("K1").Value = "DESCRIPTION";
 
-                    for (int i= 1 ; i < splitpath.Length; i++)
+                    for (int i = 1; i < splitpath.Length; i++)
                     {
-                            string[] filesplit = splitpath[i].Split('\\');
-                            worksheet.Cell("A" + (i + 1)).Value = "0";
-                            worksheet.Cell("B" + (i + 1)).Value = "CAP";
-                            worksheet.Cell("c" + (i + 1)).Value = "";
-                            worksheet.Cell("D" + (i + 1)).Value = "";
-                            worksheet.Cell("E" + (i + 1)).Value = "";
-                            worksheet.Cell("F" + (i + 1)).Value = filesplit[filesplit.Length - 2];
-                            worksheet.Cell("G" + (i + 1)).Value = "";
-                            worksheet.Cell("H" + (i + 1)).Value = "";
-                            worksheet.Cell("I" + (i + 1)).Value = "";
-                            worksheet.Cell("J" + (i + 1)).Value = splitpath[i].Replace("T:\\DI Services\\Building\\Plans Examination\\00-APPLICATION DRAWINGS\\", "AccelaDocs\\"); 
-                            worksheet.Cell("K" + (i + 1)).Value = "";
+                        string[] filesplit = splitpath[i].Split('\\');
+                        worksheet.Cell("A" + (i + 1)).Value = "0";
+                        worksheet.Cell("B" + (i + 1)).Value = "CAP";
+                        worksheet.Cell("c" + (i + 1)).Value = "";
+                        worksheet.Cell("D" + (i + 1)).Value = "";
+                        worksheet.Cell("E" + (i + 1)).Value = "";
+                        string[] pathsplit;
+                        string strpath = "";
+
+                        if (filepaths.Contains(" - "))
+                        {
+                            pathsplit = filesplit[filesplit.Length - 2].Split('-');
+                            string[] path;
+
+                            path = pathsplit[1].Split(',');
+
+                            strpath = pathsplit[0] + "-" + path[0];
+                        }
+                        SQL sql = new SQL("use accelastage;select PERMITNUM from AATABLE_PERMIT_HISTORY where PERMITNUM like '%" + strpath.Trim() + "%'");
+                        DataTable dt = sql.Run();
+                        if (dt.Rows.Count > 0)
+                        {
+                            string str1 = dt.Rows[0]["PERMITNUM"].ToString().Remove(0, 1);
+                            if (str1 == strpath.Trim())
+                                worksheet.Cell("F" + (i + 1)).Value = dt.Rows[0]["PERMITNUM"].ToString();
+
+
+                           
+                        }
+
+                    worksheet.Cell("G" + (i + 1)).Value = "";
+                        worksheet.Cell("H" + (i + 1)).Value = "";
+                        worksheet.Cell("I" + (i + 1)).Value = "";
+
+                        worksheet.Cell("J" + (i + 1)).Value = splitpath[i].Replace("T:\\DI Services\\Building\\Plans Examination\\00-APPLICATION DRAWINGS\\", "\\");
+                        worksheet.Cell("K" + (i + 1)).Value = "";
 
                     }
                     worksheet.Cell("A1").Style.Alignment.WrapText = true;
                     worksheet.Cell("A1").Style.Fill.BackgroundColor = XLColor.PeachOrange;
-                    
+
                     worksheet.Cell("B1").Style.Alignment.WrapText = true;
                     worksheet.Cell("B1").Style.Fill.BackgroundColor = XLColor.PeachOrange;
 
@@ -120,7 +146,7 @@ namespace I_IT
                     worksheet.Columns("B").Width = 4;
                     worksheet.Columns("F").Width = 52;
                     worksheet.Columns("J").Width = 120;
-                    workbook.SaveAs(@"C:\Users\"+ Environment.UserName + @"\00-APPLICATION DRAWINGS.xlsx");
+                    workbook.SaveAs(@"C:\Users\" + Environment.UserName + @"\00-APPLICATION DRAWINGS.xlsx");
                 }
                 string[] dirs1 = Directory.GetDirectories(@"T:\DI Services\Building\Plans Examination\1- Issued Permits\");
                 string filepaths1 = "";
@@ -170,19 +196,65 @@ namespace I_IT
                         worksheet1.Cell("c" + (i + 1)).Value = "";
                         worksheet1.Cell("D" + (i + 1)).Value = "";
                         worksheet1.Cell("E" + (i + 1)).Value = "";
-                        worksheet1.Cell("F" + (i + 1)).Value = filesplit1[filesplit1.Length - 2];
+                        string[] pathsplit1;
+                        string strpath1 = "";
+                        if (filepaths1.Contains(" - "))
+                        {
+                            pathsplit1 = filesplit1[filesplit1.Length - 2].Split('-');
+                            string[] path1;
+                            try
+                            {
+                                if (pathsplit1[1].Contains(","))
+                                {
+                                    path1 = pathsplit1[1].Split(',');
+                                    strpath1 = pathsplit1[0] + "-" + path1[0];
+
+                                }
+                                else
+                                {
+                                    path1 = pathsplit1[1].Split(new string[] { "." }, StringSplitOptions.None);
+                                    strpath1 = pathsplit1[0] + "-" + path1[0];
+                                }
+                                if (strpath1.Contains("to"))
+                                {
+                                    path1 = strpath1.Split(new string[] { "to" }, StringSplitOptions.None);
+                                    strpath1 = path1[0];
+                                }
+                                else
+                                {
+
+                                    path1 = strpath1.Split(new string[] { "TO" }, StringSplitOptions.None);
+                                    strpath1 = path1[0];
+                                }
+                               
+                            }
+                            catch (Exception e)
+                            {
+
+                            }
+                        }
+                        SQL sql1 = new SQL("use accelastage;select PERMITNUM from AATABLE_PERMIT_HISTORY where PERMITNUM like '%" + strpath1.Trim() + "%'");
+                        DataTable dt1 = sql1.Run();
+                        if (dt1.Rows.Count > 0)
+                        {
+                            string str11 = dt1.Rows[0]["PERMITNUM"].ToString().Remove(0, 1);
+                            if (str11 == strpath1.Trim())
+                                worksheet1.Cell("F" + (i + 1)).Value = dt1.Rows[0]["PERMITNUM"].ToString();
+                        }
+                        //worksheet1.Cell("F" + (i + 1)).Value ="";
+                        ///  worksheet1.Cell("F" + (i + 1)).Value = filesplit1[filesplit1.Length - 2];
                         worksheet1.Cell("G" + (i + 1)).Value = "";
                         worksheet1.Cell("H" + (i + 1)).Value = "";
                         worksheet1.Cell("I" + (i + 1)).Value = "";
-                        worksheet1.Cell("J" + (i + 1)).Value = splitpath1[i].Replace("T:\\DI Services\\Building\\Plans Examination\\1- Issued Permits\\", "AccelaDocs\\");
-                        
+                        worksheet1.Cell("J" + (i + 1)).Value = splitpath1[i].Replace("T:\\DI Services\\Building\\Plans Examination\\1- Issued Permits\\", "\\");
+
                         worksheet1.Cell("K" + (i + 1)).Value = "";
 
                     }
-                    
+
                     worksheet1.Cell("A1").Style.Alignment.WrapText = true;
                     worksheet1.Cell("A1").Style.Fill.BackgroundColor = XLColor.PeachOrange;
-                    
+
                     worksheet1.Cell("B1").Style.Alignment.WrapText = true;
                     worksheet1.Cell("B1").Style.Fill.BackgroundColor = XLColor.PeachOrange;
 
@@ -214,10 +286,10 @@ namespace I_IT
                     worksheet1.Cell("K1").Style.Alignment.WrapText = true;
                     worksheet1.Columns("A").Width = 4;
                     worksheet1.Columns("B").Width = 4;
-                    worksheet1.Columns("F" ).Width = 52;
+                    worksheet1.Columns("F").Width = 52;
                     worksheet1.Columns("J").Width = 120;
                     workbook1.SaveAs(@"C:\Users\" + Environment.UserName + @"\1- Issued Permits.xlsx");
-                    MessageBox.Show(@"Your file is saved in C:\Users\"+Environment.UserName);
+                    MessageBox.Show(@"Your file is saved in C:\Users\" + Environment.UserName);
                 }
             }
             catch (Exception e)
