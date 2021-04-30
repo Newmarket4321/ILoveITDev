@@ -118,7 +118,10 @@ and p.RegYN <> 0", employeeID, from, to);
                     //    && !isPayroll(employeeID)
                     //    && (!isFacilities(employeeID) || isOpsAdmin(employeeID))
                     //    && !alreadyHasStat(employeeID, today))
-                    if (employeeID != "999999" && isFullTime(employeeID))
+                    if (employeeID != "999999" && isFullTime(employeeID)
+                        && (!isFacilities(employeeID) || isOpsAdmin(employeeID))
+                        && !alreadyHasStat(employeeID, today)
+                        )
                     {
                         createStat(employeeID, today);
                     }
@@ -141,7 +144,8 @@ and p.RegYN <> 0", employeeID, from, to);
             Oracle ora = new Oracle(@"
 select YAEST from CRPDTA.F060116 where YAAN8 = @EMPNO");
             ora.AddParameter("@EMPNO", empID);
-            string code = ora.Run().Rows[0]["YAEST"].ToString().Trim();
+            string code  = ora.Run().Rows[0]["YAEST"].ToString().Trim();
+            
 
             //   Full - time Regular
             //1  Part - Time Casual
@@ -157,8 +161,8 @@ select YAEST from CRPDTA.F060116 where YAAN8 = @EMPNO");
                 Hours = 7;
             else if (code == "5")
                 Hours = 8;
-           else if (isFacilities(empID) && isFullTime(empID))
-                Hours = 8;
+           //else if (isFacilities(empID) && isFullTime(empID))
+           //     Hours = 8;
 
             SQL sql = new SQL(@"use DATS; insert into timesheets output inserted.timecarddetailid values(
                                     @CREATEUSER,
@@ -190,7 +194,7 @@ select YAEST from CRPDTA.F060116 where YAAN8 = @EMPNO");
             sql.AddParameter("@LUMPSUM", 0);
             sql.AddParameter("@OVERRIDERATE", DBNull.Value);
             sql.AddParameter("@DATEENTERED", DateTime.Now);
-            sql.AddParameter("@RECORDLOCKED", true);
+            sql.AddParameter("@RECORDLOCKED", false);
             sql.AddParameter("@TRANSACTIONTYPE", DBNull.Value);
             sql.AddParameter("@EXPORTED", false);
             sql.AddParameter("@BATCHID", 0);
@@ -393,6 +397,9 @@ u.employeeid = @EMPID");
 select YAEST from CRPDTA.F060116 where YAAN8 = @EMPNO");
             ora.AddParameter("@EMPNO", empID);
             string code = ora.Run().Rows[0]["YAEST"].ToString().Trim();
+                
+            //else
+            //Console.WriteLine("No "+ empID +" found at -" + ora.Run().Rows.Count);
 
             //   Full - time Regular
             //1  Part - Time Casual
