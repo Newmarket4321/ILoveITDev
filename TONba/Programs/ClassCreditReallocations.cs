@@ -47,7 +47,10 @@ order by a.account_id
                 string date = DateTime.Now.ToString("dd MMM yyyy");
                 string description = "Moving Credits from Customer Account to the CARE fund due to be unused";
 
-                Console.WriteLine("Processing account " + (i + 1) + " of " + dt.Rows.Count);
+                //Console.WriteLine("Processing account " + (i + 1) + " of " + dt.Rows.Count);
+                Console.WriteLine( (i + 1) + "/" + dt.Rows.Count +" "+accountTitle +"   " + String.Format("${0:0,0.00}", credit_amount));
+
+              
                 Core.log("ClassCreditReallocations", "Processing", "Account ID " + account_id);
 
                 if (third_party_billing == 0)
@@ -112,7 +115,7 @@ order by a.account_id
 
                     Class.Run("select endorse_before_image_scan from PAYMENT_TYPE");
                     Class.Run("select PAYMENT_TYPE.payment_type_id, PAYMENT_TYPE.gl_account_id, PAYMENT_TYPE.Title, PAYMENT_TYPE.name, PAYMENT_TYPE.authorization_required_flag,PAYMENT_TYPE.pay_info_required_flag, PAYMENT_TYPE.refundable_flag,PAYMENT_TYPE.refund_lock_days, PAYMENT_TYPE.default_refund_id, PAYMENT_TYPE.refund_when, PAYMENT_TYPE.refund_gl_account_id, PAYMENT_TYPE.postdated_payments_flag,PAYMENT_TYPE.show_on_daily_cash, PAYMENT_TYPE.include_in_export, PAYMENT_TYPE.Type, PAYMENT_TYPE.points_per_dollar, PAYMENT_TYPE.currency_id, PAYMENT_TYPE.tender_min_amount, PAYMENT_TYPE.tender_max_amount, PAYMENT_TYPE.change_max_amount, PAYMENT_TYPE.allow_restricted_change, PAYMENT_TYPE.preset_amount, PAYMENT_TYPE.bank_deposit_flag, PAYMENT_TYPE.prompt_for_amount_flag, PAYMENT_TYPE.over_tender_flag, PAYMENT_TYPE.Validate_flag, PAYMENT_TYPE.slip_flag, PAYMENT_TYPE.open_drawer_flag, PAYMENT_TYPE.change_id, PAYMENT_TYPE.default_refund_fee_id , PAYMENT_TYPE.active, PAYMENT_TYPE.Userstamp, PAYMENT_TYPE.Datestamp , PAYMENT_TYPE.digital_image, PAYMENT_TYPE.credit_card_length, PAYMENT_TYPE.pos_sp_id, PAYMENT_TYPE.verify_cheque, PAYMENT_TYPE.cheque_cashing_only_flag, PAYMENT_TYPE.cheque_numbers_required_flag ,PAYMENT_TYPE.require_other_info_type, PAYMENT_TYPE.eft_number_format, PAYMENT_TYPE.print_account_number, PAYMENT_TYPE.print_transit_number, PAYMENT_TYPE.print_cc_expiry_date, PAYMENT_TYPE.card_config_id, PAYMENT_TYPE.custom_payment_prompt_id, PAYMENT_TYPE.front_desk_flag, PAYMENT_TYPE.internet_check_out_flag, PAYMENT_TYPE.internet_sche_payments_flag, PAYMENT_TYPE.internet_display_name, PAYMENT_TYPE.endorsement_text, PAYMENT_TYPE.replace_terminal_endorsement, PAYMENT_TYPE.endorse_before_image_scan, POS_CURRENCY.title currency_title, POS_CURRENCY.exchange_rate from PAYMENT_TYPE, POS_CURRENCY  where PAYMENT_TYPE.currency_id = POS_CURRENCY.currency_id and PAYMENT_TYPE.payment_type_id = 3");
-                    
+
                     for (int j = 0; j < paymentDetails.Rows.Count; j++)
                     {
                         int transaction_id = int.Parse(paymentDetails.Rows[j]["transaction_id"].ToString());
@@ -132,7 +135,7 @@ order by a.account_id
                         //Sum of ACCOUNT_CREDIT_AVAILABLE.amount = ACCOUNT.unallocated_balance
                         Class.Run("delete from ACCOUNT_CREDIT_AVAILABLE where transaction_id = " + transaction_id);
 
-                        
+
                         Class.Run("select balance_amount, entity_type_id, [reference], account_id, ar_export_flag, datestamp, userstamp from ENTITY_BALANCE where entity_type_id = 'M' and [reference] = " + account_id);
                         Class.Run("delete from ENTITY_BALANCE where entity_type_id = 'M' and [reference] = " + account_id);
 

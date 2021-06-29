@@ -25,7 +25,7 @@ namespace I_IT
         public static string updateFileName = "Update.exe";
 
         //The computer used for development
-        public static string devMachineName = "SYSMG-09-19";
+        public static string devMachineName = "SYSGS-11-13";
 
         //The path to the development project, used for deployment
         //public static string devProjectPath = @"\\" + devMachineName + @"\c$\Users\graeme smyth\Documents\Visual Studio 2015\Projects\I❤IT";
@@ -1473,7 +1473,7 @@ namespace I_IT
                 if (e is UnauthorizedAccessException && e.Message.Contains("Public") && e.Message.Contains("Desktop") && e.Message.Contains("Access to path") && e.Message.Contains("is denied"))
                     sendMail("accessit@newmarket.ca", "For Help Desk - " + assemblyFileName + " Error", getErrorText(e));
                 else
-                    sendMail("gsmyth@newmarket.ca", assemblyFileName + " Error", getErrorText(e));
+                    sendMail("ealarcon@newmarket.ca", assemblyFileName + " Error", getErrorText(e));
 
                 if (Core.isTask())
                 {
