@@ -30,44 +30,27 @@ namespace I_IT
 
         public CityViewToAccelaDataPort()
         {
-            
-            //bool PermitHistory = true;
-            //bool PermitStatus = true;
-            //bool PermitAddress = true;
-            //bool PermitComment = false; //Keep off for now; not needed
-            //bool PermitFee = true; //Keep off for now; use when CityView data is cleaned up
-            //bool PermitFeeAllocation = true; //Keep off for now; use when CityView data is cleaned up
-            //bool PermitInsp = true;
-            //bool PermitCustomFixtures = true; //Turned it On;  CityView
-            //bool PermitCustomEngineering = true; //Turned it On;  CityView
-            //bool PermitParcel = true;
-            //bool PermitPeople = true;
-            //bool ReferPeople = false;
-            //bool ReferActivity = false;
-            //bool PermitReferral = true;
-            //bool PermitOntarioNewHome = true;
-            //bool PermitApplicationInformation = true;
-            //bool PermitPurposeofApplication = true;
 
-
-            //testing
-            bool PermitHistory = false; 
-            bool PermitStatus = false; 
-            bool PermitAddress = false; 
+            bool PermitHistory = true;
+            bool PermitStatus = true;
+            bool PermitAddress = true;
             bool PermitComment = false; //Keep off for now; not needed
-            bool PermitFee = false; //Keep off for now; use when CityView data is cleaned up
-            bool PermitFeeAllocation = false; //Keep off for now; use when CityView data is cleaned up
-            bool PermitInsp = false;
-            bool PermitCustomFixtures = false; //Turned it On;  CityView 
-            bool PermitCustomEngineering = false; //Turned it On;  CityView
-            bool PermitParcel = false; 
-            bool PermitPeople = false; 
+            bool PermitFee = true; //Keep off for now; use when CityView data is cleaned up
+            bool PermitFeeAllocation = true; //Keep off for now; use when CityView data is cleaned up
+            bool PermitInsp = true;
+            bool PermitCustomFixtures = true; //Turned it On;  CityView
+            bool PermitCustomEngineering = true; //Turned it On;  CityView
+            bool PermitParcel = true;
+            bool PermitPeople = true;
             bool ReferPeople = false;
             bool ReferActivity = false;
-            bool PermitReferral = false; 
-            bool PermitOntarioNewHome = false; 
-            bool PermitApplicationInformation = false; 
-            bool PermitPurposeofApplication = false; 
+            bool PermitReferral = true;
+            bool PermitOntarioNewHome = true;
+            bool PermitApplicationInformation = true;
+            bool PermitPurposeofApplication = true;
+
+
+
 
 
             //   bool PermitHistory = true; // RW off for testing 
@@ -116,8 +99,9 @@ and exists (select 1 from sysadmin.chequereqtable where bi_app_id=p.recordid)
 
             Console.WriteLine("Starting. The time is currently " + DateTime.Now.ToString() + ".");
 
-            Core.sendMail("ealarcon@newmarket.ca", "CityViewtoAccelaDataPort", "Starting now:"+ DateTime.Now.ToString());
-            /*
+           // Core.sendMail("ealarcon@newmarket.ca", "CityViewtoAccelaDataPort", "Starting now:"+ DateTime.Now.ToString());
+            Core.sendMail("kpatel@newmarket.ca", "CityViewtoAccelaDataPort", "Starting now:" + DateTime.Now.ToString());
+
             if (PermitHistory)
                 SQL.Run("use accelastage; delete from AATable_Permit_History");
 
@@ -127,14 +111,44 @@ and exists (select 1 from sysadmin.chequereqtable where bi_app_id=p.recordid)
             if (PermitAddress)
                 SQL.Run("use accelastage; delete from AATable_Permit_Address");
 
-            if (PermitComment)
-                SQL.Run("use accelastage; delete from AATable_Permit_Comment");
-
             if (PermitFee)
                 SQL.Run("use accelastage; delete from AATable_Permit_Fee");
 
             if (PermitFeeAllocation)
                 SQL.Run("use accelastage; delete from AATable_Permit_FeeAllocation");
+
+            if (PermitInsp)
+                // Console.WriteLine("deleting record insp");
+                SQL.Run("use accelastage; delete from AATable_Permit_Insp");
+
+            if (PermitCustomFixtures)
+                SQL.Run("use accelastage; delete from ASI_Fixtures");
+
+            if (PermitCustomEngineering)
+                SQL.Run("use accelastage; delete from ASI_ENGINEERING");
+
+            if (PermitParcel)
+                SQL.Run("use accelastage; delete from AATable_Permit_Parcel");
+
+            if (PermitPeople)
+                SQL.Run("use accelastage; delete from AATable_Permit_People");
+
+            if (PermitReferral)
+                SQL.Run("use accelastage; delete from ASI_REFERRALS");
+
+            if(PermitOntarioNewHome)
+                SQL.Run("use accelastage; delete from ASI_ON_NEWHOME");
+
+            if (PermitApplicationInformation)
+                SQL.Run("use accelastage; delete from ASI_ApplicationInformation");
+
+
+            if (PermitPurposeofApplication)
+                SQL.Run("use accelastage; delete from ASI_PurposeofApplication");
+
+            /* if (PermitComment)
+                SQL.Run("use accelastage; delete from AATable_Permit_Comment");
+
 
             if (PermitInsp)
                 // Console.WriteLine("deleting record insp");
@@ -162,7 +176,7 @@ and exists (select 1 from sysadmin.chequereqtable where bi_app_id=p.recordid)
             */
 
             //Enter building permits into AATable_Permit_History
-           
+
             if (PermitHistory)
             {
                 var count = 0;
@@ -1467,22 +1481,26 @@ and exists (select 1 from sysadmin.chequereqtable where bi_app_id=p.recordid)
                 {
                     DataTable assess = CityView.Run("select * from sysadmin.assess where recordid=@ID and STREET_NAME IS NOT NULL", g(bp, i, "ASSESS_ID"));
 
-            //        if (assess.Rows.Count == 0)
-            //        {
-            //            SQL temp2 = new SQL(@"
-            //use accelastage;
-            //insert into AATable_Permit_Address
-            //(
-            //PERMITNUM
-            //)
-            //values (
-            //@PERMITNUM
-            //)");
-            //            temp2.AddParameter("@PERMITNUM", g(bp, i, "APPLICATION_NUMBER"));
-            //            //temp2.Run();
-            //        }
-            //        else
-            //        {
+                    //        if (assess.Rows.Count == 0)
+                    //        {
+                    //            SQL temp2 = new SQL(@"
+                    //use accelastage;
+                    //insert into AATable_Permit_Address
+                    //(
+                    //PERMITNUM
+                    //)
+                    //values (
+                    //@PERMITNUM
+                    //)");
+                    //            temp2.AddParameter("@PERMITNUM", g(bp, i, "APPLICATION_NUMBER"));
+                    //            //temp2.Run();
+                    //        }
+                    //        else
+                    //        {
+                    if (assess.Rows.Count > 0)
+                    {
+
+
                         SQL sql = new SQL(@"
             use accelastage;
             insert into AATable_Permit_Address
@@ -1661,12 +1679,13 @@ and exists (select 1 from sysadmin.chequereqtable where bi_app_id=p.recordid)
                         sql.AddParameter("@ADDRESS2", a2);
                         sql.AddParameter("@SITUS_NBRHD", DBNull.Value);
                         sql.AddParameter("@EXT_ADDRESS_UID ", DBNull.Value);
-                        if (g(bp, i, "APPLICATION_NUMBER") != "" )
+                        if (g(bp, i, "APPLICATION_NUMBER") != "")
                         {
-                                sql.Run();
-                            
+                            sql.Run();
+
                         }
                     }
+                }
                 //}
 
                 //Enter violations into AATable_Permit_Address
@@ -1870,6 +1889,7 @@ and exists (select 1 from sysadmin.chequereqtable where bi_app_id=p.recordid)
                         sql.Run();
                     }
                 }
+
                End of Violation Permit Address */
             }
 

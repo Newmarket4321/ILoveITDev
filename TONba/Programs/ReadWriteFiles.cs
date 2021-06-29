@@ -98,10 +98,10 @@ namespace I_IT
                                 worksheet.Cell("F" + (i + 1)).Value = dt.Rows[0]["PERMITNUM"].ToString();
 
 
-                           
+
                         }
 
-                    worksheet.Cell("G" + (i + 1)).Value = "";
+                        worksheet.Cell("G" + (i + 1)).Value = "";
                         worksheet.Cell("H" + (i + 1)).Value = "";
                         worksheet.Cell("I" + (i + 1)).Value = "";
 
@@ -151,17 +151,42 @@ namespace I_IT
                 string[] dirs1 = Directory.GetDirectories(@"T:\DI Services\Building\Plans Examination\1- Issued Permits\");
                 string filepaths1 = "";
                 string foldername1 = "";
+                string subfoldername = "";
                 foreach (string dir1 in dirs1)
                 {
                     try
                     {
-                        // Only get files that begin with the letter "pdf".
-                        string[] subdirs1 = Directory.GetFiles(dir1, "*pdf");
-                        foldername1 += "^$" + dir1 ;
-
-                        foreach (string subdir1 in subdirs1)
+                        string[] subdirectoryEntries = Directory.GetDirectories(dir1);
+                        foreach (string Subfolder in subdirectoryEntries)
                         {
-                            filepaths1 += "^$" + subdir1 ;
+                            if (Directory.GetDirectories(Subfolder).ToString() != "")
+                            {
+                                string[] subdirectoryEntries2 = Directory.GetDirectories(Subfolder);
+                                foreach (string Subfolder2 in subdirectoryEntries2)
+                                {
+
+                                    // Only get files that begin with the letter "pdf".
+                                    string[] subdirs1 = Directory.GetFiles(Subfolder2, "*pdf");
+                                    foldername1 += "^$" + Subfolder2;
+
+                                    foreach (string subdir1 in subdirs1)
+                                    {
+                                        filepaths1 += "^$" + subdir1;
+                                    }
+                                }
+                            }
+                           
+                                // Only get files that begin with the letter "pdf".
+                                string[] subdirs2 = Directory.GetFiles(Subfolder, "*pdf");
+                                foldername1 += "^$" + Subfolder;
+
+                                //MessageBox.Show(foldername1);
+                                foreach (string subdir1 in subdirs2)
+                                {
+                                   // MessageBox.Show(filepaths1);
+                                    filepaths1 += "^$" + subdir1;
+                                }
+                               
                         }
                     }
                     catch (Exception e)
@@ -240,6 +265,7 @@ namespace I_IT
                             string str11 = dt1.Rows[0]["PERMITNUM"].ToString().Remove(0, 1);
                             if (str11 == strpath1.Trim())
                                 worksheet1.Cell("F" + (i + 1)).Value = dt1.Rows[0]["PERMITNUM"].ToString();
+                           
                         }
                         //worksheet1.Cell("F" + (i + 1)).Value ="";
                         ///  worksheet1.Cell("F" + (i + 1)).Value = filesplit1[filesplit1.Length - 2];

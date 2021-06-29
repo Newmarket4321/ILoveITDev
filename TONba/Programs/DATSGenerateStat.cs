@@ -12,6 +12,8 @@ namespace I_IT
 {
     class DATSGenerateStat
     {
+        public static string code;
+
         static DATSGenerateStat()
         {
             /*
@@ -46,12 +48,12 @@ group by
 employeeid,
 username");
 
-            DateTime today = DateTime.Today;
+            DateTime today = DateTime.Today; 
             DateTime to = today;
 
             while (to.DayOfWeek != DayOfWeek.Sunday)
                 to = to.AddDays(-1);
-
+         
             DateTime from = to.AddDays(-27);
             string output = "";
 
@@ -144,8 +146,13 @@ and p.RegYN <> 0", employeeID, from, to);
             Oracle ora = new Oracle(@"
 select YAEST from CRPDTA.F060116 where YAAN8 = @EMPNO");
             ora.AddParameter("@EMPNO", empID);
-            string code  = ora.Run().Rows[0]["YAEST"].ToString().Trim();
-            
+            if (ora.Run().Rows.Count > 0)
+            {
+
+                code = ora.Run().Rows[0]["YAEST"].ToString().Trim();
+            }
+            else
+                Console.WriteLine("No " + empID + " found at :" + ora.Run().Rows.Count);
 
             //   Full - time Regular
             //1  Part - Time Casual
@@ -185,7 +192,7 @@ select YAEST from CRPDTA.F060116 where YAAN8 = @EMPNO");
                                     @REVIEWED)");
 
             sql.AddParameter("@CREATEUSER", "StatGenerator");
-            sql.AddParameter("@PERIOD", getPeriod(today));
+            sql.AddParameter("@PERIOD", getPeriod(today,empID));
             sql.AddParameter("@EMPLOYEEID", empID);
             sql.AddParameter("@DATEWORKED", today);
             sql.AddParameter("@PAYTYPE", 811);
@@ -210,9 +217,22 @@ select YAEST from CRPDTA.F060116 where YAAN8 = @EMPNO");
             logTimesheetHistory("Timesheet created", timesheetID);
         }
 
-        public static int getPeriod(DateTime x)
+        public static int getPeriod(DateTime x, string empID)
         {
+          
+            //kpatel
             string jdeDate = Core.dateToJDE(x.ToString());
+            Oracle ora = new Oracle(@"
+select YAEST from CRPDTA.F060116 where YAAN8 = @EMPNO");
+            ora.AddParameter("@EMPNO", empID);
+            if (ora.Run().Rows.Count > 0)
+            {
+
+                code = ora.Run().Rows[0]["YAEST"].ToString().Trim() == "H" ? "HR" : "SAL";
+            }
+            else
+                Console.WriteLine("No " + empID + " found at -" + ora.Run().Rows.Count);
+
 
             DataTable dt = Oracle.Run(@"
 select
@@ -221,11 +241,10 @@ min(JDDTEY || JDPPNB)
 from CRPDTA.F069066
 
 where
-JDPCCD='HR' and
+JDPCCD='" + code + @"' and
 JDPPED >= " + jdeDate);
 
             string temp = dt.Rows[0][0].ToString();
-
             return int.Parse("20" + temp.Substring(0, 2) + temp.Substring(3, 2));
         }
 
@@ -396,10 +415,17 @@ u.employeeid = @EMPID");
             Oracle ora = new Oracle(@"
 select YAEST from CRPDTA.F060116 where YAAN8 = @EMPNO");
             ora.AddParameter("@EMPNO", empID);
-            string code = ora.Run().Rows[0]["YAEST"].ToString().Trim();
-                
-            //else
-            //Console.WriteLine("No "+ empID +" found at -" + ora.Run().Rows.Count);
+           /// string code = "";
+            if (ora.Run().Rows.Count > 0)
+            {
+
+                 code  = ora.Run().Rows[0]["YAEST"].ToString().Trim();
+            }
+            else
+                Console.WriteLine("No " + empID + " found at -" + ora.Run().Rows.Count);
+
+            // string code = ora.Run().Rows[0]["YAEST"].ToString().Trim();
+
 
             //   Full - time Regular
             //1  Part - Time Casual
@@ -409,7 +435,7 @@ select YAEST from CRPDTA.F060116 where YAAN8 = @EMPNO");
             //5  Full Time Hourly
             //6  Contract Salary
             //7  LTD
-          
+
 
             if (code == "" || code == "5")
                 return true;
